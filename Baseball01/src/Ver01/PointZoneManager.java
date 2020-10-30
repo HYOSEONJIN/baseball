@@ -26,7 +26,7 @@ public class PointZoneManager {
 	// 포인트로 굿즈를 구매/당첨 된 내역 출력 메서드 -> 나중에 자기정보 조회에서 볼 때 사용할 메서드
 	
 	public void pointzoneInfo() {
-		
+		System.out.println("아직만드는중!");
 		
 	}
 
