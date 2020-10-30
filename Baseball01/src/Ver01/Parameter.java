@@ -2,6 +2,7 @@ package Ver01;
 
 public class Parameter {
 	// 클래스 다이어그램 대체 : 이 안에 있는 변수 이용해 주세요
+	// 게터, 세터 추가
 	
 	private String id;      // 사용자 id
 	private int pass;       // 사용자 비번
