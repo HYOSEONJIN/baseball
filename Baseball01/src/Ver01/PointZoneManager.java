@@ -1,12 +1,15 @@
 package Ver01;
 
-import Ver01.Util;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 
 public class PointZoneManager {
 	// Made by 효선 [관련내용은 카톡주세요~~!]
 	
 
-	int point = 1000; // 나중에 수정할 것 (받아올 것)
+	int point = 1000; // 나중에 수정할 것 (받아올 것) 
 
 	
 	
@@ -90,6 +93,22 @@ public class PointZoneManager {
 		return result;
 	}
 
+	
+	
+	// 포인트 내역 입력 메서드
+	void pointHistory(String name, int p, String cause) throws IOException { 
+		// 사용자의 이름(String) or 회원번호(int)를 받을 예정 + 포인트 적립얼마했는지 int p로 받는다.
+		
+		String point= ""+p; // int 포인트를 String으로 바꿈 
+		
+		String txt=name.concat("point"); 
+		Writer writer = new FileWriter(txt); 
+		BufferedWriter out = new BufferedWriter(writer);
+		
+		out.write("");
+	}
+	
+	
 	// 포인트로 굿즈 구매 메서드
 	
 	public void buyGoods() {
@@ -97,7 +116,7 @@ public class PointZoneManager {
 	}
 	
 	
-	// 포인트로 굿즈를 구매/당첨 된 내역 출력 메서드 -> 나중에 자기정보 조회에서 볼 때 사용할 메서드
+	// 포인트로 굿즈 구매 내역 출력 메서드 -> 나중에 자기정보 조회에서 볼 때 사용할 메서드
 	
 	public void pointzoneInfo() {
 		System.out.println("아직만드는중!");
