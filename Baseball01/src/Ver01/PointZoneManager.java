@@ -10,12 +10,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.InputMismatchException;
 
-public class PointZoneManager {
+public class PointZoneManager extends LoginInfoManager {
 	// Made by 효선 [관련내용은 카톡주세요~~!]
 
-	String name = "hyoseon";
-	int point = 1000; // 나중에 수정할 것 (받아올 것)
-	
+	String name = login();
+	int point = loginInfo.get(searchIndex(name)).getPoint();
 	
 	
 
