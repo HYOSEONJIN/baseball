@@ -8,7 +8,7 @@ public class z_TestHyoseon {
 		
 		
 		PointZoneManager pzm = new PointZoneManager();
-		
+		String testName = "hyoseon";
 		
 		while(true) {
 		System.out.println("1. 숫자게임");
@@ -29,7 +29,7 @@ public class z_TestHyoseon {
 			pzm.buyGoods();
 			break;
 		case 4:
-			pzm.pointHistoryInfo();
+			pzm.pointHistoryInfo(testName);
 			break;
 		
 			
