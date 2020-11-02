@@ -40,9 +40,10 @@ public class BaseballPark {
 	public boolean cancel(String name, char grade, int seatNum) {
 		boolean result = false;
 		int gradeNum = searchRownum(grade);  // 등급별 변호( 0 : A석, 1 : B석, 2 : C석 ) 
+		Seat mySeat = Seats[gradeNum][seatNum - 1];
 		
 		// 예약자가 맞는 경우 취소 
-		if(Seats[gradeNum][seatNum - 1].isExist()) {
+		if(mySeat.isExist() && mySeat.getName().equals(name)) {
 			Seats[gradeNum][seatNum - 1].cancel();
 		}
 		
