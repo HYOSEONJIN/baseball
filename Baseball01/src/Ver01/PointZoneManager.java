@@ -23,11 +23,13 @@ public class PointZoneManager {
 	public void pointZone() throws IOException {
 
 		while (true) {
+			System.out.println("========================");
 			System.out.println("1. 숫자게임");
 			System.out.println("2. 랜덤뽑기");
 			System.out.println("3. 굿즈구매");
 			System.out.println("4. 포인트 사용 내역 조회");
 			System.out.println("5. 포인트존 나가기");
+		    System.out.println("========================");
 			try {
 				int choice = Util.sc.nextInt();
 				Util.sc.nextLine();
