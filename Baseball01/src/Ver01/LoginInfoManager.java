@@ -64,7 +64,7 @@ public class LoginInfoManager {
 	
 	
 	// 배열의 index 검색 메서드
-	private int searchIndex(String id) {
+	public int searchIndex(String id) {
 		int index = -1;
 		for(int i=0; i<loginInfo.size(); i++) {
 			if(loginInfo.get(i).getId().equals(id)) {
