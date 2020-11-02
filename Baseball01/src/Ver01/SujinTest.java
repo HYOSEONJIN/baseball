@@ -11,7 +11,7 @@ public class SujinTest implements Util {
 		
 		// 날짜 설정
 		Date newDate = new Date();   //오늘 날짜
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(newDate);
 

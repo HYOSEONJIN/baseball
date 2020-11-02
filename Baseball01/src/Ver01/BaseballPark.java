@@ -73,6 +73,8 @@ public class BaseballPark {
 	
 	// 좌석 전체 보기 
 	public void viewAll() {
+		System.out.println("총 예약된 좌석 수 : " + reserveCount);
+		
 		for(int i = 0; i < Seats.length ; i++) {
 			for(int j = 0; j < Seats[i].length ; j++) {
 				
