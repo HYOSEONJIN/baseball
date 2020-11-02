@@ -6,11 +6,6 @@ public class Seat {
 	private char grade;   // 등급 (A, B, C) 
 	private int seatNum;  // 좌석번호 
 	
-	// 생성자 
-	Seat(){
-		reserveCount = 0;  // 예약된 좌석수 초기화 
-	}
-	
 	// getter 
 	public String getName() {
 		return name;
