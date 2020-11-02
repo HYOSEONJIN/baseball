@@ -47,7 +47,7 @@ public class BaseballPark {
 		// 예약자가 맞는 경우 취소 
 		if(mySeat.isExist() && mySeat.getName().equals(name)) {
 			Seats[gradeNum][seatNum - 1].cancel();
-			reserveCount++;	
+			reserveCount--;	
 		}
 		
 		return result;		
