@@ -12,7 +12,7 @@ public class LoginInfoManager {
 
 	// 로그인정보 배열 생성
 	List<LoginInfo> loginInfo; 
-	LoginInfo info = new LoginInfo();
+
 	
 	// List<loginInfo> 초기화 
 	// 싱글톤 패턴
@@ -44,10 +44,9 @@ public class LoginInfoManager {
 		while(true) {
 			System.out.println("아이디를 입력해주세요.");
 			String id = Util.sc.nextLine();
-			Util.sc.nextLine();
-	
+
 			int index = searchIndex(id);
-			if(index>=0) {
+			if(searchIndex(id)>=0) {
 				System.out.println("중복되는 아이디가 존재합니다. 다른 아이디를 입력해주세요.");
 				continue;
 			} else {
@@ -105,7 +104,6 @@ public class LoginInfoManager {
 			// 사용자 입력
 			System.out.println("아이디를 입력해주세요.");
 			id = Util.sc.nextLine();
-			Util.sc.nextLine();
 			System.out.println("비밀번호를 입력해주세요.");
 			String pw = Util.sc.nextLine();
 			
@@ -121,7 +119,7 @@ public class LoginInfoManager {
 					System.out.println("===========================================");
 				}
 			} else {
-				System.out.println("아이디가 존재하지 않습니다. 다시 시도해주세요.");
+				System.out.println(id +"아이디가 존재하지 않습니다. 다시 시도해주세요.");
 			}
 		}
 		return id;	
@@ -129,8 +127,8 @@ public class LoginInfoManager {
 
 	
 	// 로그인 메인 메서드 
-	public void loginMain() {
-		while(true) {
+	public static void main(String[] args) {
+			while(true) {
 	         System.out.println("++++++++2020 포스트시즌 야구 예매++++++++");
 	         System.out.println("\n로그인 페이지입니다. \n처음 방문하시는 분은 회원가입을 해주세요.");
 	         System.out.println("\n1. 로그인");
@@ -142,6 +140,7 @@ public class LoginInfoManager {
 	         
 	         try {
 	            select = Util.sc.nextInt();
+	            Util.sc.nextLine();
 	            // 메뉴 1,2 외 입력 시 예외처리
 	            if( select!=1 && select!=2 ) {
 	            BadMenuException bme = new BadMenuException(select);
@@ -163,7 +162,7 @@ public class LoginInfoManager {
 	         }         
       
 		}
-	}
+	}	
 
 	
 }
