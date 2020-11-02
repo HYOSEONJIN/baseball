@@ -3,10 +3,9 @@ package Ver01;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 public class LoginInfoManager {
 	
+	// 생성자
 	public LoginInfoManager() {
 		super();
 	}
@@ -82,7 +81,7 @@ public class LoginInfoManager {
 		System.out.println("회원정보 확인을 위해 다시 로그인해주세요.");
 
 		// 재로그인 -> 로그인한 계정 ID 반환
-		String userId = login("");
+		String userId = login();
 		// 해당하는 index 정보 삭제
 		loginInfo.remove(searchIndex(userId));
 		// 새 정보 저장
@@ -98,7 +97,7 @@ public class LoginInfoManager {
 		
 	
 	// 로그인 메서드 : 사용자의 로그인 ID 반환
-	public String login(String userId){ // 로그인한 계정 ID
+	public String login(){ 
 		System.out.println("로그인을 시작합니다.");
 		String id = null;	
 		
@@ -126,6 +125,44 @@ public class LoginInfoManager {
 			}
 		}
 		return id;	
+	}
+
+	
+	// 로그인 메인 메서드 
+	public void loginMain() {
+		while(true) {
+	         System.out.println("++++++++2020 포스트시즌 야구 예매++++++++");
+	         System.out.println("\n로그인 페이지입니다. \n처음 방문하시는 분은 회원가입을 해주세요.");
+	         System.out.println("\n1. 로그인");
+	         System.out.println("2. 회원가입");
+	         System.out.println("+++++++++++++++++++++++++++++++++");
+	         
+	         // 사용자 메뉴 선택
+	         int select=0;
+	         
+	         try {
+	            select = Util.sc.nextInt();
+	            // 메뉴 1,2 외 입력 시 예외처리
+	            if( select!=1 && select!=2 ) {
+	            BadMenuException bme = new BadMenuException(select);
+	            throw bme;   
+	            } 
+	         } catch(BadMenuException bme) {
+	            System.out.println("잘못된 입력입니다. 메뉴 번호를 다시 선택해주세요.");
+	            Util.sc.nextLine();      
+	            return;
+	         }         
+	         
+	         // 로그인/회원가입
+	         if(select==1) {
+	            manager.login();
+	            break;      
+	         } else if(select==2) {
+	            manager.joinMember();
+	            break;
+	         }         
+      
+		}
 	}
 
 	
