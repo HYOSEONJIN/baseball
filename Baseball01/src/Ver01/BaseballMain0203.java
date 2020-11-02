@@ -11,7 +11,7 @@ public class BaseballMain0203 implements Menu {
       // 예매 메인
       
       // 로그인,예매, 회원정보 조회를 위한 인스턴스 생성
-      UserInfoManager user = UserInfoManager.getInstance();
+      LoginInfoManager user = LoginInfoManager.getInstance();
       PointZoneManager pointZone = new PointZoneManager();
       
       // 메인 메뉴 만들기 - 메뉴 부분 인터페이스 차후 수정
