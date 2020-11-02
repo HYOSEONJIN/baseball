@@ -36,7 +36,7 @@ public class AdminManger {
 		
 		//검색 인덱스로 값는다.
 		for(int i = 0; i<10; i++) {
-			if()
+			
 		}
 		
 		
