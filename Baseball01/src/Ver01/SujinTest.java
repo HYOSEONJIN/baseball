@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class SujinTest {
+public class SujinTest implements Util {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -24,7 +24,7 @@ public class SujinTest {
 			cal.add(Calendar.DATE,  1);   // 오늘 + 1
 		}
 
-		// 예약 날짜 조회 
+		// 예약가능한 날짜 조회 
 		for (int i = 0; i < 3 ; i++) {
 			System.out.println(date[i].getDate());
 		}
