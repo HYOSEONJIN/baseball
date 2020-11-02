@@ -1,30 +1,48 @@
 package Ver01;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class SujinTest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		// 해당 날짜에 해당하는 구장 좌석
-		BaseballDate date = new BaseballDate("2020-11-02");
+		// 날짜 설정
+		Date newDate = new Date();   //오늘 날짜
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(newDate);
+
+		// 날짜별 예약을 만들기 위해 날짜를 배열화
+		BaseballDate date[] = new BaseballDate[3];
 		
-		// 생성한 날짜의 구장 가져오기 
-		BaseballPark todayPark = date.getParks();
+		// 해당 날짜에 해당하는 구장 좌석
+		for (int i = 0; i < 3 ; i++) {
+			date[i] = new BaseballDate(sdf.format(cal.getTime()));
+			cal.add(Calendar.DATE,  1);   // 오늘 + 1
+		}
+
+		// 예약 날짜 조회 
+		for (int i = 0; i < 3 ; i++) {
+			System.out.println(date[i].getDate());
+		}
 		
 		// 예약
 		boolean result = false;
-		result = todayPark.reserve("테스터1", 'A', 1);
-		todayPark.reserve("테스터2", 'B', 3);
-		todayPark.reserve("테스터3", 'C', 5);
+		result = date[0].getParks().reserve("테스터1", 'A', 1);
+		date[0].getParks().reserve("테스터2", 'B', 3);
+		date[0].getParks().reserve("테스터3", 'C', 5);
 		
 		// 취소 
-		todayPark.cancel("테스터1", 'A', 1);
+		date[0].getParks().cancel("테스터1", 'A', 1);
 		
 		// 내 좌석 정보보기
-		todayPark.mySeatView("테스터2"); 
+		date[0].getParks().mySeatView("테스터2"); 
 		
 		// 전체 좌석 정보보기 
-		todayPark.viewAll();
+		date[0].getParks().viewAll();
 		
 
 	}
