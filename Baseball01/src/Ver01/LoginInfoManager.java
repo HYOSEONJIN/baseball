@@ -10,7 +10,11 @@ public class LoginInfoManager {
 		super();
 	}
 
-	String NOWID ;
+	
+	// 가져다 쓰려고 만들었어요  ***************************************************************
+	static String NOWID ;
+	static int POINT;
+	
 	// 로그인정보 배열 생성
 	List<LoginInfo> loginInfo; 
 
@@ -72,6 +76,7 @@ public class LoginInfoManager {
 		}
 		return index;
 	}
+	
 
 	
 	// 로그인 정보 변경 메서드 
@@ -113,7 +118,17 @@ public class LoginInfoManager {
 				// 해당 index의 비밀번호와 일치 여부 확인
 				if(loginInfo.get(index).getPw().equals(pw)) {
 					System.out.println(id +"님, 로그인에 성공하였습니다.");
-					NOWID=id;
+					 // ********************************** 여기 수정했어요
+					NOWID=id; 
+					for(int i=0; i<loginInfo.size(); i++) {
+							if(loginInfo.get(i).getId().equals(id)) {
+								POINT=loginInfo.get(i).getPoint();
+							}
+							
+							
+						// ***************************여기까지 추가
+						}
+					
 					break;
 				} else {
 					System.out.println("아이디와 비밀번호가 일치하지 않습니다. 다시 시도해주세요.");
@@ -128,7 +143,7 @@ public class LoginInfoManager {
 
 	
 	// 로그인 메인 메서드 
-	public static void main(String[] args) {
+	public void loginMain() {       // ******************* main args에서 메서드로 수정했어요 ******************
 			while(true) {
 	         System.out.println("++++++++2020 포스트시즌 야구 예매++++++++");
 	         System.out.println("\n로그인 페이지입니다. \n처음 방문하시는 분은 회원가입을 해주세요.");
