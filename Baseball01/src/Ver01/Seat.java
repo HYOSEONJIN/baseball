@@ -6,9 +6,17 @@ public class Seat {
 	private char grade;   // 등급 (A, B, C) 
 	private int seatNum;  // 좌석번호 
 	
-	// 이름 가져가기 
+	// getter 
 	public String getName() {
 		return name;
+	}	
+	
+	public char getGrade() {
+		return grade;
+	}	
+	
+	public int getSeatNum() {
+		return seatNum;
 	}
 	
 	// 예약시 해당 좌석에 이름, 등급,  넣어주기
