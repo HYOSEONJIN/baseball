@@ -5,9 +5,9 @@ public class UserInfo implements LoginInfo{
 	// 사용자 로그인 정보 
 
 	private String id;      	// 사용자 아이디
-	private int pw;       		// 사용자 비밀번호
+	private String pw;       		// 사용자 비밀번호
 
-	public UserInfo(String id, int pw) {
+	public UserInfo(String id, String pw) {
 		this.id = id;
 		this.pw = pw;
 	}
@@ -16,7 +16,7 @@ public class UserInfo implements LoginInfo{
 	public String getId() {
 		return id;
 	}
-	public int getPw() {
+	public String getPw() {
 		return pw;
 	}
 

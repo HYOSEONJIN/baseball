@@ -1,11 +1,13 @@
 package Ver01;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Writer;
 
 public class PointZoneManager {
 	// Made by 효선 [관련내용은 카톡주세요~~!]
@@ -18,12 +20,21 @@ public class PointZoneManager {
 	
 	// 게임1 메서드
 	public void pointGame1() {
+		
+		int buyGame = -100;
+		int win= +300;
+		int draw=50;
+		
+		String cause = "숫지게임 포인트 지급";
+		String game = "숫자 게임 참여";
+		
 		if(point==0) {
 			System.out.println("게임에 참여할 포인트가 모자라요 ToT");
+			System.out.println("현재 보유 포인트는 " + point + "point 입니다.");
 			return;
 		}
 		System.out.println("**가위바위보 GAME**");
-		// 한번 참여시 100포인트 차감, 승리시 300포인트 돌려주고 패배하면 50, 지면 0포인트 돌려줌
+		// 한번 참여시 100포인트 차감, 승리시 300포인트 돌려주고 비기면 50, 지면 0포인트 돌려줌
 		System.out.println("1.가위 2.바위 3.보     ** 취소 : 0 **");
 				
 		int rsp = Util.sc.nextInt();
@@ -36,24 +47,33 @@ public class PointZoneManager {
 		
 		else {
 		//포인트 차감
-			point-=100;
+			try {
+			point+=buyGame;
+			pointHistory(name, buyGame, game);		
+			
 		// 경우의수 시작
 			int rspCom=randomrsp();
 			if(randomrsp()==rsp) {
 				System.out.println("비겼습니다 :)");
 				System.out.println("컴퓨터는 "+randomrsp());
-				point+=50;
-			}else if((rsp==1 &&rspCom==2) || (rsp==2 && rspCom==3) || (rsp==3 && rspCom==1)) {
+				point+=draw;
+				pointHistory(name, draw, cause);
+				}else if((rsp==1 &&rspCom==2) || (rsp==2 && rspCom==3) || (rsp==3 && rspCom==1)) {
 				System.out.println("패배했습니다 ToT");
 				System.out.println("컴퓨터는 "+randomrsp());
 			}else if((rsp==1 &&rspCom==3) || (rsp==2 && rspCom==1) || (rsp==3 && rspCom==2)) {
 			System.out.println("승리했습니다 !");System.out.println("컴퓨터는 "+randomrsp());
-				point+=300;
+				point+=win;
+				pointHistory(name, win, cause);
 		}else {
 			System.out.println("컴퓨터는 "+randomrsp());
 		}
+		}	 catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
+	}
 	}
 
 	// 게임1 컴퓨터 가위바위보 랜덤
@@ -79,6 +99,7 @@ public class PointZoneManager {
 		
 		if(point==0) {
 			System.out.println("게임에 참여할 포인트가 모자라요 ToT");
+			System.out.println("현재 보유 포인트는 " + point + "point 입니다.");
 			return;
 		}
 		System.out.println("뽑기 GAME~~! 당첨확률은 25%입니다 :)");
@@ -93,13 +114,13 @@ public class PointZoneManager {
 		
 			try {
 		if(randomBox(gameNumber)==1) {
-			point-=buyGame;
+			point+=buyGame;
 			pointHistory(name, buyGame , game);
 			System.out.println("당첨입니다 :) 500POINT가 지급됩니다");
 			point+=win;
 			pointHistory(name, win, cause);
 		} else {
-			point-=buyGame;
+			point+=buyGame;
 			pointHistory(name, buyGame, game);
 			System.out.println("꽝입니다 ToT");
 			
@@ -157,7 +178,38 @@ public class PointZoneManager {
 	
 	
 	// 포인트 적립 내역 출력 메서드
-	void pointHistoryInfo() {
+	void pointHistoryInfo(String name) {
+		
+		String txt=name.concat("point.txt");			
+		File pointHistoryFile = new File(txt);
+		BufferedReader in = null;
+		
+		if(!pointHistoryFile.exists()){
+			System.out.println("포인트 사용 내역이 없습니다.");
+		}else {
+			System.out.println("--------------------");
+			System.out.println("포인트 |\t사용내역");
+			try {
+				in=new BufferedReader(new FileReader(txt));
+				String str=null;
+				while(true) {
+					str=in.readLine();
+					if(str==null) {
+						break;
+					}
+					System.out.println(str);
+				}
+				System.out.println("--------------------");
+				System.out.println("잔여포인트는 " + point + " point");
+				System.out.println("--------------------");
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 	}
 	
@@ -166,15 +218,49 @@ public class PointZoneManager {
 	// 포인트로 굿즈 구매 메서드
 	
 	public void buyGoods() {
-		System.out.println("구현중");
-	}
+		System.out.println("--------------------------------------");
+		System.out.println("현재 보유 포인트는 " + point + "point 입니다.");
+		System.out.println("--------------------------------------");
+		System.out.println("1. 히어로즈 야구점퍼 (1000point)");
+		System.out.println("2. 히어로즈 슬로건 (700point)");
+		System.out.println("3. 히어로즈 마스코트인형 (500point)");
+		System.out.println("--------------------------------------");
+		
+		int price =0;
+		String cause= null;
+		
+		int choice=Util.sc.nextInt();
+		
+		if(choice==1) {
+			price=-1000;
+			cause="야구점퍼 구매";
+		}else if(choice==2) {
+			price=-700;
+			cause="슬로건 구매";
+		}else if(choice==3) {
+			price=-500;
+			cause="마스코트 인형 구매";
+		}
+		
+		if(price>point) {
+			System.out.println("포인트가 부족합니다.");
+		}else {
+			try {
+			System.out.println("구매완료!");
+			point+=price;			
+			pointHistory(name, price, cause);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
 	
-	
-	// 포인트로 굿즈 구매 내역 출력 메서드 -> 나중에 자기정보 조회에서 볼 때 사용할 메서드
-	
-	public void pointzoneInfo() {
-		System.out.println("아직만드는중!");
+		
 		
 	}
-
+	
 }
+	
+	
