@@ -29,20 +29,22 @@ public class SujinTest implements Util {
 			System.out.println(date[i].getDate());
 		}
 		
+		// 선택한 날짜에 따라 index 설정(0 : 오늘, 1 : 내일, 2 : 모레)
+		int choiceDate = 0;
+		
 		// 예약
-		boolean result = false;
-		result = date[0].getParks().reserve("테스터1", 'A', 1);
-		date[0].getParks().reserve("테스터2", 'B', 3);
-		date[0].getParks().reserve("테스터3", 'C', 5);
+		date[choiceDate].getParks().reserve("테스터1", 'A', 1);
+		date[choiceDate].getParks().reserve("테스터2", 'B', 3);
+		date[choiceDate].getParks().reserve("테스터3", 'C', 5);
 		
 		// 취소 
-		date[0].getParks().cancel("테스터1", 'A', 1);
+		date[choiceDate].getParks().cancel("테스터1", 'A', 1);
 		
 		// 내 좌석 정보보기
-		date[0].getParks().mySeatView("테스터2"); 
+		date[choiceDate].getParks().mySeatView("테스터2"); 
 		
 		// 전체 좌석 정보보기 
-		date[0].getParks().viewAll();
+		date[choiceDate].getParks().viewAll();
 		
 
 	}
