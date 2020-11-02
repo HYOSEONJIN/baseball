@@ -173,7 +173,7 @@ public class PointZoneManager extends LoginInfoManager {
 		String cause = "랜덤뽑기 당첨 포인트 지급";
 		String game = "랜덤뽑기 게임 참여";
 
-		if (POINT < 0) {
+		if (POINT < 100) {
 			System.out.println("게임에 참여할 포인트가 모자라요 ToT");
 			System.out.println("현재 보유 포인트는 " + POINT + "point 입니다.");
 			return;
