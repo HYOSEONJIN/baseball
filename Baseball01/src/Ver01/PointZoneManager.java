@@ -16,6 +16,43 @@ public class PointZoneManager {
 	String name = "hyoseon"; 
 	int point = 1000; 			// 나중에 수정할 것 (받아올 것) 
 
+	// 포인트존메인메서드
+	
+	
+	public void pointZone() {
+		
+		while(true) {
+		System.out.println("1. 숫자게임");
+		System.out.println("2. 랜덤뽑기");
+		System.out.println("3. 굿즈구매");
+		System.out.println("4. 포인트 사용 내역 조회");
+		System.out.println("5. 포인트존 나가기");
+		int choice = Util.sc.nextInt();
+		Util.sc.nextLine();
+		
+		switch(choice) {
+		case 1:
+			pointGame1();
+			break;
+		case 2:
+			pointGame2();
+			break;
+		case 3:
+			buyGoods();
+			break;
+		case 4:
+			pointHistoryInfo(name);
+			break;
+		case 5:
+			return;
+						
+		}
+
+		}	
+	}
+	
+	
+	
 	
 	
 	// 게임1 메서드
@@ -25,7 +62,7 @@ public class PointZoneManager {
 		int win= +300;
 		int draw=50;
 		
-		String cause = "숫지게임 포인트 지급";
+		String cause = "숫자게임 포인트 지급";
 		String game = "숫자 게임 참여";
 		
 		if(point==0) {
