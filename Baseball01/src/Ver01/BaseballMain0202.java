@@ -1,10 +1,11 @@
 package Ver01;
 
+import java.io.IOException;
 import java.util.List;
 
 public class BaseballMain0202 {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// 예매 메인
 		
 		// 로그인,예매, 회원정보 조회를 위한 인스턴스 생성
