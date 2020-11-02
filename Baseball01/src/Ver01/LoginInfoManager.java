@@ -10,6 +10,7 @@ public class LoginInfoManager {
 		super();
 	}
 
+	String NOWID ;
 	// 로그인정보 배열 생성
 	List<LoginInfo> loginInfo; 
 
@@ -52,7 +53,6 @@ public class LoginInfoManager {
 			} else {
 				System.out.println("비밀번호를 입력해주세요.");
 				String pw = Util.sc.nextLine();
-				
 				addInfo(new LoginInfo(id, pw));
 				System.out.println(id+"님, 가입을 축하드립니다!");
 				break;
@@ -113,6 +113,7 @@ public class LoginInfoManager {
 				// 해당 index의 비밀번호와 일치 여부 확인
 				if(loginInfo.get(index).getPw().equals(pw)) {
 					System.out.println(id +"님, 로그인에 성공하였습니다.");
+					NOWID=id;
 					break;
 				} else {
 					System.out.println("아이디와 비밀번호가 일치하지 않습니다. 다시 시도해주세요.");
