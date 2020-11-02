@@ -8,8 +8,7 @@ public class BaseballMain0202 {
 		// 예매 메인
 		
 		// 로그인,예매, 회원정보 조회를 위한 인스턴스 생성
-		List<UserInfo> userinfo = UserInfoManager.getInstance();
-		AdminManager admin = new AdminManager();
+		AdminManger admin = new AdminManger();
 		PointZoneManager pointZone = new PointZoneManager();
 		
 		// 메인 메뉴 만들기 - 메뉴 부분 인터페이스 차후 수정
@@ -25,17 +24,17 @@ public class BaseballMain0202 {
 			int select = Util.sc.nextInt();
 			
 			switch(select) {
-			case 1: 
-				
-				break;
-			case 2:
-				
-				break;
-			case 3:
-				
-				break;
+//			case 1: 
+//				
+//				break;
+//			case 2:
+//				
+//				break;
+//			case 3:
+//				
+//				break;
 			case 4:
-				
+				pointZone.pointZone();
 				break;
 			case 5:
 				
