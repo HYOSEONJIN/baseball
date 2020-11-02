@@ -5,6 +5,12 @@ public class Seat {
 	private String name;  // 예약한 사람 이름
 	private char grade;   // 등급 (A, B, C) 
 	private int seatNum;  // 좌석번호 
+	private int reserveCount;    // 총 예약된 좌석수
+	
+	// 생성자 
+	Seat(){
+		reserveCount = 0;  // 예약된 좌석수 초기화 
+	}
 	
 	// getter 
 	public String getName() {
@@ -24,6 +30,8 @@ public class Seat {
 		this.name = name;
 		this.grade = grade;
 		this.seatNum = seatNum;
+		
+		reserveCount++;
 	}
 	
 	// 해당 좌석이 예약된 좌석인지 조회 
@@ -42,6 +50,8 @@ public class Seat {
 		name = null;
 		grade = ' ';
 		seatNum = 0;
+		
+		reserveCount--;
 	}
 
 }

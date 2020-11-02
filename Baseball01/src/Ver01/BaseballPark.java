@@ -4,6 +4,7 @@ package Ver01;
 public class BaseballPark {
 	private Seat[][] Seats;  // 좌석을 배열로 만들어주기 
 	private int rowCount, colCount; 
+	private int reserveCount;    // 총 예약된 좌석수
 	
 	// 생성자
 	public BaseballPark(int rowCount, int colCount){
@@ -30,6 +31,7 @@ public class BaseballPark {
 		// 해당 좌석 예약 여부 조회해서 좌석이 비어 있으면 예약 
 		if(mySeat.isExist()) {
 			mySeat.reverse(name, grade, seatNum);
+			reserveCount++;			
 		}
 		
 		return result;
@@ -45,6 +47,7 @@ public class BaseballPark {
 		// 예약자가 맞는 경우 취소 
 		if(mySeat.isExist() && mySeat.getName().equals(name)) {
 			Seats[gradeNum][seatNum - 1].cancel();
+			reserveCount++;	
 		}
 		
 		return result;		
