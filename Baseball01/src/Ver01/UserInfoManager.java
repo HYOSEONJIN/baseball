@@ -53,6 +53,7 @@ public class UserInfoManager {
 	public void login(){
 		
 		// 사용자 입력
+		
 		String id = JOptionPane.showInputDialog("아이디를 입력해주세요.");
 		String pw = JOptionPane.showInputDialog("비밀번호를 입력해주세요.");
 
