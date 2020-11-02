@@ -13,13 +13,18 @@ import java.util.InputMismatchException;
 public class PointZoneManager extends LoginInfoManager {
 	// Made by 효선 [관련내용은 카톡주세요~~!]
 
-	String name = login();
-	int point = loginInfo.get(searchIndex(name)).getPoint();
+	String name = "hyoseon";
+	int point = 1000;
+//	int point = loginInfo.get(searchIndex(name)).getPoint();
 	
 	
 
 	// 포인트존메인메서드 ( 예외처리끝 )
 	public void pointZone() throws IOException {
+		if(name==null) {
+			System.out.println("로그인 먼저 :)");
+			return;
+		}
 
 		while (true) {
 			System.out.println("========================");

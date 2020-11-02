@@ -42,7 +42,7 @@ public class BaseballMain0203 implements Menu {
          
          switch(select) {
          case LOGIN: 
-            user.addProfile();
+            user.login();
             break;
 //         case BOOKING:
 //            
