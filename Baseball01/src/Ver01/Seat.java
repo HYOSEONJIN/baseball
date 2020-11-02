@@ -31,7 +31,7 @@ public class Seat {
 		boolean result = false;
 
 		// 해당 좌석에 아무도 예약 안한 경우 
-		if(name.equals(null)) {
+		if(name != null) {
 			result = true;
 		}
 		return result;

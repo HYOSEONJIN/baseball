@@ -29,8 +29,9 @@ public class BaseballPark {
 		Seat mySeat = Seats[gradeNum][seatNum - 1];
 			
 		// 해당 좌석 예약 여부 조회해서 좌석이 비어 있으면 예약 
-		if(mySeat.isExist()) {
+		if(!mySeat.isExist()) {
 			mySeat.reverse(name, grade, seatNum);
+			result = true;
 			reserveCount++;			
 		}
 		
@@ -47,6 +48,7 @@ public class BaseballPark {
 		// 예약자가 맞는 경우 취소 
 		if(mySeat.isExist() && mySeat.getName().equals(name)) {
 			Seats[gradeNum][seatNum - 1].cancel();
+			result = true;
 			reserveCount--;	
 		}
 		
@@ -55,17 +57,18 @@ public class BaseballPark {
 	
 	// 내 좌석 정보 보기 
 	public void mySeatView(String name) {
+		String result = "예약된 정보가 존재하지 않습니다.";
+		
 		for(int i = 0; i < Seats.length ; i++) {
 			for(int j = 0; j < Seats[i].length ; j++) {
 				
 				// 예약한 사용자인 경우
 				if(Seats[i][j].isExist() && Seats[i][j].getName().equals(name)) {
-					System.out.println("[" + Seats[i][j].getName() + "]님은 " + Seats[i][j].getGrade() + "등급 " + Seats[i][j].getSeatNum() + "번째 좌석을 예약하셨습니다.");
-				}else {
-					System.out.println("예약된 정보가 존재하지 않습니다.");
+					result = "[" + Seats[i][j].getName() + "]님은 " + Seats[i][j].getGrade() + "등급 " + Seats[i][j].getSeatNum() + "번째 좌석을 예약하셨습니다.";
 				}
 			}			
-		}		
+		}
+		System.out.println(result);
 	}
 	
 	// 좌석 전체 보기 
