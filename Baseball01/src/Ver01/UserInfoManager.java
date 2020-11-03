@@ -72,7 +72,7 @@ public class UserInfoManager  extends LoginInfoManager{
 	      System.out.println("1. 예매조회");
 	      System.out.println("2. 이벤트조회");
 	      System.out.println("3. 회원탈퇴");
-	      
+	      System.out.println("4. 나가기");
 	      System.out.println("\n>>");
 	      
 	      // 사용자 선택
