@@ -45,5 +45,7 @@ public class LoginInfo {
 	public void showLoginInfo() {
 		System.out.println("아 이 디  : "+ id);
 		System.out.println("비밀번호 : "+ pw);	
+		System.out.println("보유금액 : "+ money);
+		System.out.println("포 인 트  : "+ point);
 	}
 }
