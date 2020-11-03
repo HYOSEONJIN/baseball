@@ -24,7 +24,7 @@ public class PointZoneManager extends LoginInfoManager {
 
 		while (true) {
 			System.out.println("========================");
-			System.out.println(NOWID+", "+POINT);
+			System.out.println("[ "+NOWID+", "+POINT+" ]");
 			System.out.println("1. 숫자게임");
 			System.out.println("2. 랜덤뽑기");
 			System.out.println("3. 굿즈구매");
