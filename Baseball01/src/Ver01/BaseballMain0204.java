@@ -46,7 +46,7 @@ public class BaseballMain0204 implements Menu {
          
          switch(select) {
          case LOGIN: 
-            user.loginMain();
+            user.loginMenu();
             break;
 //        case BOOKING:
 //        	booking.Bookingmain();
