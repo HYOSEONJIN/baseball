@@ -3,7 +3,7 @@ package Ver01;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoginInfoManager {
+public class LoginInfoManager implements Menu {
 	
 	// 생성자
 	public LoginInfoManager() {
@@ -11,27 +11,12 @@ public class LoginInfoManager {
 	}
 
 	// 변수 상수화 
-	static String NOWID ;	// 로그인한 사용자 ID
-	static int POINT;		// 로그인한 사용자 보유 포인트
-	static int INDEX; 		// 로그인한 사용자 ID의 index
+	static String NOWID ;	// 현재 로그인 ID
+	static int INDEX; 		// 현재 로그인 ID index
+	static int POINT;		// 현재 로그인 ID 포인트
 	
 	// 로그인정보 배열 생성
-	static ArrayList<LoginInfo> loginInfo = new ArrayList<LoginInfo>();
-	
-//	// List<loginInfo> 초기화 
-//	// 싱글톤 패턴
-//	private LoginInfoManager(int num){
-//		loginInfo = new ArrayList<LoginInfo>();
-//	}
-//	
-//	// 내부에서 인스턴스 생성 : 최대 20개의 배열 생성 가능
-//	private static LoginInfoManager manager = new LoginInfoManager(20);	
-//	
-//	// 외부에서 참조변수 받을 수 있는 메서드
-//	public static LoginInfoManager getInstance() {
-//		return manager;
-//	}
-	 
+	static ArrayList<LoginInfo> loginInfo = new ArrayList<LoginInfo>();	 
 
 	// 배열에 정보 저장 메서드
 	private void addInfo(LoginInfo info) {		
@@ -77,7 +62,6 @@ public class LoginInfoManager {
 	}
 	
 
-	
 	// 로그인 정보 변경 메서드 
 	//		재로그인 -> 로그인한 계정 ID 반환 -> 반환한 ID에 해당하는 index의 정보 삭제 -> 새 정보 저장
 	public void changeLoginInfo() {
@@ -101,14 +85,13 @@ public class LoginInfoManager {
 	
 	// 로그인 메서드 : 로그인 -> 사용자의 로그인 ID 반환
 	public String login(){ 
-		System.out.println("로그인을 시작합니다.");
 		String id = null;	
 		
 		while(true) {
 			// 사용자 입력
-			System.out.println("아이디를 입력해주세요.");
+			System.out.println("\n 아이디 : ");
 			id = Util.sc.nextLine();
-			System.out.println("비밀번호를 입력해주세요.");
+			System.out.println("비밀번호 : ");
 			String pw = Util.sc.nextLine();
 			
 			// ID의 배열 index 찾기
@@ -129,7 +112,7 @@ public class LoginInfoManager {
 					System.out.println("===========================================");
 				}
 			} else {
-				System.out.println(id +"아이디가 존재하지 않습니다. 다시 시도해주세요.");
+				System.out.println("존재하지 않는 아이디입니다. 다시 시도해주세요.");		
 			}
 		}
 		return id;	
@@ -138,12 +121,13 @@ public class LoginInfoManager {
 	
 	// 로그인 메인 메서드 
 	public void loginMain() { 
-			while(true) {
-	         System.out.println("++++++++2020 포스트시즌 야구 예매++++++++");
-	         System.out.println("\n로그인 페이지입니다. \n처음 방문하시는 분은 회원가입을 해주세요.");
-	         System.out.println("\n1. 로그인");
-	         System.out.println("2. 회원가입");
-	         System.out.println("+++++++++++++++++++++++++++++++++");
+		
+		while(true) {
+	         System.out.println("************ L O G I N ************");
+	         System.out.println("\n           "+HOME+ ". 홈 메뉴");
+	         System.out.println("           "+LOG+". 로그인");
+	         System.out.println("           "+JOIN+". 회원가입");
+	         System.out.println("\n***********************************");
 	         
 	         // 사용자 메뉴 선택
 	         int select=0;
@@ -152,7 +136,7 @@ public class LoginInfoManager {
 	            select = Util.sc.nextInt();
 	            Util.sc.nextLine();
 	            // 메뉴 1,2 외 입력 시 예외처리
-	            if( select!=1 && select!=2 ) {
+	            if( !(select>0 && select<4) ) {
 	            BadMenuException bme = new BadMenuException(select);
 	            throw bme;   
 	            } 
@@ -162,17 +146,17 @@ public class LoginInfoManager {
 	            return;
 	         }         
 	         
-	         // 로그인/회원가입
-	         if(select==1) {
-	            login();
-	            break;      
-	         } else if(select==2) {
-	            joinMember();
-	            break;
-	         }         
-      
+	         switch(select) {
+	         	case HOME : 
+	         		return;
+	         	case LOG : 
+	         		login();
+	         		break;
+	         	case JOIN :
+	         		joinMember();
+	         		break;
+	         }
 		}
 	}	
 
-	
 }
