@@ -1,6 +1,10 @@
 package Ver01;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -50,6 +54,12 @@ public class LoginInfoManager implements Menu {
 	         switch(select) {
 	         	case LOG : 
 	         		login();
+					try {
+						saveLogin();
+					} catch (ClassNotFoundException | IOException e) {
+	
+						e.printStackTrace();
+					}
 	         		return;
 	         	case JOIN :
 	         		joinMember();
@@ -150,6 +160,19 @@ public class LoginInfoManager implements Menu {
 		}
 	}
 	
+	// 파일 저장 메서드
+	void saveLogin() throws IOException, ClassNotFoundException{
+		 
+	      // 인스턴스 저장을 위한 스트림 생성
+	      ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("LoginInfo.ser"));   
+	      out.writeObject(loginInfo);
+	      out.close();
+	      // 인스턴스 복원을 위한 스트림 생성
+	      ObjectInputStream in = new ObjectInputStream(new FileInputStream("LoginInfo.ser"));
+	      // 복원
+	      LoginInfo reInfo = (LoginInfo) in.readObject();
+		  
+	}
 
 	// 로그인 정보 변경 메서드 
 	//		재로그인 -> 로그인한 계정 ID 반환 -> 반환한 ID에 해당하는 index의 정보 삭제 -> 새 정보 저장
