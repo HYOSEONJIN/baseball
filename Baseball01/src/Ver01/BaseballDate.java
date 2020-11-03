@@ -1,6 +1,9 @@
 package Ver01;
-
-// 날짜 예약 
+/*
+	설명 : 날짜 예약 클래스 -> 날짜 생성시 홈구장 생성
+	작성자 : 이수진 
+	작성일 : 2020-11-02 
+*/
 public class BaseballDate {
 	private String date; // 야구 하는 날짜
 	
