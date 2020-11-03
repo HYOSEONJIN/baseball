@@ -12,7 +12,6 @@ public class BaseballMain0204 implements Menu {
       
       // 로그인,예매, 회원정보 조회를 위한 인스턴스 생성
       LoginInfoManager user = new LoginInfoManager();
-      PointZoneManager pointZone = new PointZoneManager();
       // BookingManager booking=new BookingManager();
       UserInfoManager info = new UserInfoManager();
       
@@ -58,7 +57,7 @@ public class BaseballMain0204 implements Menu {
          //   SaveManager.save();
             break;
          case EVENT:
-            pointZone.pointZone();
+            user.pointZone();
             break;
          case EXIT:
             System.out.println("예매창을 닫습니다.");
