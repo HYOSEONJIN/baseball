@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class BookingManager implements Util {
 		
-	public static void main(String[] args) { 
+	public void Bookingmain() { 
 		
 		// 테스트 변수
 		boolean result = false;

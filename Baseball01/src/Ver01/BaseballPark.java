@@ -6,7 +6,7 @@
 package Ver01;
 
 // 좌석 클래스 
-public class BaseballPark {
+    public class BaseballPark {
 	private BaseballSeat[][] Seats;  // 좌석을 배열로 만들어주기 
 	private int rowCount, colCount; 
 	private int reserveCount;    // 총 예약된 좌석수
