@@ -36,6 +36,8 @@ public class BookingManager implements Menu {
 		char grade = ' ';  		// 좌석 등급 
 		int seatNum = 0;   		// 좌석 번호
 		int price = 0;			// 티켓 가격
+		int myMoney=0;			//현재 가진 돈 
+		int point=0;			//포인트
 		
 		while(true) {
 			
@@ -45,7 +47,7 @@ public class BookingManager implements Menu {
 	         System.out.println("*             "+BOOKINGINFO+".회원예매정보             *");
 	         System.out.println("*        "+ALLSEAT+".전체 좌석 정보보기                      *");
 	         System.out.println("*             "+PAYING+".결제하기                           *");
-	         System.out.println("*           "+RECHERGE+".충전하기                           *");
+	         System.out.println("*           "+RECHARGE+".충전하기                           *");
 	         System.out.println("**********************************");
 			
 			int choice = Util.sc.nextInt();
@@ -117,8 +119,7 @@ public class BookingManager implements Menu {
 				
 					//결제하기		
 				case PAYING: 
-					int myMoney;
-					int point=0;
+					
 						
 					if (grade=='A') {
 						price = 10000;  
@@ -136,7 +137,18 @@ public class BookingManager implements Menu {
 						System.out.println(price+"원이 결제 되었습니다."); 
 						System.out.println(point+"가  적립 되었습니다."); 
 					}
-			
+					
+					
+				case RECHARGE:
+					
+					System.out.println("충전 금액을 입력 하세요 ");
+					   
+				   int recharge=Util.sc.nextInt();
+				    myMoney=+ recharge; 
+				
+				    System.out.println(myMoney+"가 충전되었습니다. ");
+					
+					break;
 				
 			}
 		}
