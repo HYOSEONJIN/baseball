@@ -1,6 +1,8 @@
 package Ver01;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 
 public class LoginInfoManager implements Menu {
@@ -19,13 +21,13 @@ public class LoginInfoManager implements Menu {
 	static ArrayList<LoginInfo> loginInfo = new ArrayList<LoginInfo>();	 
 	
 	// 로그인 메뉴 메서드
-	public void loginMain() { 
+	public void loginMain() throws IOException { 
 		
 		while(true) {
 	         System.out.println("************ L O G I N ************");
-	         System.out.println("\n           "+HOME+ ". 홈 메뉴");
-	         System.out.println("           "+LOG+". 로그인");
+	         System.out.println("\n           "+LOG+". 로그인");
 	         System.out.println("           "+JOIN+". 회원가입");
+	         System.out.println("           "+HOME+ ". 홈 메뉴로 돌아가기");
 	         System.out.println("\n***********************************");
 	         
 	         // 사용자 메뉴 선택
@@ -34,25 +36,25 @@ public class LoginInfoManager implements Menu {
 	         try {
 	            select = Util.sc.nextInt();
 	            Util.sc.nextLine();
-	            // 메뉴 1,2 외 입력 시 예외처리
+	            // 예외처리
 	            if( !(select>0 && select<4) ) {
-	            BadMenuException bme = new BadMenuException(select);
-	            throw bme;   
+	            BadMenuException e = new BadMenuException(select);
+	            throw e;   
 	            } 
-	         } catch(BadMenuException bme) {
+	         } catch(BadMenuException | InputMismatchException e) {
 	            System.out.println("잘못된 입력입니다. 메뉴 번호를 다시 선택해주세요.");
 	            Util.sc.nextLine();      
 	            return;
 	         }         
 	         
 	         switch(select) {
-	         	case HOME : 
-	         		return;
 	         	case LOG : 
 	         		login();
 	         		return;
 	         	case JOIN :
 	         		joinMember();
+	         		return;
+	         	case HOME : 
 	         		return;
 	         }
 		}
@@ -87,11 +89,18 @@ public class LoginInfoManager implements Menu {
 				} else {
 					System.out.println("아이디와 비밀번호가 일치하지 않습니다. 다시 시도해주세요.");
 					System.out.println("===========================================");
-					continue;
 				}
 			} else {
 				System.out.println("존재하지 않는 아이디입니다. 다시 시도해주세요.");	
-				break;
+				System.out.println("홈 메뉴로 돌아가시려면 \"home\"을 입력하세요.");
+				String insert = null;
+				insert = Util.sc.nextLine();
+				if(insert=="home") {
+					break;
+				} else {
+					continue;
+				}
+				
 			}
 		}
 		return id;	
@@ -117,24 +126,25 @@ public class LoginInfoManager implements Menu {
 	
 	// 회원가입 메서드
 	//		ID 입력 받기 -> ID 중복 확인 -> 비밀번호 입력 받기 -> 회원가입 완료
-	public void joinMember() {
+	public void joinMember() throws IOException{
 		System.out.println("회원가입을 시작합니다.");
 		
 		// 아이디 중복 확인 (무한반복)
 		while(true) {
-			System.out.println("아이디를 입력해주세요.");
+			System.out.println("\n아이디 : ");
 			String id = Util.sc.nextLine().trim();
+			String pw = null;
 
 			int index = searchIndex(id);
 			if(searchIndex(id)>=0) {
 				System.out.println("중복되는 아이디가 존재합니다. 다른 아이디를 입력해주세요.");
 				continue;
 			} else {
-				System.out.println("비밀번호를 입력해주세요.");
-				String pw = Util.sc.nextLine().trim();
+				System.out.println("비밀번호 : ");
+				pw = Util.sc.nextLine().trim();
 				addInfo(new LoginInfo(id, pw));
-				System.out.println(id+"님, 가입을 축하드립니다!");
-				break;
+					System.out.println(id+"님, 가입을 축하드립니다!");
+					break;
 			}
 			
 		}

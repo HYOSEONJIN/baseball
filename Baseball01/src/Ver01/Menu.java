@@ -11,9 +11,9 @@ public interface Menu {
 	
 	// *****************************
 	// 로그인 상세메뉴 (LoginInfoManager)
-	final int HOME=1;
-	final int LOG=2;
-	final int JOIN=3;
+	final int LOG=1;
+	final int JOIN=2;
+	final int HOME=3;
 	
 	// *****************************
 	// 예약 상세메뉴 (BookingManager)
