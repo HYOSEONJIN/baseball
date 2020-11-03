@@ -5,26 +5,26 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
-public class BaseballMain0203 implements Menu {
+public class BaseballMain0204 implements Menu {
 
    public static void main(String[] args) throws IOException, ClassNotFoundException {
       // 예매 메인
       
       // 로그인,예매, 회원정보 조회를 위한 인스턴스 생성
       LoginInfoManager user = new LoginInfoManager();
-      PointZoneManager pointZone = new PointZoneManager();
-      BookingManager booking=new BookingManager();
+      // BookingManager booking=new BookingManager();
+//      UserInfoManager info = new UserInfoManager();
+      
       
       // 메인 메뉴 만들기 - 메뉴 부분 인터페이스 차후 수정
       int select;
       while(true) {
-         System.out.println("********2020 포스트시즌 야구 예매********");
-         System.out.println("*             "+ LOGIN+".로그인                        *");
-         System.out.println("*              "+BOOKING+".예매                       *");
-         System.out.println("*             "+INFO+".회원정보                         *");
-         System.out.println("*        "+SAVE+".예매내역 외부 파일로 저장             *");
-         System.out.println("*             "+ EVENT+".이벤트                        *");
-         System.out.println("*           "+EXIT+".페이지 닫기                         *");
+         System.out.println("********2020 포스트시즌 야구 예매********\n");
+         System.out.println("\t"+ LOGIN+".로그인  ");
+         System.out.println("\t"+BOOKING+".예매  ");
+         System.out.println("\t"+INFO+".회원정보  ");
+         System.out.println("\t"+ EVENT+".이벤트 ");
+         System.out.println("\t"+EXIT+".페이지 닫기 \n  ");
          System.out.println("**********************************");
          System.out.println("원하는 메뉴의 숫자를 입력하세요 >> ");
          try {
@@ -44,19 +44,16 @@ public class BaseballMain0203 implements Menu {
          
          switch(select) {
          case LOGIN: 
-            user.loginMain();
+            user.loginMenu();
             break;
-        case BOOKING:
-        	booking.Bookingmain();
-            break;
-//         case INFO:
-//            
+//        case BOOKING:
+//        	booking.Bookingmain();
 //            break;
-         case SAVE:
-         //   SaveManager.save();
-            break;
+//         case INFO:
+//            info.showMyInfo();
+//            break;
          case EVENT:
-            pointZone.pointZone();
+            user.pointZone();
             break;
          case EXIT:
             System.out.println("예매창을 닫습니다.");
