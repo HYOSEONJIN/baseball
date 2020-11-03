@@ -10,28 +10,27 @@ public class LoginInfoManager {
 		super();
 	}
 
-	
-	// 가져다 쓰려고 만들었어요  ***************************************************************
-	static String NOWID ;
-	static int POINT;
+	// 변수 상수화 
+	static String NOWID ;	// 로그인한 사용자 ID
+	static int POINT;		// 로그인한 사용자 보유 포인트
+	static int INDEX; 		// 로그인한 사용자 ID의 index
 	
 	// 로그인정보 배열 생성
-	List<LoginInfo> loginInfo; 
-
+	static ArrayList<LoginInfo> loginInfo = new ArrayList<LoginInfo>();
 	
-	// List<loginInfo> 초기화 
-	// 싱글톤 패턴
-	private LoginInfoManager(int num){
-		loginInfo = new ArrayList<LoginInfo>();
-	}
-	
-	// 내부에서 인스턴스 생성 : 최대 20개의 배열 생성 가능
-	private static LoginInfoManager manager = new LoginInfoManager(20);	
-	
-	// 외부에서 참조변수 받을 수 있는 메서드
-	public static LoginInfoManager getInstance() {
-		return manager;
-	}
+//	// List<loginInfo> 초기화 
+//	// 싱글톤 패턴
+//	private LoginInfoManager(int num){
+//		loginInfo = new ArrayList<LoginInfo>();
+//	}
+//	
+//	// 내부에서 인스턴스 생성 : 최대 20개의 배열 생성 가능
+//	private static LoginInfoManager manager = new LoginInfoManager(20);	
+//	
+//	// 외부에서 참조변수 받을 수 있는 메서드
+//	public static LoginInfoManager getInstance() {
+//		return manager;
+//	}
 	 
 
 	// 배열에 정보 저장 메서드
@@ -48,7 +47,7 @@ public class LoginInfoManager {
 		// 아이디 중복 확인 (무한반복)
 		while(true) {
 			System.out.println("아이디를 입력해주세요.");
-			String id = Util.sc.nextLine();
+			String id = Util.sc.nextLine().trim();
 
 			int index = searchIndex(id);
 			if(searchIndex(id)>=0) {
@@ -56,7 +55,7 @@ public class LoginInfoManager {
 				continue;
 			} else {
 				System.out.println("비밀번호를 입력해주세요.");
-				String pw = Util.sc.nextLine();
+				String pw = Util.sc.nextLine().trim();
 				addInfo(new LoginInfo(id, pw));
 				System.out.println(id+"님, 가입을 축하드립니다!");
 				break;
@@ -83,24 +82,24 @@ public class LoginInfoManager {
 	//		재로그인 -> 로그인한 계정 ID 반환 -> 반환한 ID에 해당하는 index의 정보 삭제 -> 새 정보 저장
 	public void changeLoginInfo() {
 		System.out.println("회원정보 확인을 위해 다시 로그인해주세요.");
-
-		// 재로그인 -> 로그인한 계정 ID 반환
-		String userId = login();
-		// 해당하는 index 정보 삭제
-		loginInfo.remove(searchIndex(userId));
+		// 로그인한 계정 ID 받기
+		NOWID = login();
+		
+		// 반환한 ID에 해당하는 index 정보 삭제
+		loginInfo.remove(searchIndex(NOWID));
+		
 		// 새 정보 저장
 		System.out.println("회원정보 변경을 시작합니다.");	
 		System.out.println("새 아이디를 입력해주세요.");
-		String changedId = Util.sc.nextLine();
+		String changedId = Util.sc.nextLine().trim();
 		System.out.println("새 비밀번호를 입력해주세요.");
-		String changedPw = Util.sc.nextLine();
-		
+		String changedPw = Util.sc.nextLine().trim();
 		addInfo(new LoginInfo(changedId, changedPw)); // 정보 저장
 		
 	}
 		
 	
-	// 로그인 메서드 : 사용자의 로그인 ID 반환
+	// 로그인 메서드 : 로그인 -> 사용자의 로그인 ID 반환
 	public String login(){ 
 		System.out.println("로그인을 시작합니다.");
 		String id = null;	
@@ -118,17 +117,12 @@ public class LoginInfoManager {
 				// 해당 index의 비밀번호와 일치 여부 확인
 				if(loginInfo.get(index).getPw().equals(pw)) {
 					System.out.println(id +"님, 로그인에 성공하였습니다.");
-					 // ********************************** 여기 수정했어요
 					NOWID=id; 
 					for(int i=0; i<loginInfo.size(); i++) {
 							if(loginInfo.get(i).getId().equals(id)) {
 								POINT=loginInfo.get(i).getPoint();
 							}
-							
-							
-						// ***************************여기까지 추가
 						}
-					
 					break;
 				} else {
 					System.out.println("아이디와 비밀번호가 일치하지 않습니다. 다시 시도해주세요.");
@@ -143,7 +137,7 @@ public class LoginInfoManager {
 
 	
 	// 로그인 메인 메서드 
-	public void loginMain() {       // ******************* main args에서 메서드로 수정했어요 ******************
+	public void loginMain() { 
 			while(true) {
 	         System.out.println("++++++++2020 포스트시즌 야구 예매++++++++");
 	         System.out.println("\n로그인 페이지입니다. \n처음 방문하시는 분은 회원가입을 해주세요.");
@@ -170,10 +164,10 @@ public class LoginInfoManager {
 	         
 	         // 로그인/회원가입
 	         if(select==1) {
-	            manager.login();
+	            login();
 	            break;      
 	         } else if(select==2) {
-	            manager.joinMember();
+	            joinMember();
 	            break;
 	         }         
       
