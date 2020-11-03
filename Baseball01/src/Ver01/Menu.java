@@ -15,4 +15,13 @@ public interface Menu {
 	final int LOG=2;
 	final int JOIN=3;
 	
+	// *****************************
+	// 예약 상세메뉴 (BookingManager)
+	int  BOOKINGNOW=1;
+	int CANCEL=2;
+	int BOOKINGINFO=3;
+	int ALLSEAT=4;
+	int PAYING=5;
+	int RECHERGE=6;
+	
 }

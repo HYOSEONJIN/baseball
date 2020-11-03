@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-public class BookingManager implements Util {
+public class BookingManager implements Menu {
 		
 	public void Bookingmain() { 
 		
@@ -38,19 +38,22 @@ public class BookingManager implements Util {
 		int price = 0;			// 티켓 가격
 		
 		while(true) {
-			System.out.println("1. 예약 하기");
-			System.out.println("2. 예약 취소 ");
-			System.out.println("3. 예약정보보기");
-			System.out.println("4. 전체 좌석 정보보기 ");
-			System.out.println("5. 결제하기 ");
-			System.out.println("6. 충전하기 ");
+			
+			System.out.println("********2020 포스트시즌 야구 예매********");
+	         System.out.println("*             "+  BOOKINGNOW+".예매                     *");
+	         System.out.println("*              "+CANCEL+".예매취소                         *");
+	         System.out.println("*             "+BOOKINGINFO+".회원예매정보             *");
+	         System.out.println("*        "+ALLSEAT+".전체 좌석 정보보기                      *");
+	         System.out.println("*             "+PAYING+".결제하기                           *");
+	         System.out.println("*           "+RECHERGE+".충전하기                           *");
+	         System.out.println("**********************************");
 			
 			int choice = Util.sc.nextInt();
 			Util.sc.nextLine();
 			
 			switch(choice) {
 				// 예약 하기
-				case 1:				
+				case BOOKINGNOW:				
 					// 예매 가능 날짜 출력
 					System.out.println("예매 가능한 날짜 목록 ->");
 					for (int i = 0; i < 3 ; i++) {
@@ -61,12 +64,12 @@ public class BookingManager implements Util {
 					// 선택한 날짜에 따라 index 설정(0 : 오늘, 1 : 내일, 2 : 모레)
 					choiceDate = Util.sc.nextInt() - 1;
 					System.out.println();
-					sc.nextLine();
+					Util.sc.nextLine();
 						
 					date[choiceDate].getParks().viewAll();
 					
 					System.out.println("원하시는 위치의 좌석 등급을 선택해 주세요(A석 : 10000원, B석 : 5000원, C석 : 1000원) ");
-					grade = sc.next().toUpperCase().charAt(0);
+					grade = Util.sc.next().toUpperCase().charAt(0);
 					
 					System.out.println("원하시는 좌석 번호를 선택해주세요.");
 					seatNum = Util.sc.nextInt();
@@ -80,12 +83,12 @@ public class BookingManager implements Util {
 						
 					break;
 				// 예약 취소		
-				case 2:
+				case CANCEL:
 					//내 좌석 정보보기
 					date[choiceDate].getParks().mySeatView(loginId); 
 
 					System.out.println(loginId + "취소하시는 좌석 등급을 선택해주세요.");
-					grade = sc.next().toUpperCase().charAt(0);
+					grade = Util.sc.next().toUpperCase().charAt(0);
 				
 					System.out.println("취소하시는 좌석 번호를 선택해주세요.");
 					seatNum = Util.sc.nextInt();
@@ -101,19 +104,19 @@ public class BookingManager implements Util {
 					break;
 					
 				// 예약 정보보기		
-				case 3:
+				case BOOKINGINFO:
 					//내 좌석 정보보기
 					date[choiceDate].getParks().mySeatView(loginId); 
 					System.out.println();
 					break;
 				
 				// 전체 좌석 정보보기	
-				case 4:
+				case ALLSEAT:
 					date[choiceDate].getParks().viewAll();
 					break;
 				
 					//결제하기		
-				case 5: 
+				case PAYING: 
 					int myMoney;
 					int point=0;
 						
