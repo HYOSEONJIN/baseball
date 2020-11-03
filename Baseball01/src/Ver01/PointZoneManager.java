@@ -24,6 +24,7 @@ public class PointZoneManager extends LoginInfoManager {
 
 		while (true) {
 			System.out.println("**********************************");
+			System.out.println("\t"+NOWID+"님, 안녕하세요!");
 			System.out.println("\t"+POINT+"POINT 보유중");
 			System.out.println("**********************************");
 			System.out.println();
