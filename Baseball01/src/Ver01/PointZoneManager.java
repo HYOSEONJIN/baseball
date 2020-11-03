@@ -342,7 +342,7 @@ public class PointZoneManager extends LoginInfoManager {
 				Util.sc.nextLine();
 				continue;
 			}
-5
+
 			if (price > POINT) {
 				System.out.println("포인트가 부족합니다.");
 			} else {
