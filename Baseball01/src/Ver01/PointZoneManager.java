@@ -13,21 +13,18 @@ import java.util.InputMismatchException;
 public class PointZoneManager extends LoginInfoManager {
 	// Made by 효선 [관련내용은 카톡주세요~~!]
 
-	String name = "hyoseon";
-	int point = 1000;
-//	int point = loginInfo.get(searchIndex(name)).getPoint();
-	
 	
 
 	// 포인트존메인메서드 ( 예외처리끝 )
 	public void pointZone() throws IOException {
-		if(name==null) {
+		if(NOWID==null) {
 			System.out.println("로그인 먼저 :)");
 			return;
 		}
 
 		while (true) {
 			System.out.println("========================");
+			System.out.println(NOWID+", "+POINT);
 			System.out.println("1. 숫자게임");
 			System.out.println("2. 랜덤뽑기");
 			System.out.println("3. 굿즈구매");
@@ -53,7 +50,7 @@ public class PointZoneManager extends LoginInfoManager {
 					buyGoods();
 					break;
 				case 4:
-					pointHistoryInfo(name);
+					pointHistoryInfo(NOWID);
 					break;
 				case 5:
 					return;
@@ -81,9 +78,9 @@ public class PointZoneManager extends LoginInfoManager {
 		String cause = "숫자게임 포인트 지급";
 		String game = "숫자 게임 참여";
 
-		if (point < 100) {
+		if (POINT < 100) {
 			System.out.println("게임에 참여할 포인트가 모자라요 ToT");
-			System.out.println("현재 보유 포인트는 " + point + "point 입니다.");
+			System.out.println("현재 보유 포인트는 " + POINT + "point 입니다.");
 			return;
 		}
 
@@ -104,8 +101,8 @@ public class PointZoneManager extends LoginInfoManager {
 					System.out.println("게임을 종료합니다");
 					return;
 				}
-				point += buyGame;
-				pointHistory(name, buyGame, game);
+				POINT += buyGame;
+				pointHistory(NOWID, buyGame, game);
 
 				// 경우의수 시작
 
@@ -113,25 +110,25 @@ public class PointZoneManager extends LoginInfoManager {
 				case 1:
 					if (rsp == 1) {
 						System.out.println("비겼습니다");
-						point += draw;
-						pointHistory(name, draw, cause);
+						POINT += draw;
+						pointHistory(NOWID, draw, cause);
 					} else if (rsp == 2) {
 						System.out.println("패배했습니다 ToT");
 					} else if (rsp == 3) {
 						System.out.println("승리했습니다 !");
-						point += win;
-						pointHistory(name, win, cause);
+						POINT += win;
+						pointHistory(NOWID, win, cause);
 					}
 					break;
 				case 2:
 					if (rsp == 1) {
 						System.out.println("승리했습니다 !");
-						point += win;
-						pointHistory(name, win, cause);
+						POINT += win;
+						pointHistory(NOWID, win, cause);
 					} else if (rsp == 2) {
 						System.out.println("비겼습니다");
-						point += draw;
-						pointHistory(name, draw, cause);
+						POINT += draw;
+						pointHistory(NOWID, draw, cause);
 					} else if (rsp == 3) {
 						System.out.println("패배했습니다 ToT");
 					}
@@ -141,12 +138,12 @@ public class PointZoneManager extends LoginInfoManager {
 						System.out.println("패배했습니다 ToT");
 					} else if (rsp == 2) {
 						System.out.println("승리했습니다 !");
-						point += win;
-						pointHistory(name, win, cause);
+						POINT += win;
+						pointHistory(NOWID, win, cause);
 					} else if (rsp == 3) {
 						System.out.println("비겼습니다");
-						point += draw;
-						pointHistory(name, draw, cause);
+						POINT += draw;
+						pointHistory(NOWID, draw, cause);
 					}
 					break;
 				}
@@ -176,9 +173,9 @@ public class PointZoneManager extends LoginInfoManager {
 		String cause = "랜덤뽑기 당첨 포인트 지급";
 		String game = "랜덤뽑기 게임 참여";
 
-		if (point < 0) {
+		if (POINT < 100) {
 			System.out.println("게임에 참여할 포인트가 모자라요 ToT");
-			System.out.println("현재 보유 포인트는 " + point + "point 입니다.");
+			System.out.println("현재 보유 포인트는 " + POINT + "point 입니다.");
 			return;
 		}
 		
@@ -201,15 +198,15 @@ public class PointZoneManager extends LoginInfoManager {
 		} else {
 
 				if (randomBox(gameNumber) == 1) {
-					point += buyGame;
-					pointHistory(name, buyGame, game);
+					POINT += buyGame;
+					pointHistory(NOWID, buyGame, game);
 					System.out.println("당첨입니다 :) 500POINT가 지급됩니다");
-					point += win;
-					pointHistory(name, win, cause);
+					POINT += win;
+					pointHistory(NOWID, win, cause);
 					break;
 				} else {
-					point += buyGame;
-					pointHistory(name, buyGame, game);
+					POINT += buyGame;
+					pointHistory(NOWID, buyGame, game);
 					System.out.println("꽝입니다 ToT");
 					break;
 
@@ -247,12 +244,12 @@ public class PointZoneManager extends LoginInfoManager {
 	
 	
 	// 포인트 적립 내역 저장 메서드
-	void pointHistory(String name, int p, String cause) throws IOException {
+	void pointHistory(String NOWID, int p, String cause) throws IOException {
 		// 사용자의 이름(String) or 회원번호(int)를 받을 예정 + 포인트 적립얼마했는지 int p로 받는다.
 
 		String point = "" + p; // int 포인트를 String으로 바꿈
 
-		String txt = name.concat("point.txt");
+		String txt = NOWID.concat("point.txt");
 		File pointHistoryFile = new File(txt);
 		BufferedWriter out = null;
 
@@ -272,9 +269,9 @@ public class PointZoneManager extends LoginInfoManager {
 	}
 
 	// 포인트 적립 내역 출력 메서드
-	void pointHistoryInfo(String name) {
+	void pointHistoryInfo(String NOWID) {
 
-		String txt = name.concat("point.txt");
+		String txt = NOWID.concat("point.txt");
 		File pointHistoryFile = new File(txt);
 		BufferedReader in = null;
 
@@ -294,7 +291,7 @@ public class PointZoneManager extends LoginInfoManager {
 					System.out.println(str);
 				}
 				System.out.println("--------------------");
-				System.out.println("잔여포인트는 " + point + " point");
+				System.out.println("잔여포인트는 " + POINT + " point");
 				System.out.println("--------------------");
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -313,7 +310,7 @@ public class PointZoneManager extends LoginInfoManager {
 
 		while (true) {
 			System.out.println("--------------------------------------");
-			System.out.println("현재 보유 포인트는 " + point + "point 입니다.");
+			System.out.println("현재 보유 포인트는 " + POINT + "point 입니다.");
 			System.out.println("--------------------------------------");
 			System.out.println("1. 히어로즈 야구점퍼 (1000point)");
 			System.out.println("2. 히어로즈 슬로건 (700point)");
@@ -346,12 +343,12 @@ public class PointZoneManager extends LoginInfoManager {
 				continue;
 			}
 
-			if (price > point) {
+			if (price > POINT) {
 				System.out.println("포인트가 부족합니다.");
 			} else {
 				System.out.println("구매완료!");
-				point += price;
-				pointHistory(name, price, cause);
+				POINT += price;
+				pointHistory(NOWID, price, cause);
 				System.out.println("--------------------------------------");
 				return;
 			}
