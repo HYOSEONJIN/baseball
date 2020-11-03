@@ -62,6 +62,7 @@ public class LoginInfoManager implements Menu {
 	         	case LOG : 
 	         		callLogInfo();	// 파일에서 로그인정보 불러오기
 	         		login();
+	         		saveLogInfo();
 	         		return;
 	         	case JOIN :
 	         		joinMember();
@@ -212,7 +213,7 @@ public class LoginInfoManager implements Menu {
 	    	
 	}
 
-
+	// (추후 수정) ===========================================================
 	// 로그인 정보 변경 메서드 
 	//		재로그인 -> 로그인한 계정 ID 반환 -> 반환한 ID에 해당하는 index의 정보 삭제 -> 새 정보 저장
 	public void changeLoginInfo() throws IOException {
@@ -222,12 +223,13 @@ public class LoginInfoManager implements Menu {
 		// or rename()
 		// 반환한 ID에 해당하는 index 정보 삭제
 		
-		loginInfo.remove(searchIndex(NOWID));
+		//loginInfo.remove(searchIndex(NOWID));
 		
-		// 새 정보 저장
+		// ID 입력받기 -> 해당 index 값을 setter로 값 변경 -> 파일에 저장
 		System.out.println("ID/PW 변경을 시작합니다.");	
 		System.out.println("아이디 : ");
 		String changedId = Util.sc.nextLine().trim();
+		// loginInfo.setId(changedId); 
 		System.out.println("비밀번호 : ");
 		String changedPw = Util.sc.nextLine().trim();
 		addInfo(new LoginInfo(changedId, changedPw)); 
