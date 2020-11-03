@@ -14,6 +14,7 @@ public class BaseballMain0203 implements Menu {
       LoginInfoManager user = new LoginInfoManager();
       PointZoneManager pointZone = new PointZoneManager();
       BookingManager booking=new BookingManager();
+      UserInfoManager userInfo = new UserInfoManager();
       
       // 메인 메뉴 만들기 - 메뉴 부분 인터페이스 차후 수정
       int select;
@@ -49,9 +50,9 @@ public class BaseballMain0203 implements Menu {
         case BOOKING:
         	booking.Bookingmain();
             break;
-//         case INFO:
-//            
-//            break;
+         case INFO:
+        	 userInfo.showMyInfo();
+            break;
          case SAVE:
          //   SaveManager.save();
             break;
