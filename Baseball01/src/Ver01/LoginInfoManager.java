@@ -1,6 +1,8 @@
 package Ver01;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -25,7 +27,7 @@ public class LoginInfoManager implements Menu {
 	static ArrayList<LoginInfo> loginInfo = new ArrayList<LoginInfo>();	 
 	
 	// 로그인 메뉴 메서드
-	public void loginMain() throws IOException { 
+	public void loginMain() throws IOException, ClassNotFoundException { 
 		
 		while(true) {
 	         System.out.println("************ L O G I N ************");
@@ -53,16 +55,12 @@ public class LoginInfoManager implements Menu {
 	         
 	         switch(select) {
 	         	case LOG : 
+	         		callLogInfo();
 	         		login();
-					try {
-						saveLogin();
-					} catch (ClassNotFoundException | IOException e) {
-	
-						e.printStackTrace();
-					}
 	         		return;
 	         	case JOIN :
 	         		joinMember();
+					saveLogInfo();
 	         		return;
 	         	case HOME : 
 	         		return;
@@ -160,19 +158,23 @@ public class LoginInfoManager implements Menu {
 		}
 	}
 	
-	// 파일 저장 메서드
-	void saveLogin() throws IOException, ClassNotFoundException{
-		 
-	      // 인스턴스 저장을 위한 스트림 생성
-	      ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("LoginInfo.ser"));   
-	      out.writeObject(loginInfo);
-	      out.close();
-	      // 인스턴스 복원을 위한 스트림 생성
-	      ObjectInputStream in = new ObjectInputStream(new FileInputStream("LoginInfo.ser"));
-	      // 복원
-	      LoginInfo reInfo = (LoginInfo) in.readObject();
-		  
+	
+	// 회원정보 외부 저장 메서드
+	void saveLogInfo() throws IOException, ClassNotFoundException{
+		
+	    // 인스턴스 저장을 위한 스트림 생성
+	    ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("LoginInfo.ser"));   
+	    out.writeObject(loginInfo);
+	    out.close();		  
 	}
+	
+	// 외부에 저장된 회원정보 불러오기 메서드
+	void callLogInfo() throws FileNotFoundException, IOException, ClassNotFoundException {
+		// 인스턴스 복원을 위한 스트림 생성
+	    ObjectInputStream in = new ObjectInputStream(new FileInputStream("LoginInfo.ser"));
+	    	loginInfo = (ArrayList<LoginInfo>)in.readObject();	
+	}
+
 
 	// 로그인 정보 변경 메서드 
 	//		재로그인 -> 로그인한 계정 ID 반환 -> 반환한 ID에 해당하는 index의 정보 삭제 -> 새 정보 저장

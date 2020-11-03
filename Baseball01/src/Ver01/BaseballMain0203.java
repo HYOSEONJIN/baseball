@@ -7,7 +7,7 @@ import java.util.InputMismatchException;
 
 public class BaseballMain0203 implements Menu {
 
-   public static void main(String[] args) throws IOException {
+   public static void main(String[] args) throws IOException, ClassNotFoundException {
       // 예매 메인
       
       // 로그인,예매, 회원정보 조회를 위한 인스턴스 생성
