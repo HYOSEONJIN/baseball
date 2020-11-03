@@ -61,9 +61,8 @@ public class LoginInfoManager implements Menu {
 	         switch(select) {
 	         	case LOG : 
 	         		callLogInfo();	// 파일에서 로그인정보 불러오기
-	         		if(login()==null) {
-	         			return;
-	         		}
+	         		login();
+	         		return;
 	         	case JOIN :
 	         		joinMember();
 					saveLogInfo();	// 외부 파일에 로그인정보 저장
@@ -76,7 +75,7 @@ public class LoginInfoManager implements Menu {
 	
 	
 	// 로그인 메서드 : 로그인 -> 사용자의 로그인 ID 반환
-	public String login() throws IOException { 
+	public void login() throws IOException { 
 		String id = null;
 		String cause="로그인 적립 포인트";
 		
@@ -102,7 +101,7 @@ public class LoginInfoManager implements Menu {
 		                        pointHistory(NOWID, 100, cause);
 							}
 						}
-					break;
+					return;
 				} else {
 					System.out.println("아이디와 비밀번호가 일치하지 않습니다. 다시 시도해주세요.");
 					System.out.println("-----------------------------------");
@@ -114,11 +113,10 @@ public class LoginInfoManager implements Menu {
 				String insert = null;
 				insert = Util.sc.nextLine();
 				if(insert.equals("0")) {
-					return null;
+					return;
 				}
 			}
 		}
-		return id;	
 	}	
 	
 	
@@ -220,10 +218,10 @@ public class LoginInfoManager implements Menu {
 	public void changeLoginInfo() throws IOException {
 		System.out.println("회원정보 확인을 위해 다시 로그인해주세요.");
 		
-		// 로그인한 계정 ID 받기
-		NOWID = login();
-		
+		// 빈폴더에 정보 저장하고 삭제
+		// or rename()
 		// 반환한 ID에 해당하는 index 정보 삭제
+		
 		loginInfo.remove(searchIndex(NOWID));
 		
 		// 새 정보 저장
