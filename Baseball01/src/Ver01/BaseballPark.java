@@ -64,6 +64,7 @@ public class BaseballPark {
 	public void mySeatView(String name) {
 		String result = "예약된 정보가 존재하지 않습니다.";
 		
+		System.out.println("["+ name + "님 예약 정보]");
 		for(int i = 0; i < Seats.length ; i++) {
 			for(int j = 0; j < Seats[i].length ; j++) {
 				
@@ -78,9 +79,14 @@ public class BaseballPark {
 	
 	// 좌석 전체 보기 
 	public void viewAll() {
-		System.out.println("총 예약된 좌석 수 : " + reserveCount);
+		System.out.println("[현재 구장 예약석 정보]");
+		System.out.println("총 예약된 좌석 수 : " + reserveCount + " (X : 예약가능한 좌석 : O : 예약 불가능한 좌석)");
 		
+		System.out.println("=============================================");
 		for(int i = 0; i < Seats.length ; i++) {
+			
+			System.out.println((char)(i + 'A') + "석, " + (i + 1) + "번째 열");
+			
 			for(int j = 0; j < Seats[i].length ; j++) {
 				
 				// 예약된 좌석인 경우 O, 아닌경우 X
@@ -92,6 +98,7 @@ public class BaseballPark {
 			}
 			System.out.println();
 		}
+		System.out.println("=============================================");
 	}
 	
 	// 등급별 rowsnum 으로 변경 
