@@ -19,8 +19,15 @@ public class BaseballMain0204 implements Menu {
       // 메인 메뉴 만들기 - 메뉴 부분 인터페이스 차후 수정
       int select;
       while(true) {
-         System.out.println("********2020 포스트시즌 야구 예매********\n");
-         System.out.println("\t"+ LOGIN+".로그인  ");
+    	  if(user.NOWID!=null) {
+    		  System.out.println("\t"+user.NOWID+"님 안녕하세요!");
+    	         System.out.println("********2020 포스트시즌 야구 예매********\n");
+    	         System.out.println("\t"+ LOGIN+".ID/PW 수정하기  ");
+    	  }else {
+    	         System.out.println("********2020 포스트시즌 야구 예매********\n");
+    	         System.out.println("\t"+ LOGIN+".로그인  ");
+    	  }
+
          System.out.println("\t"+BOOKING+".예매  ");
          System.out.println("\t"+INFO+".회원정보  ");
          System.out.println("\t"+ EVENT+".이벤트 ");
@@ -44,7 +51,11 @@ public class BaseballMain0204 implements Menu {
          
          switch(select) {
          case LOGIN: 
+        	 if(user.NOWID==null) {
             user.loginZone();
+        	 }else {
+        		 user.changeLoginInfo();
+        	 }        	 
             break;
 //        case BOOKING:
 //        	booking.Bookingmain();
