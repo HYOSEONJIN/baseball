@@ -26,8 +26,8 @@ public class LoginInfoManager implements Menu {
 	public void loginZone() throws IOException, ClassNotFoundException { 
 		
 		while(true) {
-	         System.out.println("\n 〓〓〓〓〓〓  LOGIN MENU 〓〓〓〓〓〓\n");
-	         System.out.println("	"+LOG+". 로그인");
+	         System.out.println("\n 〓〓〓〓〓〓  LOGIN MENU 〓〓〓〓〓〓");
+	         System.out.println("\n	"+LOG+". 로그인");
 	         System.out.println("	"+JOIN+". 회원가입");
 	         System.out.println("	"+HOME+ ". 홈 메뉴로 돌아가기");
 	         System.out.println("\n 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓"); 
@@ -187,7 +187,7 @@ public class LoginInfoManager implements Menu {
 //		System.out.println("회원가입을 시작합니다.");
 		String id = null;
 		String pw = null;	      
-		System.out.println("\n〓〓〓〓〓〓〓〓〓  J O I N 〓〓〓〓〓〓〓〓〓\n");	
+		System.out.println("\n________ J O I N _________\n");
 		
 		// ID 중복 확인 (무한반복)
 		while(true) {
@@ -201,12 +201,12 @@ public class LoginInfoManager implements Menu {
 					throw e;
 				}	
 			} catch(NullInputException e) {
-				System.out.print("아이디를 잘못 입력하셨습니다. 다시 입력해주세요.\\n>> ");
+				System.out.print("아이디를 잘못 입력하셨습니다. 다시 입력해주세요.\n");
 			}
 			
 			int index = searchIndex(id);
 			if(searchIndex(id)>=0) {
-				System.out.print("중복되는 아이디가 존재합니다. 다른 아이디를 입력해주세요.\\n>> ");
+				System.out.print("중복되는 아이디가 존재합니다. 다른 아이디를 입력해주세요.\n");
 				continue;
 			} else {
 				System.out.print(" P  W : ");
@@ -218,11 +218,11 @@ public class LoginInfoManager implements Menu {
 						throw e;
 					}
 					addInfo(new LoginInfo(id, pw));
-			         System.out.println("\n〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓"); 
+					System.out.println("____________________________"); 
 					System.out.println("["+id+"님, 가입을 축하드립니다!]\n");
 					break;								
 				} catch(NullInputException e) {
-			         System.out.println("\n〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓"); 
+					System.out.println("____________________________");
 					System.out.println("비밀번호를 잘못 입력하셨습니다. 다시 입력해주세요.\n");
 				}
 			}	
@@ -244,12 +244,12 @@ public class LoginInfoManager implements Menu {
 		loginInfo.remove(INDEX);	
         
 		// ID/PW 입력 받아 새 계정 생성
-        System.out.println("\n〓〓〓〓〓〓〓〓〓  CHANGE LOGIN 〓〓〓〓〓〓〓〓〓\n");
+		System.out.println("\n 〓〓〓〓〓〓  CHANGE MENU 〓〓〓〓〓〓\n");
 		System.out.print(" I  D : ");
 		String newId = Util.sc.nextLine().trim();	
 		System.out.print(" I  D : ");
 		String newPw = Util.sc.nextLine().trim();	
-        System.out.println("\n〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓"); 
+		 System.out.println("\n 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓"); 
 
 		addInfo(new LoginInfo(newId, newPw, myMoney, point));
 		
