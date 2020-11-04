@@ -256,8 +256,8 @@ public class LoginInfoManager implements Menu {
 	         System.out.println("\t"+loginInfo.get(INDEX).getPoint()+"POINT 보유중");
 	         System.out.println("**********************************");
 	         System.out.println();
-	         System.out.println("\t1. 숫자게임");
-	         System.out.println("\t2. 랜덤뽑기");
+	         System.out.println("\t1. 가위바위보게임(100POINT)");
+	         System.out.println("\t2. 랜덤뽑기(100POINT)");
 	         System.out.println("\t3. 굿즈구매");
 	         System.out.println("\t4. 포인트 사용 내역 조회");
 	         System.out.println("\t5. 포인트존 나가기");
