@@ -14,13 +14,14 @@ public class BaseballMain implements Menu {
       LoginInfoManager user = new LoginInfoManager();
       BookingManager booking=new BookingManager();
       UserInfoManager info = new UserInfoManager();
+      int select;
       
       
       // 메인 메뉴 만들기 - 메뉴 부분 인터페이스 차후 수정
-      int select;
+      
+      System.out.println("\n 2020 포스트시즌 야구 예매 프로그램에 오신 것을 환영합니다!");
       while(true) {
-        System.out.println("\n  안녕하세요 "+user.NOWID+"님!");
-        System.out.println("n 2020 포스트시즌 야구 예매 프로그램에 오신 것을 환영합니다!");
+    //    System.out.println("\n  안녕하세요 "+user.NOWID+"님!");
          System.out.println("\n ■■■■■■■■■ HOME MENU ■■■■■■■■\n");       
          System.out.println("\t"+ LOGIN+".로그인 ");
          System.out.println("\t"+BOOKING+".예매 ");
