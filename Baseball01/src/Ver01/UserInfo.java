@@ -55,8 +55,9 @@ public class UserInfo{
 	public int getPoint() {
 		return point;
 	}
+	
 	public void setPoint(int point) {
-		this.point = point;
+		this.point += point;
 	}
 	public String getChoiceDate() {
 		return choiceDate;
