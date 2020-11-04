@@ -649,18 +649,34 @@ public class LoginInfoManager implements Menu {
 	   }
 	
 	
-	// 출석체크이벤트 이력
+		// 출석체크이벤트 이력
        void att() throws IOException, ClassNotFoundException {
           // 날짜 받기
           Date today=new Date();
           SimpleDateFormat now = new SimpleDateFormat("dd");
+          SimpleDateFormat monthcheck = new SimpleDateFormat("MM");
+          int month = Integer.parseInt(monthcheck.format(today));
           int day = Integer.parseInt(now.format(today));
           int sevenDay=500;
           String cause="7일 출석체크 보상";
           boolean check=false;
 
-          // 해시셋 생성
-  
+          String fileName= NOWID.concat("check.ser");
+          File f = new File(fileName);
+          
+          if(f.exists()) {
+          ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
+          set=(Set<Integer>) in.readObject();
+          }
+          
+          f.delete();
+          
+                   
+      	if(month==12) {
+    		System.out.println("11월의 출석체크가 끝났습니다\n");
+    		return;
+    	}
+    	
              while(true) {
                 int choice;
                 System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
@@ -679,8 +695,22 @@ public class LoginInfoManager implements Menu {
                       break;
                    }else{
                        set.add(day);   // 출첵 정보를 저장
-                       saveInfo();     // 출첵 정보 외부 저장
                       System.out.println("출석 완료!");
+                      
+                      // 출첵해서 일주일 보상을 받을 경우
+                      if(set.size()%7==0) {
+                          loginInfo.get(INDEX).setPoint(sevenDay);
+                          pointHistory(NOWID, sevenDay, cause);
+                         System.out.println("일주일간 출석해서 500 포인트가 지급됩니다!");
+                        System.out.println(NOWID+"님의 포인트는"+loginInfo.get(INDEX).getPoint()+"입니다.");
+                        System.out.println("홈으로 돌아갑니다.");
+                        ;      // 셋에 저장된 정보 리셋
+                            
+                        } 
+  	   
+                      ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName));
+                      out.writeObject(set);
+                      out.close();
                       break;
                    }
                 }else if(choice==2) {  // 홈으로 돌아가기 버튼을 누를 경우
@@ -688,20 +718,10 @@ public class LoginInfoManager implements Menu {
                    return;
                 } 
              
+
                 
-                }   // 출첵해서 일주일 보상을 받을 경우 
-                   if(set.size()==7) {
-                        loginInfo.get(INDEX).setPoint(sevenDay);
-                        pointHistory(NOWID, sevenDay, cause);
-                       System.out.println("일주일간 출석해서 500 포인트가 지급됩니다!");
-                      System.out.println(NOWID+"님의 포인트는"+loginInfo.get(INDEX).getPoint()+"입니다.");
-                      System.out.println("홈으로 돌아갑니다.");
-                      set.clear();      // 셋에 저장된 정보 리셋
-                      saveInfo();       // 리셋 후 정보 저장
-                      return;
-                
-                } 
-	   
+                }   
+                   
        }
 	
 }
