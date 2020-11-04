@@ -7,19 +7,14 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 public class ReserveSeat extends LoginInfoManager implements Serializable {
 	static String choiceDate;
 	static int seatNum = 0; // 좌석 번호
 	char grade = ' '; // 좌석 등급
 	
-	int myMoney = 0;
-	int mypoint = 0;
 	static int choiceSeatNum = 0;
 
 	// 배열을 이용해서 저장하는 방식을 ArrayList<T> 컬랙션을 이용해서 구현해 보자
@@ -30,12 +25,6 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 		// List<PhoneInfor> 초기화
 		pSeat = new ArrayList<Seat>();
 
-		// 로그인된 경우에만 로그인 정보 가져오기 
-		if(NOWID != null) {
-			myMoney = loginInfo.get(INDEX).getMyMoney(); // 현재 가진 돈
-			mypoint = loginInfo.get(INDEX).getPoint(); // 포인트
-		} 
-		
 		// 생성자 호출할때 파일 불러오기
 		load();
 	}
@@ -100,7 +89,7 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 	boolean insertSeat() {
 		boolean result = false;
 		
-		if (myMoney == 0) {
+		if (loginInfo.get(INDEX).getMyMoney() == 0) {
 			System.out.println("금액 충전이 필요합니다.");
 			
 		} else {
@@ -119,6 +108,8 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 	boolean paying() {
 		boolean result = false;
 		int price = 0; // 티켓 가격
+		int myMoney = loginInfo.get(INDEX).getMyMoney();
+		int myPoint = loginInfo.get(INDEX).getPoint();
 	
 		if (seatNum <= 10) {
 			price = 10000;
@@ -127,7 +118,7 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 		} else if (seatNum > 20 && seatNum <= 30) {
 			price = 3000;
 		}
-
+		
 		if (myMoney < price) {
 			System.out.println("금액 충전이 필요합니다.");
 		} else {
@@ -136,9 +127,9 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 			
 			myMoney -= price;
 			int point = price/10;
-			mypoint += point;
+			myPoint += point;
 			loginInfo.get(INDEX).setMyMoney(myMoney);
-			loginInfo.get(INDEX).setPoint(mypoint);
+			loginInfo.get(INDEX).setPoint(myPoint);
 			try {
 				pointHistory(NOWID, point , cause);
 			} catch (IOException e) {
@@ -163,6 +154,9 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 
 	// 좌석 취소하기
 	public static void cancelSeat() {
+		int myMoney = loginInfo.get(INDEX).getMyMoney();
+		int myPoint = loginInfo.get(INDEX).getPoint();
+				
 		// 내 좌석 정보보기
 		if ( mySeatView()) {
 			System.out.println("취소하시는 번호를 입력해주세요.");
@@ -172,9 +166,31 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 				System.out.println("찾으시는 정보가 존재하지 않습니다.");
 				System.out.println("메뉴로 이동합니다.");
 			} else {
-				// 좌석 취소
-				pSeat.get(index - 1).cancel();
-				System.out.println(NOWID + "님 예약취소가 완료되었습니다.\n");
+				// 결제금액 및 포인트 돌려주기
+				int price = 0; // 티켓 가격
+				int cancelSetNum = pSeat.get(index - 1).getSeatNum();
+				
+				if (cancelSetNum <= 10) {
+					price = 10000;
+				} else if (cancelSetNum > 10 && cancelSetNum <= 20) {
+					price = 5000;
+				} else if (cancelSetNum > 20 && cancelSetNum <= 30) {
+					price = 3000;
+				}
+				int point = price/10;
+				
+				if (myPoint - point < 0) {
+					System.out.println(NOWID + "님 포인트를 이미 쓰셨네요. 예약취소가 불가능 합니다.\n");
+				} else {
+					loginInfo.get(INDEX).setMyMoney(myMoney + price);
+					loginInfo.get(INDEX).setPoint(myPoint - point);		
+					
+					// 좌석 취소
+					pSeat.get(index - 1).cancel();
+					
+					System.out.println(NOWID + "님 예약취소가 완료되었습니다.\n");
+				}
+				
 			}
 		}
 	}
@@ -282,6 +298,7 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 	}
 
 	void recharge() {
+		int myMoney = loginInfo.get(INDEX).getMyMoney();
 		
 		System.out.println(" 충전 금액을 입력하세요.");
 		int addMoney = Util.sc.nextInt();
@@ -308,7 +325,6 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 			// 이렇게 통채로 저장 가능 
 			out.writeObject(pSeat);
 			out.close();
-			System.out.println("저장 되었습니다.(PayInfor.ser)");
 			
 			// 회원 정보 재저장 
 			//LoginInfoManager.saveInfo();
@@ -322,15 +338,7 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 	
 	// 프로그램으로 파일의 저장 데이터를 로드하는 메서드 생성 
 	void load() {
-		// 파일 존재 여부 확인 : File 클래스 이용 
-//		File file = new File("PayInfor.ser");
-		
-//		if(!file.exists()) {
-//			System.out.println("저장된 파일이 존재하지 않습니다. 파일 저장 후 load 됩니다.");
-//		}
-		
-		// 파일에 있는 데이터를 메모리에 저장 :pBook에 저장
-		// 파일의 데이터를 읽을 수 있는 스트림 생성 
+
 		try {
 			ObjectInputStream in = new ObjectInputStream(new FileInputStream("PayInfor.ser"));
 			

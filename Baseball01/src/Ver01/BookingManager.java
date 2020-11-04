@@ -10,7 +10,7 @@ public class BookingManager extends LoginInfoManager {
 	ReserveSeat reserve = new ReserveSeat();
 	LoginInfoManager loginManager = new LoginInfoManager();
 
-	public void Bookingmain() {
+	public void Bookingmain() throws IOException, ClassNotFoundException { 
 		// 로그인 체크 
 		if(NOWID == null) {
 			System.out.println("로그인 해주세요.");
@@ -26,7 +26,7 @@ public class BookingManager extends LoginInfoManager {
 			System.out.println("\t" + RECHARGE + ".충전하기");
 			System.out.println("\t"+ EXIT2 + ".홈 메뉴로 돌아가기");
 			System.out.println("\n ■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
-			System.out.println("보유금액:" + loginInfo.get(INDEX).getMyMoney());
+			System.out.println("보유금액:" + loginInfo.get(INDEX).getMyMoney() + ", 보유포인트 : " + loginInfo.get(INDEX).getPoint());
 			int choice = Util.sc.nextInt();
 			Util.sc.nextLine();
 
@@ -43,15 +43,9 @@ public class BookingManager extends LoginInfoManager {
 					
 					if(sucess) {
 						reserve.payed();
-						try {
-							saveInfo();
-						} catch (ClassNotFoundException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						
+						// 회원정보 파일 저장 
+						saveInfo();
 					}
 				} 		
 				break;
