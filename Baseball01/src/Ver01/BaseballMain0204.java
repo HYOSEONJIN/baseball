@@ -36,6 +36,7 @@ public class BaseballMain0204 implements Menu {
          System.out.println("원하는 메뉴의 숫자를 입력하세요 >> ");
          try {
          select = Util.sc.nextInt();
+         Util.sc.nextLine();
          if(select<0 || select>6) {
             BadMenuException e = new BadMenuException(select);
             throw e;
