@@ -667,6 +667,7 @@ public class LoginInfoManager implements Menu {
           if(f.exists()) {
           ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
           set=(Set<Integer>) in.readObject();
+          in.close();
           }
           
           f.delete();
