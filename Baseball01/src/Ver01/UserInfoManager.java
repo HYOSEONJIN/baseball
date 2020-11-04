@@ -13,7 +13,7 @@ public class UserInfoManager  extends LoginInfoManager{
 
    
 
-   Seat se = new Seat();
+   ReserveSeat se = new ReserveSeat();
    
 
 
@@ -29,14 +29,14 @@ public class UserInfoManager  extends LoginInfoManager{
          }
             
          while(true) {
-            System.out.println("**********************************");
+            System.out.println("\n ■■■■■■■■■ USER INFO ■■■■■■■■\n");
          System.out.println("\t"+SHOWBOOK+". 예매조회");
          System.out.println("\t"+EVETALL+". 이벤트조회");
          System.out.println("\t"+MEMBER+". 회원정보조회");
          System.out.println("\t"+CHANGE+". 비밀번호 변경");
-         System.out.println("\t"+DELETE+" 탈퇴하기");
+         System.out.println("\t"+DELETE+". 탈퇴하기");
          System.out.println("\t"+EXIT1+". 나가기");
-         System.out.println("**********************************");
+         System.out.println("\n ■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
          System.out.println("\n>>");
  
          // 사용자 선택
@@ -135,7 +135,7 @@ public class UserInfoManager  extends LoginInfoManager{
          }
       }   
       if(NOWID == null) {
-         System.out.println("일치하는 아이디 "+NOWID+"의 정보가 존재하지 않습니다.");
+         System.out.println("일치하는 아이디의 정보가 존재하지 않습니다.");
          System.out.println("메뉴로 이동합니다.");
 
       }else {
@@ -152,7 +152,7 @@ public class UserInfoManager  extends LoginInfoManager{
    
 
    // 회원탈퇴 메서드
-   public void deleteInfo( ) {
+   public void deleteInfo( ) throws ClassNotFoundException, IOException {
       
 
       System.out.println("탈퇴할 정보를 입력해주세요.");
@@ -165,8 +165,8 @@ public class UserInfoManager  extends LoginInfoManager{
          if (loginInfo.get(INDEX).getPw().equals(pass)) {  
             loginInfo.remove(INDEX);
           System.out.println("정상적으로 탈퇴 되었습니다.");
-          
           NOWID = null;
+          saveInfo();
           return;
          }   else {
             System.out.println("아이디 "+NOWID+"님의 정보가 존재하지 않습니다.");
@@ -191,7 +191,6 @@ public class UserInfoManager  extends LoginInfoManager{
                  INDEX = i;
 
             System.out.println("아이디:"+ loginInfo.get(i).getId());            
-            System.out.println("좌석정보:"+ se.getSeatNum());
             System.out.println("포인트:"+ loginInfo.get(i).getPoint());
             System.out.println("현재 충전금액:"+ loginInfo.get(i).getMyMoney());
           
