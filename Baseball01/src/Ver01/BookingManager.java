@@ -19,10 +19,10 @@ public class BookingManager extends LoginInfoManager {
 		while (true) {
 
 			System.out.println("********2020 포스트시즌 야구 예매********");
-			System.out.println("*             " + BOOKINGNOW + ".예매하기                     *");
-			System.out.println("*              " + CANCEL + ".예매취소                         *");
-			System.out.println("*        " + BOOKINGINFO + ".결제정보                      *");
-			System.out.println("*           " + RECHARGE + ".충전하기                           *");
+			System.out.println("             " + BOOKINGNOW + ".예매하기");
+			System.out.println("              " + CANCEL + ".예매취소");
+			System.out.println("        " + BOOKINGINFO + ".결제정보");
+			System.out.println("           " + RECHARGE + ".충전하기");
 			System.out.println("**********************************");
 			System.out.println("보유금액:" + loginInfo.get(INDEX).getMyMoney());
 			int choice = Util.sc.nextInt();
