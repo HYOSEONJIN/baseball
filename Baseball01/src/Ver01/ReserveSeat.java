@@ -7,8 +7,9 @@ import java.util.Date;
 import java.util.List;
 
 public class ReserveSeat {
-	String choiceDate;  
-	static int choiceDay;
+	static String choiceDate;  
+	static int seatNum = 0;   		// 좌석 번호
+	
 	//static String loginId = LoginInfoManager.NOWID;
 	static String loginId = "이수진";
 	
@@ -33,12 +34,12 @@ public class ReserveSeat {
 	// 날짜 입력하기 
 	public static String choiceDate() {
 		getMonthGalendar();
-		System.out.println("예매 가능한 날짜를 입력해 주세요. [일자만 입력!]");
+		System.out.println("예매 가능한 날짜를 입력해 주세요. [입력형식 : 2020-01-01]");
 		
-		choiceDay = Util.sc.nextInt();
-		System.out.println(Calendar.MONTH + "월 " + choiceDay + "일 경기를 선택하셨습니다.");
+		choiceDate = Util.sc.nextLine();
+		System.out.println("[" + choiceDate + "] 경기를 선택하셨습니다.");
 		
-		return thisYear + "-" + thisMonth + "-" + choiceDay;
+		return choiceDate;
 	}
 	
 	// 좌석 선택하기 
@@ -74,6 +75,19 @@ public class ReserveSeat {
 		return choiceSeatNum; 
 	}
 	
+	// 좌석 예약하기 
+	public static void insertSeat() {
+		// 선택한 야구 날짜 
+		choiceDate = choiceDate();
+		
+		// 선택한 좌석번호 
+		seatNum = choiceSeat(choiceDate);
+		
+		// 예약
+		pSeat.add(new Seat(loginId, choiceDate, seatNum));
+		System.out.println(loginId + "님 날짜 : " + choiceDate + ",  좌석번호 : " + seatNum + "번 예매 되셨습니다");		
+	}
+	
 	// 좌석 취소하기
 	public static void cancelSeat() {
 		int choiceSeatNum = 0;
@@ -82,19 +96,15 @@ public class ReserveSeat {
 		//내 좌석 정보보기
 		mySeatView(); 
 		
-		System.out.println("취소하시는 날짜를 입력해주세요. [ex : 2020-10-01]");
-		choiceDate = Util.sc.nextLine();
-		System.out.println("취소하시는 좌석 번호를 선택해주세요.");
-		choiceSeatNum = Util.sc.nextInt();
+		System.out.println("취소하시는 번호를 입력해주세요.");
+		int index = Util.sc.nextInt();
 		
-		int index = searchIndex(loginId, choiceDate, choiceSeatNum);
-		
-		if(index <0) {
+		if(index < 1) {
 			System.out.println("찾으시는 정보가 존재하지 않습니다.");
 			System.out.println("메뉴로 이동합니다.");			
 		} else {
 			// 좌석 취소 
-			pSeat.get(index).cancel();
+			pSeat.get(index - 1).cancel();
 			System.out.println(loginId + "님 예약취소가 완료되었습니다.\n");
 		}
 	}
@@ -120,11 +130,11 @@ public class ReserveSeat {
       
         for (int i = 1; dateNum <= endDate ; i++) {    
            
-            if(i<sDayNum) {
+            if(i < sDayNum) {
             	System.out.print("\t"); // 요일숫자보다 작으면 공백
             } else {
-                if(dateNum == today) {
-                	System.out.print(dateNum + "\t"); 	//오늘 날짜
+                if(dateNum < today) {
+                	System.out.print("\t"); 	//오늘 날짜전이면 예약 불가능 하므로 공백
                 } else {
                 	System.out.print(dateNum + "\t"); 		
                 }
@@ -156,14 +166,29 @@ public class ReserveSeat {
 		return index;
 	}
 
+	// 정보 검색 
+	// 해당 indxe의 참조변수로 정보 출력
+	// 배열의 index 를 찾는 메서드
+	public static int searchIndex(String date, int seatNum) {
+		int index = -1; // 정보가 없을때
+		
+		for(int i=0; i < pSeat.size() ; i++) {
+			
+			if(pSeat.get(i).getDate().equals(date) && pSeat.get(i).getSeatNum() == seatNum) {
+				index = i;
+			}
+		}
+		return index;
+	}
+	
 	// 내 좌석 정보 보기 
 	public static void mySeatView() {
-		String result = "예약된 정보가 존재하지 않습니다.";
+		String result =  "예약된 정보가 존재하지 않습니다.";
 		
 		System.out.println("["+ loginId + "님 예약 정보]");
 		for(int i=0; i < pSeat.size() ; i++) {
 			if(pSeat.get(i).getName().equals(loginId)) {
-				result = "[" + pSeat.get(i).getName() + "]님은 " + pSeat.get(i).getDate() + "일 " + pSeat.get(i).getGrade() + "등급 " + pSeat.get(i).getSeatNum() + "번째 좌석을 예약하셨습니다.";
+				result = (i + 1) + ". [" + pSeat.get(i).getName() + "]님은 " + pSeat.get(i).getDate() + "일 " + pSeat.get(i).getGrade() + "등급 " + pSeat.get(i).getSeatNum() + "번째 좌석을 예약하셨습니다.";
 			}			
 		}
 		System.out.println(result);
@@ -173,23 +198,21 @@ public class ReserveSeat {
 	public static void viewAll() {
 		String choiceDate; 
 		String arrSeat[][] = new String[3][10];  // 3 * 10 좌석 생성 
-		int index = 0;
 		int count = 1;
 		
 		System.out.println("조회할 날짜를 입력해주세요. [ex : 2020-10-01]");
 		choiceDate = Util.sc.nextLine();
 		
 		System.out.println("=============================================");
+		System.out.println("========== 좌석 정보 [예약된 좌석인 경우 O, 아닌경우 : X] ==========");
 		for(int i = 0; i < arrSeat.length ; i++) {
 			
-			System.out.println("[" + (char)(i + 'A') + "석] 좌석 번호 -> " + (count));
-			
 			for(int j = 0; j < arrSeat[i].length ; j++) {
-				index = searchIndex(loginId, choiceDate, count); 
+				int index = searchIndex(choiceDate, count); 
 				
 				// 예약된 좌석인 경우 O, 아닌경우 X
-				if(index > 0) {
-					System.out.print("[0]");
+				if(index > -1) {
+					System.out.print("[O]");
 				}else {
 					System.out.print("[X]");
 				}

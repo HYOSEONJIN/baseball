@@ -12,7 +12,6 @@ public class BookingManager implements Menu {
 	public static void main(String[] args) {
 		
 		ReserveSeat reserve = new ReserveSeat();
-		Seat seat = new Seat();
 		
 		// 테스트 변수
 		boolean result = false;
@@ -23,7 +22,6 @@ public class BookingManager implements Menu {
 
 		String choiceDate = null; 	// 선택한 야구날짜
 		char grade = ' ';  		// 좌석 등급 
-		int seatNum = 0;   		// 좌석 번호
 		int price = 0;			// 티켓 가격
 		int myMoney=0;			//현재 가진 돈 
 		int point=0;			//포인트
@@ -45,17 +43,9 @@ public class BookingManager implements Menu {
 			switch(choice) {
 				// 예약 하기
 				case BOOKINGNOW:		
-					// 선택한 야구 날짜 
-					choiceDate = reserve.choiceDate();
-					
-					// 선택한 좌석번호 
-					seatNum = reserve.choiceSeat(choiceDate);
-					
-					// 예약
-					seat.reverse(loginId, choiceDate, seatNum);
-					System.out.println(loginId+"님 날짜 : " + choiceDate + ",  좌석번호 : " + seatNum + "번 예매 되셨습니다");
-					
+					reserve.insertSeat();
 					break;
+					
 				// 예약 취소		
 				case CANCEL:
 					reserve.cancelSeat();

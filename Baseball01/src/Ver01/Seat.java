@@ -12,6 +12,14 @@ public class Seat {
 	private char grade;   // 등급 (A, B, C) 
 	private int seatNum;  // 좌석번호 
 
+	// 생성자
+	public Seat(String name, String date, int seatNum) {
+		this.name = name;
+		this.date = date;
+		this.grade = getGrade(seatNum);
+		this.seatNum = seatNum;
+	}
+	
 	// getter 
 	public String getName() {
 		return name;
@@ -29,14 +37,7 @@ public class Seat {
 		return seatNum;
 	}
 	
-	// 예약시 해당 좌석에 이름, 등급,  넣어주기
-	public void reverse(String name, String date, int seatNum) {
-		this.name = name;
-		this.date = date;
-		this.grade = getGrade(seatNum);
-		this.seatNum = seatNum;
-	}
-	
+
 	// 해당 좌석이 예약된 좌석인지 조회 
 	public boolean isExist() {
 		boolean result = false;
