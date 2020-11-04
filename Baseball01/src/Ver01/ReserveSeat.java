@@ -127,10 +127,8 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 			
 			myMoney -= price;
 			int point = price/10;
-			myPoint += point;
-			
 			loginInfo.get(INDEX).setMyMoney(myMoney);
-			loginInfo.get(INDEX).setPoint(myPoint);
+			loginInfo.get(INDEX).setPoint(point);
 			try {
 				pointHistory(NOWID, point , cause);
 			} catch (IOException e) {
@@ -154,7 +152,7 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 	}
 
 	// 좌석 취소하기
-	void cancelSeat() {
+	public static void cancelSeat() {
 		int myMoney = loginInfo.get(INDEX).getMyMoney();
 		int myPoint = loginInfo.get(INDEX).getPoint();
 				
@@ -178,27 +176,16 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 				} else if (cancelSetNum > 20 && cancelSetNum <= 30) {
 					price = 3000;
 				}
-				int point = price/10;
+				int point = -(price/10);
 				
-				if (myPoint - point < 0) {
+				if (myPoint - Math.abs(point) < 0) {
 					System.out.println(NOWID + "님 포인트를 이미 쓰셨네요. 예약취소가 불가능 합니다.\n");
 				} else {
 					loginInfo.get(INDEX).setMyMoney(myMoney + price);
-					loginInfo.get(INDEX).setPoint(myPoint - point);		
-					String cause="취소금액 10% 반환";
-					
-					try {
-						pointHistory(NOWID, -point , cause);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					loginInfo.get(INDEX).setPoint(point);		
 					
 					// 좌석 취소
 					pSeat.get(index - 1).cancel();
-					
-					// 파일 저장
-					save();
 					
 					System.out.println(NOWID + "님 예약취소가 완료되었습니다.\n");
 				}
