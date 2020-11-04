@@ -23,6 +23,7 @@ public class BookingManager extends LoginInfoManager {
 			System.out.println("              " + CANCEL + ".예매취소");
 			System.out.println("        " + BOOKINGINFO + ".결제정보");
 			System.out.println("           " + RECHARGE + ".충전하기");
+			System.out.println("           " + EXIT2 + ".홈 메뉴로 돌아가기");
 			System.out.println("**********************************");
 			System.out.println("보유금액:" + loginInfo.get(INDEX).getMyMoney());
 			int choice = Util.sc.nextInt();
@@ -32,20 +33,16 @@ public class BookingManager extends LoginInfoManager {
 			// 예약 하기
 			case BOOKINGNOW:
 				reserve.insertSeat();
-				
 				boolean sucess = reserve.paying();
 
 				// 결제가 제대로 완료된 경우 
 				if(sucess) {
 					reserve.payed();
 				} 		
-				
 				break;
 
 			case CANCEL:
-
 				reserve.cancelSeat();
-
 				break;
 
 			// 예약 정보보기
@@ -55,14 +52,15 @@ public class BookingManager extends LoginInfoManager {
 				break;
 
 			// 결제하기
-
 			case RECHARGE://충전하기
-				
 				reserve.recharge();
-				
 				break;
 
+			// 홈메뉴로 돌아가기
+			case EXIT2:
+				return;
 			}
+			
 		}
 
 	}

@@ -20,6 +20,7 @@ public interface Menu {
 	int CANCEL=2;
 	int BOOKINGINFO=3;
 	int RECHARGE=4;
+	int EXIT2=5;
 	
 	// *****************************
     // 예약 상세메뉴 (UserManager)
