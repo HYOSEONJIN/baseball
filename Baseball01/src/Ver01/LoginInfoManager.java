@@ -363,7 +363,7 @@ public class LoginInfoManager implements Menu {
 	      while (true) {
 		         // 한번 참여시 100포인트 차감, 승리시 300포인트 돌려주고 비기면 50, 지면 0포인트 돌려줌
 	    	 System.out.println("〓〓〓〓〓〓〓가위 바위 보 G A M E〓〓〓〓〓〓〓");
-	    	 System.out.println("      win : +100p | draw : +50p");
+	    	 System.out.println("      win : +300p | draw : +50p");
 	         System.out.println("      1 : 가위 | 2 :바위 | 3 : 보 ");
 	         System.out.println("      0 : 취소");
 	         System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓\n");
@@ -464,9 +464,9 @@ public class LoginInfoManager implements Menu {
 	      
 	      while(true) {
 	    System.out.println("〓〓〓〓〓〓〓〓〓R A N D O M〓〓〓〓〓〓〓〓〓");
-	      System.out.println("\t\t당첨확률 25%");
-	      System.out.println("   1-100까지 원하는 숫자를 입력하세요!");
-	      System.out.println("    취소 : 0 **");
+	      System.out.println("\t당첨확률 25%");
+	      System.out.println("    1-100까지 원하는 숫자를 입력하세요!");
+	      System.out.println("\t취소 : 0 **");
 	      System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓\n");
 	      
 	      try {
