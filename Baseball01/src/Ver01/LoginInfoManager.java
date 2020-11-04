@@ -21,6 +21,23 @@ import java.util.List;
 import java.util.Set;
 
 public class LoginInfoManager implements Menu {
+
+	// 생성자
+	public LoginInfoManager() {
+		super();
+	}
+
+	// 변수 상수화 
+	static String NOWID ;	// 현재 로그인 ID
+	static String NOWPW;	// 현재 로그인 ID PW 
+	static int INDEX; 		// 현재 로그인 ID index
+	
+	// 회원정보 배열 생성
+	static ArrayList<LoginInfo> loginInfo = new ArrayList<LoginInfo>();	 
+	
+	// 포인트 출석 해시셋
+    Set<Integer> set = new HashSet<Integer>();	
+	
 	
 	// 로그인 메뉴 메서드
 	public void loginZone() throws IOException, ClassNotFoundException { 
@@ -63,21 +80,6 @@ public class LoginInfoManager implements Menu {
 	}
 	
 	
-	// 생성자
-	public LoginInfoManager() {
-		super();
-	}
-
-	// 변수 상수화 
-	static String NOWID ;	// 현재 로그인 ID
-	static String NOWPW;	// 현재 로그인 ID PW 
-	static int INDEX; 		// 현재 로그인 ID index
-	
-	// 회원정보 배열 생성
-	static ArrayList<LoginInfo> loginInfo = new ArrayList<LoginInfo>();	 
-	// 포인트 출석 해시셋
-    Set<Integer> set = new HashSet<Integer>();
-	
 	// 로그인 메서드 
 	//		사용자 입력 -> 로그인 -> 사용자의 로그인 ID 반환 
 	public void login() throws IOException, ClassNotFoundException { 
@@ -87,10 +89,10 @@ public class LoginInfoManager implements Menu {
 		while(true) {
 			// 사용자 입력
 	        System.out.println("\n________ L O G I N _________\n");
-			System.out.print(" ID : ");
+			System.out.print(" I  D : ");
 			id = Util.sc.nextLine();
 
-			System.out.print(" PW : ");
+			System.out.print(" P  W : ");
 			String pw = Util.sc.nextLine();
 	        System.out.println("____________________________"); 			
 		
@@ -184,14 +186,12 @@ public class LoginInfoManager implements Menu {
 	// 회원가입 메서드
 	//		ID 입력 받기 -> ID 중복 확인 -> 비밀번호 입력 받기 -> 회원가입 완료
 	public void joinMember() throws IOException, ClassNotFoundException{
-//		System.out.println("회원가입을 시작합니다.");
 		String id = null;
 		String pw = null;	      
 		System.out.println("\n________ J O I N _________\n");
 		
 		// ID 중복 확인 (무한반복)
 		while(true) {
-
 			System.out.print(" I  D : ");
 			// ID 공백 입력 시 예외처리
 			try {
@@ -247,7 +247,7 @@ public class LoginInfoManager implements Menu {
 		System.out.println("\n 〓〓〓〓〓〓  CHANGE MENU 〓〓〓〓〓〓\n");
 		System.out.print(" I  D : ");
 		String newId = Util.sc.nextLine().trim();	
-		System.out.print(" I  D : ");
+		System.out.print(" P  W : ");
 		String newPw = Util.sc.nextLine().trim();	
 		 System.out.println("\n 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓"); 
 
@@ -457,7 +457,7 @@ public class LoginInfoManager implements Menu {
 	      
 	      while(true) {
 	      System.out.println("뽑기 GAME~~! 당첨확률은 25%입니다 :)");
-	      System.out.println("1-100까지 원하는 숫자를 입력하세요!   ** 취소 : 0 **");
+	      System.out.println("1-100까지 원하는 숫자를 입력하세요!\n** 취소 : 0 **");
 	      
 	      try {
 	         
