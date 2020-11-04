@@ -6,25 +6,26 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class BookingManager implements Menu {
+	LoginInfo info = new LoginInfo(); 
+	ReserveSeat reserve = new ReserveSeat();
 
-	// public void Bookingmain() {
-	public static void main(String[] args) {
+	// 테스트 변수
+	boolean result = false;
 
-		ReserveSeat reserve = new ReserveSeat();
+	// 테스트를 위해 우선 넣어놓음 . 테스트 끝나면 아래 주석 풀기
+	 String loginId = LoginInfoManager.NOWID;
+	
+	//String loginId = "이수진";
 
-		// 테스트 변수
-		boolean result = false;
-
-		// 테스트를 위해 우선 넣어놓음 . 테스트 끝나면 아래 주석 풀기
-		// String loginId = LoginInfoManager.NOWID;
-		String loginId = "이수진";
-
-		String choiceDate = null; // 선택한 야구날짜
-		char grade = ' '; // 좌석 등급
-		int price = 0; // 티켓 가격
-		int myMoney = 5000; // 현재 가진 돈
-		int point = 0; // 포인트
-		int getPoint = myMoney / 10;
+	String choiceDate = null; // 선택한 야구날짜
+	char grade = ' '; // 좌석 등급
+	int price = 0; // 티켓 가격
+	int myMoney = info.getMyMoney(); // 현재 가진 돈
+	int point = info.getPoint(); // 포인트
+	
+	public void Bookingmain() {
+	//public static void main(String[] args) {
+		
 		while (true) {
 
 			System.out.println("********2020 포스트시즌 야구 예매********");
@@ -65,7 +66,7 @@ public class BookingManager implements Menu {
 
 			// 결제하기
 
-			case RECHARGE:
+			case RECHARGE://충전하기
 				
 			myMoney = reserve.recharge(myMoney);
 				
