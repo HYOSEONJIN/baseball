@@ -22,8 +22,8 @@ public class ReserveSeat extends LoginInfoManager {
 	static int choiceSeatNum = 0;
 
 	// 배열을 이용해서 저장하는 방식을 ArrayList<T> 컬랙션을 이용해서 구현해 보자
-	static List<Seat> pSeat;
-
+	static ArrayList<Seat> pSeat;
+	
 	// 생성자 : 싱글톤 처리 -> 외부에서 인스턴스 생성을 금지
 	ReserveSeat() {
 		// List<PhoneInfor> 초기화
@@ -144,18 +144,18 @@ public class ReserveSeat extends LoginInfoManager {
 	// 좌석 취소하기
 	public static void cancelSeat() {
 		// 내 좌석 정보보기
-		mySeatView();
-
-		System.out.println("취소하시는 번호를 입력해주세요.");
-		int index = Util.sc.nextInt();
-
-		if (index < 1) {
-			System.out.println("찾으시는 정보가 존재하지 않습니다.");
-			System.out.println("메뉴로 이동합니다.");
-		} else {
-			// 좌석 취소
-			pSeat.get(index - 1).cancel();
-			System.out.println(NOWID + "님 예약취소가 완료되었습니다.\n");
+		if ( mySeatView()) {
+			System.out.println("취소하시는 번호를 입력해주세요.");
+			int index = Util.sc.nextInt();
+	
+			if (index < 1) {
+				System.out.println("찾으시는 정보가 존재하지 않습니다.");
+				System.out.println("메뉴로 이동합니다.");
+			} else {
+				// 좌석 취소
+				pSeat.get(index - 1).cancel();
+				System.out.println(NOWID + "님 예약취소가 완료되었습니다.\n");
+			}
 		}
 	}
 
@@ -238,17 +238,23 @@ public class ReserveSeat extends LoginInfoManager {
 	}
 
 	// 내 좌석 정보 보기
-	public static void mySeatView() {
-		String result = "예약된 정보가 존재하지 않습니다.";
+	public static boolean mySeatView() {
+		boolean result = false;
+		
+		String msg = "예약된 정보가 존재하지 않습니다.";
 
 		System.out.println("[" + NOWID + "님 예약 정보]");
 		for (int i = 0; i < pSeat.size(); i++) {
 			if (pSeat.get(i).getName().equals(NOWID)) {
-				result = (i + 1) + ". [" + pSeat.get(i).getName() + "]님은 " + pSeat.get(i).getDate() + "일 "
+				result = true;
+				
+				msg = (i + 1) + ". [" + pSeat.get(i).getName() + "]님은 " + pSeat.get(i).getDate() + "일 "
 						+ pSeat.get(i).getGrade() + "등급 " + pSeat.get(i).getSeatNum() + "번째 좌석을 예약하셨습니다.";
 			}
 		}
-		System.out.println(result);
+		System.out.println(msg);
+		
+		return result;
 	}
 
 	void recharge() {
@@ -261,6 +267,10 @@ public class ReserveSeat extends LoginInfoManager {
 
 	// List:pBook 에 저장되어있는 인스턴스들을 저장 
 	public void save() {
+		// 파일 중복생성 방지
+		File f = new File("PayInfor.ser");
+		f.delete();
+		
 		if(pSeat.size() == 0) {
 			System.out.println("저장된 데이터가 없어 파일의 저장이 되지 않습니다.");
 			return;
@@ -272,7 +282,6 @@ public class ReserveSeat extends LoginInfoManager {
 
 			// 이렇게 통채로 저장 가능 
 			out.writeObject(pSeat);
-			
 			out.close();
 			System.out.println("저장 되었습니다.(PayInfor.ser)");
 		} catch (IOException e) {
@@ -295,8 +304,7 @@ public class ReserveSeat extends LoginInfoManager {
 		try {
 			ObjectInputStream in = new ObjectInputStream(new FileInputStream("PayInfor.ser"));
 			
-			pSeat = (List<Seat>)in.readObject();  
-			
+			pSeat = (ArrayList<Seat>)in.readObject();  
 			System.out.println("데이터 로드 완료............");
 		} catch (IOException e) {
 			//System.out.println("데이터를 로드하는 과정에 오류가 발생했습니다.");
