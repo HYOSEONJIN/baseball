@@ -153,7 +153,7 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 	}
 
 	// 좌석 취소하기
-	public static void cancelSeat() {
+	void cancelSeat() {
 		int myMoney = loginInfo.get(INDEX).getMyMoney();
 		int myPoint = loginInfo.get(INDEX).getPoint();
 				
@@ -187,6 +187,9 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 					
 					// 좌석 취소
 					pSeat.get(index - 1).cancel();
+					
+					// 파일 저장
+					save();
 					
 					System.out.println(NOWID + "님 예약취소가 완료되었습니다.\n");
 				}
