@@ -128,6 +128,7 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 			myMoney -= price;
 			int point = price/10;
 			myPoint += point;
+			
 			loginInfo.get(INDEX).setMyMoney(myMoney);
 			loginInfo.get(INDEX).setPoint(myPoint);
 			try {
