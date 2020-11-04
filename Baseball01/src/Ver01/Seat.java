@@ -51,7 +51,7 @@ public class Seat implements Serializable {
 		boolean result = false;
 
 		// 해당 좌석에 아무도 예약 안한 경우 
-		if(name != null) {
+		if(name.equals("")) {
 			result = true;
 		}
 		return result;
@@ -59,8 +59,8 @@ public class Seat implements Serializable {
 	
 	// 해당 좌석 예약 취소 
 	public void cancel() {
-		name = null;
-		date = null;
+		name = "";
+		date = "";
 		grade = ' ';
 		seatNum = 0;
 	}
