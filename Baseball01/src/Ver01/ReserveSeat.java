@@ -121,12 +121,22 @@ public class ReserveSeat extends LoginInfoManager {
 		if (myMoney < price) {
 			System.out.println("금액 충전이 필요합니다.");
 		} else {
+			
+			String cause="결제금액 10% 적립";
+			
 			myMoney -= price;
-			mypoint += price / 10;
+			int point = price/10;
+			mypoint += point;
 			loginInfo.get(INDEX).setMyMoney(myMoney);
 			loginInfo.get(INDEX).setPoint(mypoint);
+			try {
+				pointHistory(NOWID, point , cause);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println(price + "원이 결제 되었습니다.");
-			System.out.println((price / 10) + "가  적립 되었습니다.");
+			System.out.println((point) + "가  적립 되었습니다.");
 			result = true;
 		}
 
@@ -258,6 +268,7 @@ public class ReserveSeat extends LoginInfoManager {
 	}
 
 	void recharge() {
+		
 		System.out.println(" 충전 금액을 입력하세요.");
 		int addMoney = Util.sc.nextInt();
 		myMoney += addMoney;
