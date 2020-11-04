@@ -10,7 +10,11 @@ public class BookingManager extends LoginInfoManager {
 	LoginInfoManager loginManager = new LoginInfoManager();
 
 	public void Bookingmain() {
-	//public static void main(String[] args) {
+		// 로그인 체크 
+		if(INDEX == 0) {
+			System.out.println("로그인 해주세요.");
+			return;
+		}
 		
 		while (true) {
 
