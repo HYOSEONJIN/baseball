@@ -21,4 +21,13 @@ public interface Menu {
 	int BOOKINGINFO=3;
 	int RECHARGE=4;
 	
+	// *****************************
+    // 예약 상세메뉴 (UserManager)
+    int  SHOWBOOK=1;
+    int EVETALL=2;
+    int MEMBER=3;
+    int CHANGE=4;
+    int DELETE=5;
+    int EXIT1 =6;
+	
 }
