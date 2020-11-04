@@ -7,6 +7,14 @@ public interface Menu {
 	   int EVENT=3;
 	   int INFO=4;
 	   int EXIT=5;
+	   
+	// 로그인 후
+	   
+	   int BOOKING_C=1;
+	   int EVENT_C=2;
+	   int INFO_C=3;
+	   int EXIT_C=4;
+	
 	
 	// *****************************
 	// 로그인 상세메뉴 (LoginInfoManager)

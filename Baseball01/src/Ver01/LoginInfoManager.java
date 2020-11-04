@@ -75,7 +75,8 @@ public class LoginInfoManager implements Menu {
 	
 	// 회원정보 배열 생성
 	static ArrayList<LoginInfo> loginInfo = new ArrayList<LoginInfo>();	 
-	
+	// 포인트 출석 해시셋
+    Set<Integer> set = new HashSet<Integer>();
 	
 	// 로그인 메서드 
 	//		사용자 입력 -> 로그인 -> 사용자의 로그인 ID 반환 
@@ -646,7 +647,6 @@ public class LoginInfoManager implements Menu {
           boolean check=false;
 
           // 해시셋 생성
-          Set<Integer> set = new HashSet<Integer>();
 
              while(true) {
                 int choice;
