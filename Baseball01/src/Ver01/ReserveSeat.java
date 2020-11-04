@@ -262,12 +262,11 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 		boolean result = false;
 		
 		String msg = "예약된 정보가 존재하지 않습니다.";
-
-		System.out.println("[" + NOWID + "님 예약 정보]");
+		
 		for (int i = 0; i < pSeat.size(); i++) {
 			if (pSeat.get(i).getName().equals(NOWID)) {
 				result = true;
-				
+				System.out.println("[" + NOWID + "님 예약 정보]");
 				msg = (i + 1) + ". [" + pSeat.get(i).getName() + "]님은 " + pSeat.get(i).getDate() + "일 "
 						+ pSeat.get(i).getGrade() + "등급 " + pSeat.get(i).getSeatNum() + "번째 좌석을 예약하셨습니다.";
 			}
@@ -306,6 +305,9 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 			out.close();
 			System.out.println("저장 되었습니다.(PayInfor.ser)");
 			
+			// 회원 정보 재저장 
+			//LoginInfoManager.saveInfo();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("저장하는 과정에 오류가 발생했습니다.(" + pSeat.size() + ") \n다시 시도해 주세요.");
@@ -328,7 +330,6 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 			ObjectInputStream in = new ObjectInputStream(new FileInputStream("PayInfor.ser"));
 			
 			pSeat = (ArrayList<Seat>)in.readObject();  
-			System.out.println("데이터 로드 완료............");
 		} catch (IOException e) {
 			//System.out.println("데이터를 로드하는 과정에 오류가 발생했습니다.");
 			//e.printStackTrace();
