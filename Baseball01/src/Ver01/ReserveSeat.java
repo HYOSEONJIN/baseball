@@ -260,18 +260,23 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 	// 내 좌석 정보 보기
 	public static boolean mySeatView() {
 		boolean result = false;
-		
-		String msg = "예약된 정보가 존재하지 않습니다.";
+		String msg = "";
 		
 		for (int i = 0; i < pSeat.size(); i++) {
 			if (pSeat.get(i).getName().equals(NOWID)) {
 				result = true;
-				System.out.println("[" + NOWID + "님 예약 정보]");
-				msg = "예매번호"+(i + 1)+"번," + ". [" + pSeat.get(i).getName() + "]님은 " + pSeat.get(i).getDate() + "일 "
-						+ pSeat.get(i).getGrade() + "등급 " + pSeat.get(i).getSeatNum() + "번째 좌석을 예약하셨습니다.";
+				
+				msg += "예매번호"+(i + 1)+"번," + ". [" + pSeat.get(i).getName() + "]님은 " + pSeat.get(i).getDate() + "일 "
+						+ pSeat.get(i).getGrade() + "등급 " + pSeat.get(i).getSeatNum() + "번째 좌석을 예약하셨습니다.\n";
 			}
 		}
-		System.out.println(msg);
+		
+		if(result) {
+			System.out.println("[" + NOWID + "님 예약 정보]");
+			System.out.println(msg);
+		}else {
+			System.out.println("예약된 정보가 존재하지 않습니다.");
+		}
 		
 		return result;
 	}
