@@ -106,7 +106,7 @@ public class UserInfoManager  extends LoginInfoManager{
          }
          
          if(INDEX <0) {
-            System.out.println("일치하는 아이디 "+NOWID+"의 정보가 존재하지 않습니다.");
+             System.out.println("정보가 존재하지 않습니다.");
             System.out.println("메뉴로 이동합니다.");
          }else {
            System.out.println("예매 내역입니다.");
@@ -169,7 +169,7 @@ public class UserInfoManager  extends LoginInfoManager{
           saveInfo();
           return;
          }   else {
-            System.out.println("아이디 "+NOWID+"님의 정보가 존재하지 않습니다.");
+            System.out.println("정보가 존재하지 않습니다.");
             System.out.println("비밀번호가 틀렸습니다.");
          }
          } 
@@ -182,7 +182,7 @@ public class UserInfoManager  extends LoginInfoManager{
    public void showAllinfo () {
        
  
-         System.out.println(NOWID+"회원정보내역 입니다");
+         System.out.println("회원정보내역 입니다");
          
 
          for(int i = 0; i<loginInfo.size(); i++) {
@@ -197,7 +197,7 @@ public class UserInfoManager  extends LoginInfoManager{
             }
          }   
          if(NOWID == null) {
-            System.out.println("일치하는 아이디 "+NOWID+"의 정보가 존재하지 않습니다.");
+            System.out.println("정보가 존재하지 않습니다.");
             System.out.println("메뉴로 이동합니다.");
 
          }else {
