@@ -10,7 +10,7 @@ public class ReserveSeat extends LoginInfoManager {
 	static String choiceDate;
 	static int seatNum = 0; // 좌석 번호
 	char grade = ' '; // 좌석 등급
-	int price = 0; // 티켓 가격
+	
 	int myMoney = 0;
 	int mypoint = 0;
 	static int choiceSeatNum = 0;
@@ -102,8 +102,8 @@ public class ReserveSeat extends LoginInfoManager {
 	// 결제
 	boolean paying() {
 		boolean result = false;
-		int point = 0;
-
+		int price = 0; // 티켓 가격
+	
 		if (seatNum <= 10) {
 			price = 10000;
 		} else if (seatNum > 10 && seatNum <= 20) {
