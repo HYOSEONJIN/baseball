@@ -1,5 +1,11 @@
 package Ver01;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,7 +36,7 @@ public class ReserveSeat extends LoginInfoManager {
 		} 
 		
 		// 생성자 호출할때 파일 불러오기
-		// read();
+		load();
 	}
 
 	// 날짜 입력하기
@@ -128,9 +134,10 @@ public class ReserveSeat extends LoginInfoManager {
 	}
 
 	// 예약완료
-	public static void payed() {
+	void payed() {
 		pSeat.add(new Seat(NOWID, choiceDate, seatNum));
-		// System.out.println(pSeat.size());
+		// 파일 저장
+		save();
 		System.out.println(NOWID + "님 날짜 : " + choiceDate + ",  좌석번호 : " + seatNum + "번 예매 되셨습니다");
 	}
 
@@ -252,4 +259,52 @@ public class ReserveSeat extends LoginInfoManager {
 		System.out.println("보유금액: " + myMoney);
 	}
 
+	// List:pBook 에 저장되어있는 인스턴스들을 저장 
+	public void save() {
+		if(pSeat.size() == 0) {
+			System.out.println("저장된 데이터가 없어 파일의 저장이 되지 않습니다.");
+			return;
+		}
+		
+		// 인스턴스를 저장할 수 있는 출력 스트림 생성 
+		try {
+			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("PayInfor.ser"));
+
+			// 이렇게 통채로 저장 가능 
+			out.writeObject(pSeat);
+			
+			out.close();
+			System.out.println("저장 되었습니다.(PayInfor.ser)");
+		} catch (IOException e) {
+			System.out.println("저장하는 과정에 오류가 발생했습니다.(" + pSeat.size() + ") \n다시 시도해 주세요.");
+		}
+		
+	}
+	
+	// 프로그램으로 파일의 저장 데이터를 로드하는 메서드 생성 
+	void load() {
+		// 파일 존재 여부 확인 : File 클래스 이용 
+//		File file = new File("PayInfor.ser");
+		
+//		if(!file.exists()) {
+//			System.out.println("저장된 파일이 존재하지 않습니다. 파일 저장 후 load 됩니다.");
+//		}
+		
+		// 파일에 있는 데이터를 메모리에 저장 :pBook에 저장
+		// 파일의 데이터를 읽을 수 있는 스트림 생성 
+		try {
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream("PayInfor.ser"));
+			
+			pSeat = (List<Seat>)in.readObject();  
+			
+			System.out.println("데이터 로드 완료............");
+		} catch (IOException e) {
+			//System.out.println("데이터를 로드하는 과정에 오류가 발생했습니다.");
+			//e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("데이터를 로드하는 과정에 오류가 발생했습니다.");
+			e.printStackTrace();
+		}
+		
+	}
 }
