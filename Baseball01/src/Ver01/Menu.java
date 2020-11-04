@@ -19,8 +19,6 @@ public interface Menu {
 	int  BOOKINGNOW=1;
 	int CANCEL=2;
 	int BOOKINGINFO=3;
-	int ALLSEAT=4;
-	int PAYING=5;
-	int RECHARGE=6;
+	int RECHARGE=4;
 	
 }
