@@ -24,10 +24,10 @@ public interface Menu {
 	
 	// *****************************
 	// 예약 상세메뉴 (BookingManager)
-	int  BOOKINGNOW=1;
-	int CANCEL=2;
-	int BOOKINGINFO=3;
-	int RECHARGE=4;
+	int RECHARGE=1;
+	int  BOOKINGNOW=2;
+	int CANCEL=3;
+	int BOOKINGINFO=4;
 	int EXIT2=5;
 	
 	// *****************************

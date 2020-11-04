@@ -59,7 +59,7 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 		int index = 0;
 		int count = 1;
 
-		System.out.println("\n ■■■■■■■ 좌석 정보 [예약된 좌석인 경우 X, 아닌경우 : 좌석번호] ■■■■■■■■ \n");
+		System.out.println("\n ■■■■■ 좌석 정보 [예약된 좌석인 경우 X, 아닌경우 : 좌석번호] ■■■■■■ \n");
 		for (int i = 0; i < arrSeat.length; i++) {
 
 			System.out.println("[" + (char) (i + 'A') + "석]");
@@ -135,11 +135,12 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓\n");
 			System.out.println(price + "원이 결제 되었습니다.");
-			System.out.println((point) + "가  적립 되었습니다.");
+			System.out.println((point) + "포인트가 적립 되었습니다.\n");
+			System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
 			result = true;
 		}
-
 		return result;
 	}
 
@@ -280,9 +281,9 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 		for (int i = 0; i < pSeat.size(); i++) {
 			if (pSeat.get(i).getName().equals(NOWID)) {
 				result = true;
-				
 				msg += "\n예매번호"+(i + 1)+"번" + ". [" + pSeat.get(i).getName() + "]님은\n" + pSeat.get(i).getDate() + "일,"
 						+ "\n"+pSeat.get(i).getGrade() + "등급 " + pSeat.get(i).getSeatNum() + "번째 좌석을 예약하셨습니다.\n";
+				
 			}
 		}
 		
@@ -296,7 +297,7 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 		return result;
 	}
 
-	void recharge() {
+	void recharge() throws ClassNotFoundException, IOException {
 		int myMoney = loginInfo.get(INDEX).getMyMoney();
 		
 		System.out.println(" 충전 금액을 입력하세요.");
@@ -304,6 +305,7 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 		myMoney += addMoney;
 		loginInfo.get(INDEX).setMyMoney(myMoney);
 		System.out.println("보유금액: " + myMoney);
+	    saveInfo();      // 충전금액 저장 : 혜인
 	}
 
 	// List:pBook 에 저장되어있는 인스턴스들을 저장 

@@ -20,10 +20,10 @@ public class BookingManager extends LoginInfoManager {
 		while (true) {
 
 			System.out.println("\n ■■■■■■■■ RESERVATION ■■■■■■■■\n");
+			System.out.println("\t" + RECHARGE + ".충전하기");
 			System.out.println("\t"+ BOOKINGNOW + ".예매하기");
 			System.out.println("\t" + CANCEL + ".예매취소");
 			System.out.println("\t" + BOOKINGINFO + ".결제정보");
-			System.out.println("\t" + RECHARGE + ".충전하기");
 			System.out.println("\t"+ EXIT2 + ".홈 메뉴로 돌아가기");
 			System.out.println("\n ■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
 			System.out.println("보유금액:" + loginInfo.get(INDEX).getMyMoney() + ", 보유포인트 : " + loginInfo.get(INDEX).getPoint());

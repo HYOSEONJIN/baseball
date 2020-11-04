@@ -95,7 +95,7 @@ public class UserInfoManager extends LoginInfoManager {
 			System.out.println("정보가 존재하지 않습니다.");
 			System.out.println("메뉴로 이동합니다.");
 		} else {
-			System.out.println("예매 내역입니다.");
+			System.out.println("〓〓〓〓〓〓〓〓예매이력〓〓〓〓〓〓〓〓\n");
 			System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
 			ReserveSeat.mySeatView();
 			System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
@@ -107,7 +107,7 @@ public class UserInfoManager extends LoginInfoManager {
 	// 이벤트내역 조회
 	public void showEvent1() {
 
-		System.out.println("이벤트내역 입니다");
+		System.out.println("〓〓〓〓〓〓이벤트내역〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓\n");
 
 		for (int i = 0; i < loginInfo.size(); i++) {
 			// 입력된 아이디와 패스워드가 일치하는 정보를 찾음.
@@ -117,8 +117,11 @@ public class UserInfoManager extends LoginInfoManager {
 			}
 		}
 		if (NOWID == null) {
+			System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓\n");
 			System.out.println("일치하는 아이디의 정보가 존재하지 않습니다.");
 			System.out.println("메뉴로 이동합니다.");
+			System.out.println("\n〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
+
 
 		} else {
 			pointHistoryInfo(NOWID);
@@ -151,7 +154,7 @@ public class UserInfoManager extends LoginInfoManager {
 
 	public void showAllinfo() {
 
-		System.out.println("회원정보내역 입니다");
+		System.out.println("〓〓〓〓〓〓〓〓회원정보〓〓〓〓〓〓〓〓\n");
 
 		for (int i = 0; i < loginInfo.size(); i++) {
 			// 입력된 아이디와 패스워드가 일치하는 정보를 찾음.

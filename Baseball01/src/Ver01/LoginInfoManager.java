@@ -43,7 +43,7 @@ public class LoginInfoManager implements Menu {
 	public void loginZone() throws IOException, ClassNotFoundException { 
 		
 		while(true) {
-	         System.out.println("\n 〓〓〓〓〓〓  LOGIN MENU 〓〓〓〓〓〓");
+	         System.out.println("\n 〓〓〓〓〓〓 LOGIN MENU 〓〓〓〓〓〓");
 	         System.out.println("\n	"+LOG+". 로그인");
 	         System.out.println("	"+JOIN+". 회원가입");
 	         System.out.println("	"+HOME+ ". 홈 메뉴로 돌아가기");
@@ -286,7 +286,7 @@ public class LoginInfoManager implements Menu {
        }
 
        while (true) {
-           System.out.println("〓〓〓〓〓〓P O I N T Z O N E〓〓〓〓〓〓〓\n");
+           System.out.println("〓〓〓〓〓〓P O I N T Z O N E〓〓〓〓〓〓〓〓\n");
            System.out.println("\t"+NOWID+"님, 안녕하세요!");
            System.out.println("\t"+loginInfo.get(INDEX).getPoint()+" POINT 보유중");
            System.out.println("\n〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
@@ -650,7 +650,7 @@ public class LoginInfoManager implements Menu {
 	
 	
 	// 출석체크이벤트 이력
-       void att() throws IOException {
+       void att() throws IOException, ClassNotFoundException {
           // 날짜 받기
           Date today=new Date();
           SimpleDateFormat now = new SimpleDateFormat("dd");
@@ -660,7 +660,7 @@ public class LoginInfoManager implements Menu {
           boolean check=false;
 
           // 해시셋 생성
-
+  
              while(true) {
                 int choice;
                 System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
@@ -679,6 +679,7 @@ public class LoginInfoManager implements Menu {
                       break;
                    }else{
                        set.add(day);   // 출첵 정보를 저장
+                       saveInfo();     // 출첵 정보 외부 저장
                       System.out.println("출석 완료!");
                       break;
                    }
@@ -689,13 +690,14 @@ public class LoginInfoManager implements Menu {
              
                 
                 }   // 출첵해서 일주일 보상을 받을 경우 
-                   if(set.size()==3) {
+                   if(set.size()==7) {
                         loginInfo.get(INDEX).setPoint(sevenDay);
                         pointHistory(NOWID, sevenDay, cause);
                        System.out.println("일주일간 출석해서 500 포인트가 지급됩니다!");
                       System.out.println(NOWID+"님의 포인트는"+loginInfo.get(INDEX).getPoint()+"입니다.");
                       System.out.println("홈으로 돌아갑니다.");
                       set.clear();      // 셋에 저장된 정보 리셋
+                      saveInfo();       // 리셋 후 정보 저장
                       return;
                 
                 } 
