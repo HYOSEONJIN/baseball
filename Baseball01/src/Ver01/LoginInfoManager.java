@@ -640,7 +640,7 @@ public class LoginInfoManager implements Menu {
 	            System.out.println("구매완료!");
 	            loginInfo.get(INDEX).setPoint(price);
 	            pointHistory(NOWID, price, cause);
-	            System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
+	            System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
 	            return;
 	         }
 
@@ -663,13 +663,13 @@ public class LoginInfoManager implements Menu {
 
              while(true) {
                 int choice;
-                System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
+                System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
                 System.out.println("\n매일매일 CHUL-SEOK 체크 이벤트!");
                 System.out.println("일주일간 매일 출석을 하시면, ");
                 System.out.println("500포인트를 드립니다. ");
                 System.out.println("출석하시려면 번호를 눌러주세요.");
                 System.out.println("1.출석  2.홈으로 돌아가기");
-                System.out.println("\n〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
+                System.out.println("\n〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
                 choice=Util.sc.nextInt();
                 
                 // 출첵을 할 때
