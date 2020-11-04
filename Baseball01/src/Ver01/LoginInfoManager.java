@@ -244,7 +244,7 @@ public class LoginInfoManager implements Menu {
 		loginInfo.remove(INDEX);	
         
 		// ID/PW 입력 받아 새 계정 생성
-		System.out.println("\n 〓〓〓〓〓〓  CHANGE MENU 〓〓〓〓〓〓\n");
+		System.out.println("\n 〓〓〓〓〓〓  CHANGE INFO 〓〓〓〓〓\n");
 		System.out.print(" I  D : ");
 		String newId = Util.sc.nextLine().trim();	
 		System.out.print(" P  W : ");

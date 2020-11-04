@@ -59,7 +59,7 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 		int index = 0;
 		int count = 1;
 
-		System.out.println("========== 좌석 정보 [예약된 좌석인 경우 X, 아닌경우 : 좌석번호] ==========");
+		System.out.println("\n ■■■■■■■ 좌석 정보 [예약된 좌석인 경우 X, 아닌경우 : 좌석번호] ■■■■■■■■ \n");
 		for (int i = 0; i < arrSeat.length; i++) {
 
 			System.out.println("[" + (char) (i + 'A') + "석]");
@@ -77,7 +77,7 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 			}
 			System.out.println();
 		}
-		System.out.println("=============================================");
+		System.out.println("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
 
 		System.out.println("원하시는 좌석 번호를 선택해주세요.");
 		choiceSeatNum = Util.sc.nextInt();
@@ -281,8 +281,8 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 			if (pSeat.get(i).getName().equals(NOWID)) {
 				result = true;
 				
-				msg += "예매번호"+(i + 1)+"번," + ". [" + pSeat.get(i).getName() + "]님은 " + pSeat.get(i).getDate() + "일 "
-						+ pSeat.get(i).getGrade() + "등급 " + pSeat.get(i).getSeatNum() + "번째 좌석을 예약하셨습니다.\n";
+				msg += "\n예매번호"+(i + 1)+"번" + ". [" + pSeat.get(i).getName() + "]님은\n" + pSeat.get(i).getDate() + "일,"
+						+ "\n"+pSeat.get(i).getGrade() + "등급 " + pSeat.get(i).getSeatNum() + "번째 좌석을 예약하셨습니다.\n";
 			}
 		}
 		

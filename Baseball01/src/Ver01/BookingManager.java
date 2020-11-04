@@ -26,8 +26,8 @@ public class BookingManager extends LoginInfoManager {
 			System.out.println("\t" + RECHARGE + ".충전하기");
 			System.out.println("\t"+ EXIT2 + ".홈 메뉴로 돌아가기");
 			System.out.println("\n ■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
-	        System.out.print("  SELECT MENU >> ");
 			System.out.println("보유금액:" + loginInfo.get(INDEX).getMyMoney() + ", 보유포인트 : " + loginInfo.get(INDEX).getPoint());
+			System.out.println("SELECT MENU >> ");
 			int choice = Util.sc.nextInt();
 			Util.sc.nextLine();
 
