@@ -11,7 +11,7 @@ public class BookingManager extends LoginInfoManager {
 
 	public void Bookingmain() {
 		// 로그인 체크 
-		if(INDEX == 0) {
+		if(NOWID == null) {
 			System.out.println("로그인 해주세요.");
 			return;
 		}
