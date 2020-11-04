@@ -102,9 +102,6 @@ public class ReserveSeat {
 	
 	// 좌석 취소하기
 	public static void cancelSeat() {
-		int choiceSeatNum = 0;
-		String choiceDate = ""; 
-		
 		//내 좌석 정보보기
 		mySeatView(); 
 		
@@ -125,7 +122,7 @@ public class ReserveSeat {
 	public static void getMonthGalendar(){
         cal.set(thisYear, thisMonth - 1, 1); 			// thisMonth - 1 : 1월이 0이라서 해당달을 set 하려면 -1 해야함 
        
-        int sDayNum = cal.get(Calendar.DAY_OF_WEEK); 		// 1일의 요일
+        int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK); 		// 1일의 요일
         int endDate = cal.getActualMaximum(Calendar.DATE); 	// 달의 마지막일
        
         int nowYear = cal.get(Calendar.YEAR);
@@ -142,7 +139,7 @@ public class ReserveSeat {
       
         for (int i = 1; dateNum <= endDate ; i++) {    
            
-            if(i < sDayNum) {
+            if(i < dayOfWeek) {
             	System.out.print("\t"); // 요일숫자보다 작으면 공백
             } else {
                 if(dateNum < today) {
