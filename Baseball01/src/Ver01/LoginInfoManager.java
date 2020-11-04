@@ -26,12 +26,13 @@ public class LoginInfoManager implements Menu {
 	public void loginZone() throws IOException, ClassNotFoundException { 
 		
 		while(true) {
-	         System.out.println("************ L O G I N ************");
-	         System.out.println("\n           "+LOG+". 로그인");
-	         System.out.println("           "+JOIN+". 회원가입");
-	         System.out.println("           "+HOME+ ". 홈 메뉴로 돌아가기");
-	         System.out.println("\n***********************************");
-	            
+	         System.out.println("\n〓〓〓〓〓〓〓  LOGIN MENU 〓〓〓〓〓〓〓〓〓\n");
+	         System.out.println("	"+LOG+". 로그인");
+	         System.out.println("	"+JOIN+". 회원가입");
+	         System.out.println("	"+HOME+ ". 홈 메뉴로 돌아가기");
+	         System.out.println("\n〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓"); 
+	         System.out.print("SELECT MENU >> ");	       
+	         
 	         int select=0; // 사용자 메뉴 선택 
 	         try {
 	            select = Util.sc.nextInt();
@@ -42,7 +43,7 @@ public class LoginInfoManager implements Menu {
 	            throw e;   
 	            } 
 	         } catch(BadMenuException | InputMismatchException e) {
-	            System.out.println("잘못된 입력입니다. 다시 입력하세요.");
+	            System.out.println("[잘못된 입력입니다. 다시 입력하세요.]\n>> ");
 	            Util.sc.nextLine();      
 	            return;
 	         }         
@@ -78,36 +79,38 @@ public class LoginInfoManager implements Menu {
 	
 	// 로그인 메서드 
 	//		사용자 입력 -> 로그인 -> 사용자의 로그인 ID 반환 
-	public void login() throws IOException { 
+	public void login() throws IOException, ClassNotFoundException { 
 		String id = null;
 		String cause="로그인 적립 포인트";
 		
 		while(true) {
 			// 사용자 입력
-			System.out.println("\n 아이디 : ");
+	        System.out.println("\n___________ L O G I N ____________\n");
+			System.out.print(" ID : ");
 			id = Util.sc.nextLine();
 
-			System.out.println("비밀번호 : ");
+			System.out.print(" PW : ");
 			String pw = Util.sc.nextLine();
+	        System.out.println("__________________________________"); 			
 			
 			// ID의 배열 index 찾기
 			int index = searchIndex(id);
 			if(searchIndex(id)>=0) {
 				// 해당 index의 비밀번호와 일치 여부 확인
 				if(loginInfo.get(index).getPw().equals(pw)) {
-					System.out.println(id +"님, 로그인에 성공하였습니다.\n");
+					System.out.println("[ "+id +"님, 반갑습니다. ]\n");
 					NOWID=id; 
 					for(int i=0; i<loginInfo.size(); i++) {
 							if(loginInfo.get(i).getId().equals(id)) {
 		                        loginInfo.get(INDEX).setPoint(100);
 		                        pointHistory(NOWID, 100, cause);
+		                        saveInfo();
 							}
 						}
 					return;
 				} else {
-					System.out.println("아이디와 비밀번호가 일치하지 않습니다.        ");
-					System.out.println("\n다시 로그인하시려면 Enter키를 입력해주세요.   ");
-					System.out.println("홈메뉴로 돌아가시려며 숫자 \"0\"을 입력해주세요.\n");					
+					System.out.println("아이디와 비밀번호가 일치하지 않습니다.");
+					System.out.print("다시 시도하려면 Enter키를, 홈 메뉴로 돌아가시려면 \"0\"을 입력해주세요.\n>> ");
 					String insert = null;
 						insert = Util.sc.nextLine();
 						if(insert.equals("0")) {
@@ -117,9 +120,8 @@ public class LoginInfoManager implements Menu {
 						}
 				}
 			} else {
-				System.out.println("\n존재하지 않는 아이디입니다.");
-				System.out.println("\n다시 로그인하시려면 Enter키를 입력해주세요.");
-				System.out.println("홈메뉴로 돌아가시려며 숫자 \"0\"을 입력해주세요.\n");
+				System.out.println("존재하지 않는 아이디입니다.");
+				System.out.print("다시 시도하려면 Enter키를, 홈 메뉴로 돌아가시려면 \"0\"을 입력해주세요.\n>> ");
 				String insert = null;
 				insert = Util.sc.nextLine();
 				if(insert.equals("0")) {
@@ -182,13 +184,15 @@ public class LoginInfoManager implements Menu {
 	// 회원가입 메서드
 	//		ID 입력 받기 -> ID 중복 확인 -> 비밀번호 입력 받기 -> 회원가입 완료
 	public void joinMember() throws IOException, ClassNotFoundException{
-		System.out.println("회원가입을 시작합니다.");
+//		System.out.println("회원가입을 시작합니다.");
 		String id = null;
-		String pw = null;
+		String pw = null;	      
+		System.out.println("\n〓〓〓〓〓〓〓〓〓  J O I N 〓〓〓〓〓〓〓〓〓\n");	
 		
 		// ID 중복 확인 (무한반복)
 		while(true) {
-			System.out.println("\n아이디 : ");
+
+			System.out.print(" I  D : ");
 			// ID 공백 입력 시 예외처리
 			try {
 				id = Util.sc.nextLine().trim();	
@@ -197,15 +201,15 @@ public class LoginInfoManager implements Menu {
 					throw e;
 				}	
 			} catch(NullInputException e) {
-				System.out.println("아이디를 잘못 입력하셨습니다. 다시 입력해주세요.\n");
+				System.out.print("아이디를 잘못 입력하셨습니다. 다시 입력해주세요.\\n>> ");
 			}
 			
 			int index = searchIndex(id);
 			if(searchIndex(id)>=0) {
-				System.out.println("중복되는 아이디가 존재합니다. 다른 아이디를 입력해주세요.\n");
+				System.out.print("중복되는 아이디가 존재합니다. 다른 아이디를 입력해주세요.\\n>> ");
 				continue;
 			} else {
-				System.out.println("비밀번호 : ");
+				System.out.print(" P  W : ");
 				// 비밀번호 공백 입력 시 예외처리
 				try{
 					pw = Util.sc.nextLine().trim();
@@ -214,9 +218,11 @@ public class LoginInfoManager implements Menu {
 						throw e;
 					}
 					addInfo(new LoginInfo(id, pw));
-					System.out.println(id+"님, 가입을 축하드립니다!\n");
+			         System.out.println("\n〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓"); 
+					System.out.println("["+id+"님, 가입을 축하드립니다!]\n");
 					break;								
 				} catch(NullInputException e) {
+			         System.out.println("\n〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓"); 
 					System.out.println("비밀번호를 잘못 입력하셨습니다. 다시 입력해주세요.\n");
 				}
 			}	
@@ -233,29 +239,34 @@ public class LoginInfoManager implements Menu {
 		// 현재 로그인 계정의 충전금액/포인트 받아놓기
 		int myMoney = loginInfo.get(INDEX).getMyMoney(); 
 		int point = loginInfo.get(INDEX).getPoint(); 
-		
+
+		// 이전 로그인 계정 삭제       
+		loginInfo.remove(INDEX);	
+        
 		// ID/PW 입력 받아 새 계정 생성
-		System.out.println("ID/PW 변경을 시작합니다.");
-		System.out.println("아이디 : ");	
+        System.out.println("\n〓〓〓〓〓〓〓〓〓  CHANGE LOGIN 〓〓〓〓〓〓〓〓〓\n");
+		System.out.print(" I  D : ");
 		String newId = Util.sc.nextLine().trim();	
-		System.out.println("비밀번호 : ");
+		System.out.print(" I  D : ");
 		String newPw = Util.sc.nextLine().trim();	
+        System.out.println("\n〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓"); 
+
 		addInfo(new LoginInfo(newId, newPw, myMoney, point));
 		
-		// 이전 로그인 계정 삭제
-		loginInfo.remove(INDEX);
-		
-	    // 새로운 포인트 내역 저장 메서드
-		String txt=NOWID.concat("point.txt");
-		String newtxt=newId.concat("point.txt");      
-		File file = new File(txt);
-		file.renameTo(new File(newtxt));
+        // 새로운 포인트 내역 저장 메서드      
+        String txt=NOWID.concat("point.txt");
+        String newtxt=newId.concat("point.txt");
+        File file = new File(txt);
+        if(file.exists()) {
+        file.renameTo(new File(newtxt));
+        }else {
+        }
 				
 		// 상수화한 로그인 ID,PW,INDEX 변경
 		NOWID = newId;
 		NOWPW = newPw;	
 		INDEX = searchIndex(newId);
-		System.out.println("ID/PW 변경이 완료되었습니다.\n");
+		System.out.println(" ID/PW 변경이 완료되었습니다.\n");
 	}
 
 	
@@ -275,20 +286,20 @@ public class LoginInfoManager implements Menu {
        }
 
        while (true) {
-          System.out.println("**********************************");
-          System.out.println("\t"+NOWID+"님, 안녕하세요!");
-          System.out.println("\t"+loginInfo.get(INDEX).getPoint()+"POINT 보유중");
-          System.out.println("**********************************");
-          System.out.println();
-          System.out.println("\t1. 가위바위보게임(100POINT)");
-          System.out.println("\t2. 랜덤뽑기(100POINT)");
-          System.out.println("\t3. 출석체크");
-          System.out.println("\t4. 굿즈구매");
-          System.out.println("\t5. 포인트 사용 내역 조회");
-          System.out.println("\t6. 포인트존 나가기");
-          System.out.println();
-           System.out.println("**********************************");
-          try {
+           System.out.println("〓〓〓〓〓〓P O I N T Z O N E〓〓〓〓〓〓〓\n");
+           System.out.println("\t"+NOWID+"님, 안녕하세요!");
+           System.out.println("\t"+loginInfo.get(INDEX).getPoint()+" POINT 보유중");
+           System.out.println("\n〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
+           System.out.println();
+           System.out.println("\t1. R-S-P GAME (-100P)");
+           System.out.println("\t2. RANDOMBOX (-100P)");
+           System.out.println("\t3. 7DAYS CHECK");
+           System.out.println("\t4. BUY GOODS");
+           System.out.println("\t5. MY POINT ");
+           System.out.println("\t6. EXIT");
+           System.out.println();
+           System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");          
+           try {
              int choice = Util.sc.nextInt();
              
              Util.sc.nextLine();
@@ -610,6 +621,7 @@ public class LoginInfoManager implements Menu {
 
 	         if (Math.abs(price) > loginInfo.get(INDEX).getPoint()) {
 	            System.out.println("포인트가 부족합니다.");
+	            return;
 	         } else {
 	            System.out.println("구매완료!");
 	            loginInfo.get(INDEX).setPoint(price);
