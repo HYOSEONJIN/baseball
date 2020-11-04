@@ -31,7 +31,7 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 		pSeat = new ArrayList<Seat>();
 
 		// 로그인된 경우에만 로그인 정보 가져오기 
-		if (INDEX > -1) {
+		if(NOWID != null) {
 			myMoney = loginInfo.get(INDEX).getMyMoney(); // 현재 가진 돈
 			mypoint = loginInfo.get(INDEX).getPoint(); // 포인트
 		} 
