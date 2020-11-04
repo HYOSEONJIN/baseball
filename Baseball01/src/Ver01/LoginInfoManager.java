@@ -599,13 +599,13 @@ public class LoginInfoManager implements Menu {
 	   public void buyGoods() throws IOException {
 
 	      while (true) {
-	         System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
+	         System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
 	         System.out.println("현재 보유 포인트는 " + loginInfo.get(INDEX).getPoint() + "point 입니다.");
-	         System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
+	         System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
 	         System.out.println("1. 히어로즈 야구점퍼 (1000point)");
 	         System.out.println("2. 히어로즈 슬로건 (700point)");
 	         System.out.println("3. 히어로즈 마스코트인형 (500point)");
-	         System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
+	         System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
 
 	         int price = 0;
 	         int choice = 0;
