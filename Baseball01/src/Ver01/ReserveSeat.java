@@ -14,7 +14,7 @@ public class ReserveSeat extends LoginInfoManager {
 	int myMoney = loginInfo.get(INDEX).getMyMoney(); // 현재 가진 돈
 	int mypoint = loginInfo.get(INDEX).getPoint(); // 포인트
 	static int choiceSeatNum = 0;
-	int addMoney;
+	
 
 	// 배열을 이용해서 저장하는 방식을 ArrayList<T> 컬랙션을 이용해서 구현해 보자
 	static List<Seat> pSeat;
@@ -239,12 +239,12 @@ public class ReserveSeat extends LoginInfoManager {
 		System.out.println(result);
 	}
 
-	int recharge(int myMoney) {
+	void recharge() {
 		System.out.println(" 충전 금액을 입력하세요.");
-		addMoney = Util.sc.nextInt();
+		int addMoney = Util.sc.nextInt();
 		myMoney += addMoney;
+		loginInfo.get(INDEX).setMyMoney(myMoney);
 		System.out.println("보유금액: " + myMoney);
-       return myMoney;
 	}
 
 }

@@ -61,8 +61,7 @@ public class BookingManager extends LoginInfoManager {
 
 			case RECHARGE://충전하기
 				
-			myMoney = reserve.recharge(myMoney);
-				
+				reserve.recharge();
 				
 				break;
 
