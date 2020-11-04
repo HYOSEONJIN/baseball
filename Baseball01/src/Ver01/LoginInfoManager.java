@@ -42,8 +42,7 @@ public class LoginInfoManager implements Menu {
 	            throw e;   
 	            } 
 	         } catch(BadMenuException | InputMismatchException e) {
-	            System.out.println("잘못된 입력입니다. 메뉴를 다시 선택해주세요.");
-	            System.out.println("-----------------------------------");
+	            System.out.println("잘못된 입력입니다. 다시 입력하세요.");
 	            Util.sc.nextLine();      
 	            return;
 	         }         
@@ -228,33 +227,34 @@ public class LoginInfoManager implements Menu {
 	
 	
 	// 로그인 정보 변경 메서드 
-	//		충전금액/포인트 받아놓기 -> 계정 삭제 -> 새 ID/PW 입력 받기 -> 계정 생성 -> 로그인ID/PW 변경
+	//		충전금액/포인트 받아놓기 -> 새 ID/PW 입력 받기 -> 새 계정 생성 -> 이전 계정 삭제 -> 로그인 ID,PW,INDEX 변경
 	public void changeLoginInfo() throws IOException, ClassNotFoundException {
 		
 		// 현재 로그인 계정의 충전금액/포인트 받아놓기
 		int myMoney = loginInfo.get(INDEX).getMyMoney(); 
 		int point = loginInfo.get(INDEX).getPoint(); 
 		
-		// 현재 로그인 계정 삭제
-		loginInfo.remove(INDEX);
-		
-		// ID/PW 입력 받아 새로운 배열 저장
+		// ID/PW 입력 받아 새 계정 생성
 		System.out.println("ID/PW 변경을 시작합니다.");
 		System.out.println("아이디 : ");	
-		String changedId = Util.sc.nextLine().trim();	
+		String newId = Util.sc.nextLine().trim();	
 		System.out.println("비밀번호 : ");
-		String changedPw = Util.sc.nextLine().trim();	
-		addInfo(new LoginInfo(changedId, changedPw, myMoney, point));
+		String newPw = Util.sc.nextLine().trim();	
+		addInfo(new LoginInfo(newId, newPw, myMoney, point));
+		
+		// 이전 로그인 계정 삭제
+		loginInfo.remove(INDEX);
 		
 	    // 새로운 포인트 내역 저장 메서드
 		String txt=NOWID.concat("point.txt");
-		String newtxt=changedId.concat("point.txt");      
+		String newtxt=newId.concat("point.txt");      
 		File file = new File(txt);
 		file.renameTo(new File(newtxt));
 				
-		// 상수화한 NOWID, NOWPW 변경
-		NOWID = changedId;
-		NOWPW = changedPw;		
+		// 상수화한 로그인 ID,PW,INDEX 변경
+		NOWID = newId;
+		NOWPW = newPw;	
+		INDEX = searchIndex(newId);
 		System.out.println("ID/PW 변경이 완료되었습니다.\n");
 	}
 
