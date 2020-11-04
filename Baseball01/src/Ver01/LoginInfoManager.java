@@ -25,6 +25,7 @@ public class LoginInfoManager implements Menu {
 
 	// 변수 상수화 
 	static String NOWID ;	// 현재 로그인 ID
+	static String NOWPW;	// 현재 로그인 ID PW 
 	static int INDEX; 		// 현재 로그인 ID index
 	
 	// 회원정보 배열 생성
@@ -38,6 +39,7 @@ public class LoginInfoManager implements Menu {
 	         System.out.println("\n           "+LOG+". 로그인");
 	         System.out.println("           "+JOIN+". 회원가입");
 	         System.out.println("           "+HOME+ ". 홈 메뉴로 돌아가기");
+	         System.out.println("           4. ID/PW 변경"); // ID/PW 변경 test용
 	         System.out.println("\n***********************************");
 	         
 	         // 사용자 메뉴 선택
@@ -47,7 +49,7 @@ public class LoginInfoManager implements Menu {
 	            select = Util.sc.nextInt();
 	            Util.sc.nextLine();
 	            // 예외처리
-	            if( !(select>0 && select<4) ) {
+	            if( !(select>0 && select<5) ) {
 	            BadMenuException e = new BadMenuException(select);
 	            throw e;   
 	            } 
@@ -62,14 +64,14 @@ public class LoginInfoManager implements Menu {
 	         	case LOG : 
 	         		callLogInfo();	// 파일에서 로그인정보 불러오기
 	         		login();
-	         		saveLogInfo();
 	         		return;
 	         	case JOIN :
 	         		joinMember();
-					saveLogInfo();	// 외부 파일에 로그인정보 저장
-					break;
+					return;
 	         	case HOME : 
 	         		return;
+	         	case 4 : 
+	         		changeLoginInfo();	// test용
 	         }
 		}
 	}
@@ -122,8 +124,18 @@ public class LoginInfoManager implements Menu {
 	
 	
 	// 배열에 정보 저장 메서드
-	private void addInfo(LoginInfo info) {		
+	private void addInfo(LoginInfo info) throws IOException {		
 		loginInfo.add(info);
+		
+		// 외부 파일에 저장 
+		// 파일 중복생성 방지
+		File f = new File("LoginInfo.ser");
+		f.delete();
+		
+	    // 인스턴스 저장을 위한 스트림 생성
+	    ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("LoginInfo.ser"));   
+	    out.writeObject(loginInfo);
+	    out.close();
 	}
 	
 	// 배열의 index 검색 메서드
@@ -187,20 +199,7 @@ public class LoginInfoManager implements Menu {
 		}
 	}
 	
-	
-	// 회원정보 외부 저장 메서드
-	void saveLogInfo() throws IOException, ClassNotFoundException{
 		
-		// 파일 중복생성 방지
-		File f = new File("LoginInfo.ser");
-		f.delete();
-		
-	    // 인스턴스 저장을 위한 스트림 생성
-	    ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("LoginInfo.ser"));   
-	    out.writeObject(loginInfo);
-	    out.close();		  
-	}
-	
 	// 외부에 저장된 회원정보 불러오기 메서드
 	void callLogInfo() {
 		// 인스턴스 복원을 위한 스트림 생성
@@ -213,26 +212,29 @@ public class LoginInfoManager implements Menu {
 	    	
 	}
 
-	// (추후 수정) ===========================================================
 	// 로그인 정보 변경 메서드 
-	//		재로그인 -> 로그인한 계정 ID 반환 -> 반환한 ID에 해당하는 index의 정보 삭제 -> 새 정보 저장
+	//		충전금액/포인트 받아놓기 -> 계정 삭제 -> 새 ID/PW 입력 받기 -> 계정 생성 -> 로그인ID/PW 변경
 	public void changeLoginInfo() throws IOException {
-		System.out.println("회원정보 확인을 위해 다시 로그인해주세요.");
 		
-		// 빈폴더에 정보 저장하고 삭제
-		// or rename()
-		// 반환한 ID에 해당하는 index 정보 삭제
+		// 현재 로그인 계정의 충전금액/포인트 받아놓기
+		int myMoney = loginInfo.get(INDEX).getMyMoney(); 
+		int point = loginInfo.get(INDEX).getPoint(); 
+		// 현재 로그인 계정 삭제
+		loginInfo.remove(INDEX);
 		
-		//loginInfo.remove(searchIndex(NOWID));
-		
-		// ID 입력받기 -> 해당 index 값을 setter로 값 변경 -> 파일에 저장
-		System.out.println("ID/PW 변경을 시작합니다.");	
-		System.out.println("아이디 : ");
-		String changedId = Util.sc.nextLine().trim();
-		// loginInfo.setId(changedId); 
+		// 새 ID/PW 입력 받아 새 배열 생성
+		System.out.println("ID/PW 변경을 시작합니다.");
+		System.out.println("아이디 : ");	
+		String changedId = Util.sc.nextLine().trim();	
 		System.out.println("비밀번호 : ");
-		String changedPw = Util.sc.nextLine().trim();
-		addInfo(new LoginInfo(changedId, changedPw)); 
+		String changedPw = Util.sc.nextLine().trim();	
+	
+		addInfo(new LoginInfo(changedId, changedPw, myMoney, point));
+				
+		// 상수화한 NOWID, NOWPW도 변경
+		NOWID = changedId;
+		NOWPW = changedPw;
+		
 		System.out.println("ID/PW 변경이 완료되었습니다.");
 		System.out.println("-----------------------------------");
 	}
@@ -275,19 +277,15 @@ public class LoginInfoManager implements Menu {
 	            switch (choice) {
 	            case 1:
 	               pointGame1();
-	               saveLogInfo();
 	               break;
 	            case 2:
 	               pointGame2();
-	               saveLogInfo();
 	               break;
 	            case 3:
 	               buyGoods();
-	               saveLogInfo();
 	               break;
 	            case 4:
 	               pointHistoryInfo(NOWID);
-	               saveLogInfo();
 	               break;
 	            case 5:
 	               return;
@@ -580,7 +578,7 @@ public class LoginInfoManager implements Menu {
 	            continue;
 	         }
 
-	         if (price > loginInfo.get(INDEX).getPoint()) {
+	         if (Math.abs(price) > loginInfo.get(INDEX).getPoint()) {
 	            System.out.println("포인트가 부족합니다.");
 	         } else {
 	            System.out.println("구매완료!");
