@@ -57,11 +57,6 @@ public class BookingManager implements Menu {
 					reserve.mySeatView(); 
 					break;
 				
-				// 전체 좌석 정보보기	
-				case ALLSEAT:
-					reserve.viewAll();
-					break;
-				
 					//결제하기		
 				case PAYING: 
 /*					

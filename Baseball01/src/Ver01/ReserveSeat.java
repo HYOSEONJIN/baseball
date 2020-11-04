@@ -34,10 +34,22 @@ public class ReserveSeat {
 	// 날짜 입력하기 
 	public static String choiceDate() {
 		getMonthGalendar();
+		
 		System.out.println("예매 가능한 날짜를 입력해 주세요. [입력형식 : 2020-01-01]");
 		
-		choiceDate = Util.sc.nextLine();
-		System.out.println("[" + choiceDate + "] 경기를 선택하셨습니다.");
+		while(true) {
+			// 입력 날짜 받기
+			choiceDate = Util.sc.nextLine();
+			
+			if (choiceDate.length() != 10) {
+				System.out.println("입력형식이 올바르지 않습니다. 다시 입력해주세요.");
+				//Util.sc.nextLine();
+				continue;
+			} else {
+				System.out.println("[" + choiceDate + "] 경기를 선택하셨습니다.");
+				break;
+			}
+		}
 		
 		return choiceDate;
 	}
@@ -55,10 +67,10 @@ public class ReserveSeat {
 			System.out.println("[" + (char)(i + 'A') + "석]");
 			
 			for(int j = 0; j < arrSeat[i].length ; j++) {
-				index = searchIndex(loginId, choiceDate, count); 
+				index = searchIndex(choiceDate, count); 
 				
 				// 예약된 좌석인 경우 X, 아닌경우 : 좌석번호
-				if(index > 0) {
+				if(index > -1) {
 					System.out.print("[X]");
 				}else {
 					System.out.print("[" + count + "]");
@@ -101,7 +113,7 @@ public class ReserveSeat {
 		
 		if(index < 1) {
 			System.out.println("찾으시는 정보가 존재하지 않습니다.");
-			System.out.println("메뉴로 이동합니다.");			
+			System.out.println("메뉴로 이동합니다.");
 		} else {
 			// 좌석 취소 
 			pSeat.get(index - 1).cancel();
@@ -173,7 +185,6 @@ public class ReserveSeat {
 		int index = -1; // 정보가 없을때
 		
 		for(int i=0; i < pSeat.size() ; i++) {
-			
 			if(pSeat.get(i).getDate().equals(date) && pSeat.get(i).getSeatNum() == seatNum) {
 				index = i;
 			}
@@ -194,33 +205,5 @@ public class ReserveSeat {
 		System.out.println(result);
 	}
 	
-	// 전체 좌석 정보 보기 
-	public static void viewAll() {
-		String choiceDate; 
-		String arrSeat[][] = new String[3][10];  // 3 * 10 좌석 생성 
-		int count = 1;
-		
-		System.out.println("조회할 날짜를 입력해주세요. [ex : 2020-10-01]");
-		choiceDate = Util.sc.nextLine();
-		
-		System.out.println("=============================================");
-		System.out.println("========== 좌석 정보 [예약된 좌석인 경우 O, 아닌경우 : X] ==========");
-		for(int i = 0; i < arrSeat.length ; i++) {
-			
-			for(int j = 0; j < arrSeat[i].length ; j++) {
-				int index = searchIndex(choiceDate, count); 
-				
-				// 예약된 좌석인 경우 O, 아닌경우 X
-				if(index > -1) {
-					System.out.print("[O]");
-				}else {
-					System.out.print("[X]");
-				}
-				count++;
-			}
-			System.out.println();
-		}
-		System.out.println("=============================================");	
 
-	}	
 }
