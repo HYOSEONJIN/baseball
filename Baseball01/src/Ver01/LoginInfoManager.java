@@ -669,10 +669,7 @@ public class LoginInfoManager implements Menu {
           set=(Set<Integer>) in.readObject();
           in.close();
           }
-          
-          f.delete();
-          
-                   
+                         
       	if(month==12) {
     		System.out.println("11월의 출석체크가 끝났습니다\n");
     		return;
@@ -684,19 +681,24 @@ public class LoginInfoManager implements Menu {
                 System.out.println("\n매일매일 CHUL-SEOK 체크 이벤트!");
                 System.out.println("일주일간 매일 출석을 하시면, ");
                 System.out.println("500포인트를 드립니다. ");
-                System.out.println("출석하시려면 번호를 눌러주세요.");
+                System.out.println("출석하시려면 번호를 눌러주세요.\n");
+                System.out.println("지금까지 "+set.size()%7+"번 출석 완료!");
                 System.out.println("1.출석  2.홈으로 돌아가기");
                 System.out.println("\n〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
                 choice=Util.sc.nextInt();
                 
                 // 출첵을 할 때
+                switch(choice) {
+                case 1:
+               
                 if(choice==1) {
                    if(set.contains(day)) {  // 출첵을 이미 했는데 또 할 경우 
                       System.out.println("오늘은 이미 출석하셨어요. 내일을 기다리세요.");
-                      break;
+                      return;
                    }else{
-                       set.add(day);   // 출첵 정보를 저장
-                      System.out.println("출석 완료!\n");
+                      set.add(day);   // 출첵 정보를 저장
+                      System.out.println("출석 완료!");
+                      System.out.println(set.size()%7+"번째 출석을 완료하셨습니다\n");
                       
                       // 출첵해서 일주일 보상을 받을 경우
                       if(set.size()%7==0) {
@@ -712,11 +714,11 @@ public class LoginInfoManager implements Menu {
                       ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName));
                       out.writeObject(set);
                       out.close();
-                      break;
+                      return;
                    }
-                }else if(choice==2) {  // 홈으로 돌아가기 버튼을 누를 경우
-                   System.out.println("홈으로 돌아갑니다.\n");
-                   return;
+                } case 2:
+                	System.out.println("홈으로 돌아갑니다.\n");
+                	return;
                 } 
              
 
