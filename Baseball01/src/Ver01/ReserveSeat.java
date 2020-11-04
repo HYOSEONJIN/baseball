@@ -11,10 +11,9 @@ public class ReserveSeat extends LoginInfoManager {
 	static int seatNum = 0; // 좌석 번호
 	char grade = ' '; // 좌석 등급
 	int price = 0; // 티켓 가격
-	int myMoney = loginInfo.get(INDEX).getMyMoney(); // 현재 가진 돈
-	int mypoint = loginInfo.get(INDEX).getPoint(); // 포인트
+	int myMoney = 0;
+	int mypoint = 0;
 	static int choiceSeatNum = 0;
-	
 
 	// 배열을 이용해서 저장하는 방식을 ArrayList<T> 컬랙션을 이용해서 구현해 보자
 	static List<Seat> pSeat;
@@ -24,6 +23,12 @@ public class ReserveSeat extends LoginInfoManager {
 		// List<PhoneInfor> 초기화
 		pSeat = new ArrayList<Seat>();
 
+		// 로그인된 경우에만 로그인 정보 가져오기 
+		if (INDEX > 0) {
+			myMoney = loginInfo.get(INDEX).getMyMoney(); // 현재 가진 돈
+			mypoint = loginInfo.get(INDEX).getPoint(); // 포인트
+		} 
+		
 		// 생성자 호출할때 파일 불러오기
 		// read();
 	}

@@ -12,7 +12,7 @@ public class BaseballMain implements Menu {
       
       // 로그인,예매, 회원정보 조회를 위한 인스턴스 생성
       LoginInfoManager user = new LoginInfoManager();
-//       BookingManager booking=new BookingManager();
+      BookingManager booking = new BookingManager();
 //      UserInfoManager info = new UserInfoManager();
       
       
@@ -59,8 +59,8 @@ public class BaseballMain implements Menu {
         	 }        	 
             break;
            case BOOKING:
-//       	booking.Bookingmain();
-//            break;
+        	   booking.Bookingmain();
+        	   break;
 //         case INFO:
 //            info.showMyInfo();
 //            break;

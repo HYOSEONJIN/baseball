@@ -6,16 +6,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class BookingManager extends LoginInfoManager {
-	LoginInfo info = new LoginInfo(); 
 	ReserveSeat reserve = new ReserveSeat();
+	LoginInfoManager loginManager = new LoginInfoManager();
 
-	// 테스트 변수
-	boolean result = false;
-
-	String choiceDate = null; // 선택한 야구날짜
-	char grade = ' '; // 좌석 등급
-	int price = 0; // 티켓 가격
-	
 	public void Bookingmain() {
 	//public static void main(String[] args) {
 		
