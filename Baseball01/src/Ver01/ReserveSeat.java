@@ -6,13 +6,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class ReserveSeat extends LoginInfoManager {
+public class ReserveSeat extends LoginInfoManager implements Serializable {
 	static String choiceDate;
 	static int seatNum = 0; // 좌석 번호
 	char grade = ' '; // 좌석 등급
@@ -295,7 +296,9 @@ public class ReserveSeat extends LoginInfoManager {
 			out.writeObject(pSeat);
 			out.close();
 			System.out.println("저장 되었습니다.(PayInfor.ser)");
+			
 		} catch (IOException e) {
+			e.printStackTrace();
 			System.out.println("저장하는 과정에 오류가 발생했습니다.(" + pSeat.size() + ") \n다시 시도해 주세요.");
 		}
 		

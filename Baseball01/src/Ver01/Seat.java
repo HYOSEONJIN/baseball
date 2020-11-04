@@ -5,8 +5,10 @@
 */
 package Ver01;
 
+import java.io.Serializable;
+
 // 야구장 좌석 
-public class Seat {
+public class Seat implements Serializable {
 	private String name;  // 예약한 사람 이름
 	private String date;  // 날짜
 	private char grade;   // 등급 (A, B, C) 
