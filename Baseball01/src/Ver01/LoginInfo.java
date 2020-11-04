@@ -10,7 +10,12 @@ public class LoginInfo implements Serializable {
 	private int myMoney;			// 보유충전금액
 	private int point; 			// 포인트
 
-
+	public LoginInfo(String id, String pw, int myMoney, int point) { 
+		this.id = id;
+		this.pw = pw;
+		this.myMoney = myMoney;
+		this.point = point;
+	}
 
 	// 생성자로 초기화
 	public LoginInfo(String id, String pw) { 
