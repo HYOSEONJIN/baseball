@@ -26,11 +26,11 @@ public class LoginInfoManager implements Menu {
 	public void loginZone() throws IOException, ClassNotFoundException { 
 		
 		while(true) {
-	         System.out.println("\n〓〓〓〓〓〓〓  LOGIN MENU 〓〓〓〓〓〓〓〓〓\n");
+	         System.out.println("\n 〓〓〓〓〓〓  LOGIN MENU 〓〓〓〓〓〓\n");
 	         System.out.println("	"+LOG+". 로그인");
 	         System.out.println("	"+JOIN+". 회원가입");
 	         System.out.println("	"+HOME+ ". 홈 메뉴로 돌아가기");
-	         System.out.println("\n〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓"); 
+	         System.out.println("\n 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓"); 
 	         System.out.print("SELECT MENU >> ");	       
 	         
 	         int select=0; // 사용자 메뉴 선택 
@@ -85,14 +85,14 @@ public class LoginInfoManager implements Menu {
 		
 		while(true) {
 			// 사용자 입력
-	        System.out.println("\n___________ L O G I N ____________\n");
+	        System.out.println("\n________ L O G I N _________\n");
 			System.out.print(" ID : ");
 			id = Util.sc.nextLine();
 
 			System.out.print(" PW : ");
 			String pw = Util.sc.nextLine();
-	        System.out.println("__________________________________"); 			
-			
+	        System.out.println("____________________________"); 			
+		
 			// ID의 배열 index 찾기
 			int index = searchIndex(id);
 			if(searchIndex(id)>=0) {
