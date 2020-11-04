@@ -164,7 +164,7 @@ public class ReserveSeat {
     }
 
 
-	// 정보 검색 
+	// 정보 검색 1
 	// 해당 indxe의 참조변수로 정보 출력
 	// 배열의 index 를 찾는 메서드
 	public static int searchIndex(String name, String date, int seatNum) {
@@ -178,7 +178,7 @@ public class ReserveSeat {
 		return index;
 	}
 
-	// 정보 검색 
+	// 정보 검색 2
 	// 해당 indxe의 참조변수로 정보 출력
 	// 배열의 index 를 찾는 메서드
 	public static int searchIndex(String date, int seatNum) {
