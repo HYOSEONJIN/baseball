@@ -142,6 +142,17 @@ public class LoginInfoManager implements Menu {
 		saveInfo();
 	}
 
+	// 배열의 index 검색 메서드
+	public int searchIndex(String id) {
+		int index = -1;
+		for(int i=0; i<loginInfo.size(); i++) {
+			if(loginInfo.get(i).getId().equals(id)) {
+				index = i;
+			}
+		}
+		return index;
+	}	
+	
 	
 	// 회원정보 외부 저장 메서드
 	public void saveInfo() throws IOException, ClassNotFoundException{
@@ -169,19 +180,7 @@ public class LoginInfoManager implements Menu {
 	}
 	
 	
-	// 배열의 index 검색 메서드
-	public int searchIndex(String id) {
-		int index = -1;
-		for(int i=0; i<loginInfo.size(); i++) {
-			if(loginInfo.get(i).getId().equals(id)) {
-				index = i;
-			}
-		}
-		return index;
-	}
-	
-	
-	
+
 	// 회원가입 메서드
 	//		ID 입력 받기 -> ID 중복 확인 -> 비밀번호 입력 받기 -> 회원가입 완료
 	public void joinMember() throws IOException, ClassNotFoundException{
