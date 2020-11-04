@@ -13,12 +13,6 @@ public class ReserveSeat {
 	//static String loginId = LoginInfoManager.NOWID;
 	static String loginId = "이수진";
 	
-	// 달력 관련 변수
-	static Calendar cal = Calendar.getInstance(); 
-	static int thisYear = cal.get(Calendar.YEAR);  		// 년
-	static int thisMonth = cal.get(Calendar.MONTH)+1; 		// 월
-	static int today = cal.get(Calendar.DATE); 			// 일
-	
 	// 배열을 이용해서 저장하는 방식을 ArrayList<T> 컬랙션을 이용해서 구현해 보자
 	static List<Seat> pSeat;
 	
@@ -120,6 +114,13 @@ public class ReserveSeat {
 	
 	// 해당달 달력 가져 오기
 	public static void getMonthGalendar(){
+
+		// 달력 관련 변수
+		Calendar cal = Calendar.getInstance(); 
+		int thisYear = cal.get(Calendar.YEAR);  		// 년
+		int thisMonth = cal.get(Calendar.MONTH)+1; 		// 월
+		int today = cal.get(Calendar.DATE); 			// 일
+		
         cal.set(thisYear, thisMonth - 1, 1); 			// thisMonth - 1 : 1월이 0이라서 해당달을 set 하려면 -1 해야함 
        
         int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK); 		// 1일의 요일

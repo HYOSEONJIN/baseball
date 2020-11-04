@@ -29,11 +29,9 @@ public class BookingManager implements Menu {
 		while(true) {
 			
 			System.out.println("********2020 포스트시즌 야구 예매********");
-	         System.out.println("*             "+  BOOKINGNOW+".예매                     *");
+	         System.out.println("*             "+  BOOKINGNOW+".예매하기                     *");
 	         System.out.println("*              "+CANCEL+".예매취소                         *");
-	         System.out.println("*             "+BOOKINGINFO+".회원예매정보             *");
-	         System.out.println("*        "+ALLSEAT+".전체 좌석 정보보기                      *");
-	         System.out.println("*             "+PAYING+".결제하기                           *");
+	     	 System.out.println("*        "+BOOKINGINFO+".결제정보                      *");
 	         System.out.println("*           "+RECHARGE+".충전하기                           *");
 	         System.out.println("**********************************");
 			
@@ -44,6 +42,9 @@ public class BookingManager implements Menu {
 				// 예약 하기
 				case BOOKINGNOW:		
 					reserve.insertSeat();
+					System.out.println("결제 하시겠습니까?");
+					System.out.println("1.예 ,2.아니요");
+					
 					break;
 					
 				// 예약 취소		
@@ -58,8 +59,7 @@ public class BookingManager implements Menu {
 					break;
 				
 					//결제하기		
-				case PAYING: 
-/*					
+			/*
 						
 					if (grade=='A') {
 						price = 10000;  
@@ -78,7 +78,7 @@ public class BookingManager implements Menu {
 						System.out.println(point+"가  적립 되었습니다."); 
 					}
 */					
-					break;
+					
 					
 				case RECHARGE:
 /*					
