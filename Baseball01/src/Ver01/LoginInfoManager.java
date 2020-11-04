@@ -77,7 +77,9 @@ public class LoginInfoManager implements Menu {
 	}
 	
 	
-	// 로그인 메서드 : 로그인 -> 사용자의 로그인 ID 반환
+	
+	// 로그인 메서드 
+	//		사용자 입력 -> 로그인 -> 사용자의 로그인 ID 반환 
 	public void login() throws IOException { 
 		String id = null;
 		String cause="로그인 적립 포인트";
@@ -106,10 +108,12 @@ public class LoginInfoManager implements Menu {
 						}
 					return;
 				} else {
-					System.out.println("아이디와 비밀번호가 일치하지 않습니다. 다시 시도해주세요.");
-					System.out.println("(홈 메뉴로 돌아가시려면 숫자 \"0\"을 입력하세요.)");
 					System.out.println("-----------------------------------");
-						String insert = null;
+					System.out.println("아이디와 비밀번호가 일치하지 않습니다.        ");
+					System.out.println("\n다시 로그인하시려면 Enter키를 입력해주세요.   ");
+					System.out.println("홈메뉴로 돌아가시려며 숫자 \"0\"을 입력해주세요. ");
+					System.out.println("-----------------------------------");						
+					String insert = null;
 						insert = Util.sc.nextLine();
 						if(insert.equals("0")) {
 							return;
@@ -118,8 +122,10 @@ public class LoginInfoManager implements Menu {
 						}
 				}
 			} else {
-				System.out.println("존재하지 않는 아이디입니다. 다시 시도해주세요.");	
-				System.out.println("(홈 메뉴로 돌아가시려면 숫자 \"0\"을 입력하세요.)");
+				System.out.println("-----------------------------------");
+				System.out.println("존재하지 않는 아이디입니다.");
+				System.out.println("\n다시 로그인하시려면 Enter키를 입력해주세요.");
+				System.out.println("홈메뉴로 돌아가시려며 숫자 \"0\"을 입력해주세요.");
 				System.out.println("-----------------------------------");
 				String insert = null;
 				insert = Util.sc.nextLine();
@@ -133,11 +139,39 @@ public class LoginInfoManager implements Menu {
 	}	
 	
 	
+	
 	// 배열에 정보 저장 메서드
 	private void addInfo(LoginInfo info) throws IOException, ClassNotFoundException {		
 		loginInfo.add(info);		
 		saveLogInfo();
 	}
+
+	
+	// 회원정보 외부 저장 메서드
+	void saveLogInfo() throws IOException, ClassNotFoundException{
+		
+		// 파일 중복생성 방지
+		File f = new File("LoginInfo.ser");
+		f.delete();
+		
+	    // 인스턴스 저장을 위한 스트림 생성
+	    ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("LoginInfo.ser"));   
+	    out.writeObject(loginInfo);
+	    out.close();		  
+	}
+	
+		
+	// 외부에 저장된 회원정보 불러오기 메서드
+	void callLogInfo() {
+		// 인스턴스 복원을 위한 스트림 생성
+	    ObjectInputStream in;
+		try {
+			in = new ObjectInputStream(new FileInputStream("LoginInfo.ser"));
+			loginInfo = (ArrayList<LoginInfo>)in.readObject();	
+		} catch (IOException | ClassNotFoundException e) {
+		}
+	}
+	
 	
 	// 배열의 index 검색 메서드
 	public int searchIndex(String id) {
@@ -150,7 +184,8 @@ public class LoginInfoManager implements Menu {
 		return index;
 	}
 	
-
+	
+	
 	// 회원가입 메서드
 	//		ID 입력 받기 -> ID 중복 확인 -> 비밀번호 입력 받기 -> 회원가입 완료
 	public void joinMember() throws IOException, ClassNotFoundException{
@@ -199,32 +234,9 @@ public class LoginInfoManager implements Menu {
 			
 		}
 	}
-	// 회원정보 외부 저장 메서드
-	void saveLogInfo() throws IOException, ClassNotFoundException{
-		
-		// 파일 중복생성 방지
-		File f = new File("LoginInfo.ser");
-		f.delete();
-		
-	    // 인스턴스 저장을 위한 스트림 생성
-	    ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("LoginInfo.ser"));   
-	    out.writeObject(loginInfo);
-	    out.close();		  
-	}
-	
-		
-	// 외부에 저장된 회원정보 불러오기 메서드
-	void callLogInfo() {
-		// 인스턴스 복원을 위한 스트림 생성
-	    ObjectInputStream in;
-		try {
-			in = new ObjectInputStream(new FileInputStream("LoginInfo.ser"));
-			loginInfo = (ArrayList<LoginInfo>)in.readObject();	
-		} catch (IOException | ClassNotFoundException e) {
-		}
-	    	
-	}
 
+	
+	
 	// 로그인 정보 변경 메서드 
 	//		충전금액/포인트 받아놓기 -> 계정 삭제 -> 새 ID/PW 입력 받기 -> 계정 생성 -> 로그인ID/PW 변경
 	public void changeLoginInfo() throws IOException, ClassNotFoundException {
@@ -232,10 +244,11 @@ public class LoginInfoManager implements Menu {
 		// 현재 로그인 계정의 충전금액/포인트 받아놓기
 		int myMoney = loginInfo.get(INDEX).getMyMoney(); 
 		int point = loginInfo.get(INDEX).getPoint(); 
+		
 		// 현재 로그인 계정 삭제
 		loginInfo.remove(INDEX);
 		
-		// 새 ID/PW 입력 받아 새 배열 생성
+		// ID/PW 입력 받아 새로운 배열 저장
 		System.out.println("ID/PW 변경을 시작합니다.");
 		System.out.println("아이디 : ");	
 		String changedId = Util.sc.nextLine().trim();	
@@ -243,14 +256,16 @@ public class LoginInfoManager implements Menu {
 		String changedPw = Util.sc.nextLine().trim();	
 		addInfo(new LoginInfo(changedId, changedPw, myMoney, point));
 				
-		// 상수화한 NOWID, NOWPW도 변경
+		// 상수화한 NOWID, NOWPW 변경
 		NOWID = changedId;
-		NOWPW = changedPw;
-		
+		NOWPW = changedPw;		
 		System.out.println("ID/PW 변경이 완료되었습니다.");
 		System.out.println("-----------------------------------");
 	}
 
+	
+	
+	
 	
 	
 	
