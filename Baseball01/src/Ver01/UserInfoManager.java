@@ -12,10 +12,9 @@ public class UserInfoManager  extends LoginInfoManager{
    
 
    
-	   BookingManager re = new BookingManager();
-	   Seat se = new Seat();
-	   ReserveSeat se1 = new ReserveSeat();
-	
+
+   Seat se = new Seat();
+   
 
 
     // 자가정보 조회  
@@ -30,17 +29,16 @@ public class UserInfoManager  extends LoginInfoManager{
          }
             
          while(true) {
-    	     System.out.println("\n〓〓〓〓〓〓〓〓   MY PAGE 〓〓〓〓〓〓〓〓〓\n");
-             System.out.println("\t"+SHOWBOOK+". 예매 조회");
-             System.out.println("\t"+EVETALL+". 이벤트 조회");
-             System.out.println("\t"+MEMBER+". 회원정보 조회");
-             System.out.println("\t"+CHANGE+". ID/PW 변경");
-	         System.out.println("\t"+DELETE+" 탈퇴하기");
-	         System.out.println("\t"+EXIT1+". 나가기");
-	         System.out.println("\n〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
-	         System.out.print(" SELECT MENU >> ");
-
-	 
+            System.out.println("**********************************");
+         System.out.println("\t"+SHOWBOOK+". 예매조회");
+         System.out.println("\t"+EVETALL+". 이벤트조회");
+         System.out.println("\t"+MEMBER+". 회원정보조회");
+         System.out.println("\t"+CHANGE+". 비밀번호 변경");
+         System.out.println("\t"+DELETE+" 탈퇴하기");
+         System.out.println("\t"+EXIT1+". 나가기");
+         System.out.println("**********************************");
+         System.out.println("\n>>");
+ 
          // 사용자 선택
          int select =0;
          
@@ -93,6 +91,7 @@ public class UserInfoManager  extends LoginInfoManager{
    //예매이력(보유 금액, 보유 포인트 출력)
    public void displayInfo(){
          // id/pw 출력
+
 
          int index = searchIndex(NOWID);
     
