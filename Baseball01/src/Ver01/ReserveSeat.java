@@ -184,6 +184,14 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 				} else {
 					loginInfo.get(INDEX).setMyMoney(myMoney + price);
 					loginInfo.get(INDEX).setPoint(myPoint - point);		
+					String cause="취소금액 10% 반환";
+					
+					try {
+						pointHistory(NOWID, -point , cause);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					
 					// 좌석 취소
 					pSeat.get(index - 1).cancel();
