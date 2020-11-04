@@ -464,7 +464,7 @@ public class LoginInfoManager implements Menu {
 	      
 	      while(true) {
 	    System.out.println("〓〓〓〓〓〓〓〓〓R A N D O M〓〓〓〓〓〓〓〓〓");
-	      System.out.println("\t당첨확률 25%");
+	      System.out.println("\t당첨확률 25% 맞추면 +500p");
 	      System.out.println("    1-100까지 원하는 숫자를 입력하세요!");
 	      System.out.println("\t취소 : 0 **");
 	      System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓\n");
