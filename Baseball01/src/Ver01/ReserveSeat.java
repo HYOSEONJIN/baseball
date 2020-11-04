@@ -34,10 +34,22 @@ public class ReserveSeat {
 	// 날짜 입력하기 
 	public static String choiceDate() {
 		getMonthGalendar();
+		
 		System.out.println("예매 가능한 날짜를 입력해 주세요. [입력형식 : 2020-01-01]");
 		
-		choiceDate = Util.sc.nextLine();
-		System.out.println("[" + choiceDate + "] 경기를 선택하셨습니다.");
+		while(true) {
+			// 입력 날짜 받기
+			choiceDate = Util.sc.nextLine();
+			
+			if (choiceDate.length() != 10) {
+				System.out.println("입력형식이 올바르지 않습니다. 다시 입력해주세요.");
+				//Util.sc.nextLine();
+				continue;
+			} else {
+				System.out.println("[" + choiceDate + "] 경기를 선택하셨습니다.");
+				break;
+			}
+		}
 		
 		return choiceDate;
 	}
@@ -55,10 +67,10 @@ public class ReserveSeat {
 			System.out.println("[" + (char)(i + 'A') + "석]");
 			
 			for(int j = 0; j < arrSeat[i].length ; j++) {
-				index = searchIndex(loginId, choiceDate, count); 
+				index = searchIndex(choiceDate, count); 
 				
 				// 예약된 좌석인 경우 X, 아닌경우 : 좌석번호
-				if(index > 0) {
+				if(index > -1) {
 					System.out.print("[X]");
 				}else {
 					System.out.print("[" + count + "]");
@@ -90,9 +102,6 @@ public class ReserveSeat {
 	
 	// 좌석 취소하기
 	public static void cancelSeat() {
-		int choiceSeatNum = 0;
-		String choiceDate = ""; 
-		
 		//내 좌석 정보보기
 		mySeatView(); 
 		
@@ -101,7 +110,7 @@ public class ReserveSeat {
 		
 		if(index < 1) {
 			System.out.println("찾으시는 정보가 존재하지 않습니다.");
-			System.out.println("메뉴로 이동합니다.");			
+			System.out.println("메뉴로 이동합니다.");
 		} else {
 			// 좌석 취소 
 			pSeat.get(index - 1).cancel();
@@ -111,9 +120,9 @@ public class ReserveSeat {
 	
 	// 해당달 달력 가져 오기
 	public static void getMonthGalendar(){
-        cal.set(thisYear, thisMonth - 1 ,1); 			//캘린더객체에 입력받은 년, 달, 그리고 Date을 1로설정
+        cal.set(thisYear, thisMonth - 1, 1); 			// thisMonth - 1 : 1월이 0이라서 해당달을 set 하려면 -1 해야함 
        
-        int sDayNum = cal.get(Calendar.DAY_OF_WEEK); 		// 1일의 요일
+        int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK); 		// 1일의 요일
         int endDate = cal.getActualMaximum(Calendar.DATE); 	// 달의 마지막일
        
         int nowYear = cal.get(Calendar.YEAR);
@@ -130,7 +139,7 @@ public class ReserveSeat {
       
         for (int i = 1; dateNum <= endDate ; i++) {    
            
-            if(i < sDayNum) {
+            if(i < dayOfWeek) {
             	System.out.print("\t"); // 요일숫자보다 작으면 공백
             } else {
                 if(dateNum < today) {
@@ -152,7 +161,7 @@ public class ReserveSeat {
     }
 
 
-	// 정보 검색 
+	// 정보 검색 1
 	// 해당 indxe의 참조변수로 정보 출력
 	// 배열의 index 를 찾는 메서드
 	public static int searchIndex(String name, String date, int seatNum) {
@@ -166,14 +175,13 @@ public class ReserveSeat {
 		return index;
 	}
 
-	// 정보 검색 
+	// 정보 검색 2
 	// 해당 indxe의 참조변수로 정보 출력
 	// 배열의 index 를 찾는 메서드
 	public static int searchIndex(String date, int seatNum) {
 		int index = -1; // 정보가 없을때
 		
 		for(int i=0; i < pSeat.size() ; i++) {
-			
 			if(pSeat.get(i).getDate().equals(date) && pSeat.get(i).getSeatNum() == seatNum) {
 				index = i;
 			}
@@ -194,33 +202,5 @@ public class ReserveSeat {
 		System.out.println(result);
 	}
 	
-	// 전체 좌석 정보 보기 
-	public static void viewAll() {
-		String choiceDate; 
-		String arrSeat[][] = new String[3][10];  // 3 * 10 좌석 생성 
-		int count = 1;
-		
-		System.out.println("조회할 날짜를 입력해주세요. [ex : 2020-10-01]");
-		choiceDate = Util.sc.nextLine();
-		
-		System.out.println("=============================================");
-		System.out.println("========== 좌석 정보 [예약된 좌석인 경우 O, 아닌경우 : X] ==========");
-		for(int i = 0; i < arrSeat.length ; i++) {
-			
-			for(int j = 0; j < arrSeat[i].length ; j++) {
-				int index = searchIndex(choiceDate, count); 
-				
-				// 예약된 좌석인 경우 O, 아닌경우 X
-				if(index > -1) {
-					System.out.print("[O]");
-				}else {
-					System.out.print("[X]");
-				}
-				count++;
-			}
-			System.out.println();
-		}
-		System.out.println("=============================================");	
 
-	}	
 }
