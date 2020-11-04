@@ -123,7 +123,7 @@ public class ReserveSeat {
 	
 	// 해당달 달력 가져 오기
 	public static void getMonthGalendar(){
-        cal.set(thisYear, thisMonth - 1 ,1); 			//캘린더객체에 입력받은 년, 달, 그리고 Date을 1로설정
+        cal.set(thisYear, thisMonth - 1, 1); 			// thisMonth - 1 : 1월이 0이라서 해당달을 set 하려면 -1 해야함 
        
         int sDayNum = cal.get(Calendar.DAY_OF_WEEK); 		// 1일의 요일
         int endDate = cal.getActualMaximum(Calendar.DATE); 	// 달의 마지막일
