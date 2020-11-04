@@ -555,7 +555,7 @@ public class LoginInfoManager implements Menu {
 	      if (!pointHistoryFile.exists()) {
 	         System.out.println("포인트 사용 내역이 없습니다.");
 	      } else {
-	         System.out.println("--------------------");
+	         System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
 	         System.out.println("포인트 |\t사용내역");
 	         try {
 	            in = new BufferedReader(new FileReader(txt));
@@ -567,9 +567,9 @@ public class LoginInfoManager implements Menu {
 	               }
 	               System.out.println(str);
 	            }
-	            System.out.println("--------------------");
+	            System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
 	            System.out.println("잔여포인트는 " + loginInfo.get(INDEX).getPoint() + " point");
-	            System.out.println("--------------------");
+	            System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
 	         } catch (FileNotFoundException e) {
 	            // TODO Auto-generated catch block
 	            e.printStackTrace();
@@ -586,13 +586,13 @@ public class LoginInfoManager implements Menu {
 	   public void buyGoods() throws IOException {
 
 	      while (true) {
-	         System.out.println("--------------------------------------");
+	         System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
 	         System.out.println("현재 보유 포인트는 " + loginInfo.get(INDEX).getPoint() + "point 입니다.");
-	         System.out.println("--------------------------------------");
+	         System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
 	         System.out.println("1. 히어로즈 야구점퍼 (1000point)");
 	         System.out.println("2. 히어로즈 슬로건 (700point)");
 	         System.out.println("3. 히어로즈 마스코트인형 (500point)");
-	         System.out.println("--------------------------------------");
+	         System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
 
 	         int price = 0;
 	         int choice = 0;
@@ -627,7 +627,7 @@ public class LoginInfoManager implements Menu {
 	            System.out.println("구매완료!");
 	            loginInfo.get(INDEX).setPoint(price);
 	            pointHistory(NOWID, price, cause);
-	            System.out.println("--------------------------------------");
+	            System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
 	            return;
 	         }
 
@@ -650,13 +650,13 @@ public class LoginInfoManager implements Menu {
 
              while(true) {
                 int choice;
-                System.out.println("***********************************");
+                System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
                 System.out.println("\n매일매일 CHUL-SEOK 체크 이벤트!");
                 System.out.println("일주일간 매일 출석을 하시면, ");
                 System.out.println("500포인트를 드립니다. ");
                 System.out.println("출석하시려면 번호를 눌러주세요.");
                 System.out.println("1.출석  2.홈으로 돌아가기");
-                System.out.println("\n***********************************");
+                System.out.println("\n〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
                 choice=Util.sc.nextInt();
                 
                 // 출첵을 할 때
