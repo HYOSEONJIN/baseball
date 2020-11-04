@@ -12,24 +12,15 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Set;
 
 public class LoginInfoManager implements Menu {
-	
-	// 생성자
-	public LoginInfoManager() {
-		super();
-	}
-
-	// 변수 상수화 
-	static String NOWID ;	// 현재 로그인 ID
-	static String NOWPW;	// 현재 로그인 ID PW 
-	static int INDEX; 		// 현재 로그인 ID index
-	
-	// 회원정보 배열 생성
-	static ArrayList<LoginInfo> loginInfo = new ArrayList<LoginInfo>();	 
 	
 	// 로그인 메뉴 메서드
 	public void loginZone() throws IOException, ClassNotFoundException { 
@@ -39,12 +30,9 @@ public class LoginInfoManager implements Menu {
 	         System.out.println("\n           "+LOG+". 로그인");
 	         System.out.println("           "+JOIN+". 회원가입");
 	         System.out.println("           "+HOME+ ". 홈 메뉴로 돌아가기");
-	         System.out.println("           4. ID/PW 변경"); // ID/PW 변경 test용
 	         System.out.println("\n***********************************");
-	         
-	         // 사용자 메뉴 선택
-	         int select=0;
-	         
+	            
+	         int select=0; // 사용자 메뉴 선택 
 	         try {
 	            select = Util.sc.nextInt();
 	            Util.sc.nextLine();
@@ -70,12 +58,23 @@ public class LoginInfoManager implements Menu {
 					return;
 	         	case HOME : 
 	         		return;
-	         	case 4 : 
-	         		changeLoginInfo();	// test용
 	         }
 		}
 	}
 	
+	
+	// 생성자
+	public LoginInfoManager() {
+		super();
+	}
+
+	// 변수 상수화 
+	static String NOWID ;	// 현재 로그인 ID
+	static String NOWPW;	// 현재 로그인 ID PW 
+	static int INDEX; 		// 현재 로그인 ID index
+	
+	// 회원정보 배열 생성
+	static ArrayList<LoginInfo> loginInfo = new ArrayList<LoginInfo>();	 
 	
 	
 	// 로그인 메서드 
@@ -97,8 +96,7 @@ public class LoginInfoManager implements Menu {
 			if(searchIndex(id)>=0) {
 				// 해당 index의 비밀번호와 일치 여부 확인
 				if(loginInfo.get(index).getPw().equals(pw)) {
-					System.out.println(id +"님, 로그인에 성공하였습니다.");
-					System.out.println("-----------------------------------");
+					System.out.println(id +"님, 로그인에 성공하였습니다.\n");
 					NOWID=id; 
 					for(int i=0; i<loginInfo.size(); i++) {
 							if(loginInfo.get(i).getId().equals(id)) {
@@ -108,11 +106,9 @@ public class LoginInfoManager implements Menu {
 						}
 					return;
 				} else {
-					System.out.println("-----------------------------------");
 					System.out.println("아이디와 비밀번호가 일치하지 않습니다.        ");
 					System.out.println("\n다시 로그인하시려면 Enter키를 입력해주세요.   ");
-					System.out.println("홈메뉴로 돌아가시려며 숫자 \"0\"을 입력해주세요. ");
-					System.out.println("-----------------------------------");						
+					System.out.println("홈메뉴로 돌아가시려며 숫자 \"0\"을 입력해주세요.\n");					
 					String insert = null;
 						insert = Util.sc.nextLine();
 						if(insert.equals("0")) {
@@ -122,11 +118,9 @@ public class LoginInfoManager implements Menu {
 						}
 				}
 			} else {
-				System.out.println("-----------------------------------");
-				System.out.println("존재하지 않는 아이디입니다.");
+				System.out.println("\n존재하지 않는 아이디입니다.");
 				System.out.println("\n다시 로그인하시려면 Enter키를 입력해주세요.");
-				System.out.println("홈메뉴로 돌아가시려며 숫자 \"0\"을 입력해주세요.");
-				System.out.println("-----------------------------------");
+				System.out.println("홈메뉴로 돌아가시려며 숫자 \"0\"을 입력해주세요.\n");
 				String insert = null;
 				insert = Util.sc.nextLine();
 				if(insert.equals("0")) {
@@ -204,14 +198,12 @@ public class LoginInfoManager implements Menu {
 					throw e;
 				}	
 			} catch(NullInputException e) {
-				System.out.println("아이디를 잘못 입력하셨습니다. 다시 입력해주세요.");
-				System.out.println("-----------------------------------");
+				System.out.println("아이디를 잘못 입력하셨습니다. 다시 입력해주세요.\n");
 			}
 			
 			int index = searchIndex(id);
 			if(searchIndex(id)>=0) {
-				System.out.println("중복되는 아이디가 존재합니다. 다른 아이디를 입력해주세요.");
-				System.out.println("-----------------------------------");
+				System.out.println("중복되는 아이디가 존재합니다. 다른 아이디를 입력해주세요.\n");
 				continue;
 			} else {
 				System.out.println("비밀번호 : ");
@@ -223,12 +215,10 @@ public class LoginInfoManager implements Menu {
 						throw e;
 					}
 					addInfo(new LoginInfo(id, pw));
-					System.out.println(id+"님, 가입을 축하드립니다!");
-					System.out.println("-----------------------------------");
+					System.out.println(id+"님, 가입을 축하드립니다!\n");
 					break;								
 				} catch(NullInputException e) {
-					System.out.println("비밀번호를 잘못 입력하셨습니다. 다시 입력해주세요.");
-					System.out.println("-----------------------------------");
+					System.out.println("비밀번호를 잘못 입력하셨습니다. 다시 입력해주세요.\n");
 				}
 			}	
 			
@@ -259,8 +249,7 @@ public class LoginInfoManager implements Menu {
 		// 상수화한 NOWID, NOWPW 변경
 		NOWID = changedId;
 		NOWPW = changedPw;		
-		System.out.println("ID/PW 변경이 완료되었습니다.");
-		System.out.println("-----------------------------------");
+		System.out.println("ID/PW 변경이 완료되었습니다.\n");
 	}
 
 	
@@ -272,63 +261,68 @@ public class LoginInfoManager implements Menu {
 // =======================================================================================================================================
 	
 	
-	   // 포인트존메인메서드 ( 예외처리끝 )
-	   public void pointZone() throws IOException, ClassNotFoundException {
-	      if(NOWID==null) {
-	         System.out.println("로그인 먼저 :)");
-	         return;
-	      }
+	// 포인트존메인메서드 ( 예외처리끝 )
+    public void pointZone() throws IOException, ClassNotFoundException {
+       if(NOWID==null) {
+          System.out.println("로그인 먼저 :)");
+          return;
+       }
 
-	      while (true) {
-	         System.out.println("**********************************");
-	         System.out.println("\t"+NOWID+"님, 안녕하세요!");
-	         System.out.println("\t"+loginInfo.get(INDEX).getPoint()+"POINT 보유중");
-	         System.out.println("**********************************");
-	         System.out.println();
-	         System.out.println("\t1. 가위바위보게임(100POINT)");
-	         System.out.println("\t2. 랜덤뽑기(100POINT)");
-	         System.out.println("\t3. 굿즈구매");
-	         System.out.println("\t4. 포인트 사용 내역 조회");
-	         System.out.println("\t5. 포인트존 나가기");
-	         System.out.println();
-	          System.out.println("**********************************");
-	         try {
-	            int choice = Util.sc.nextInt();
-	            
-	            Util.sc.nextLine();
-	            if (choice < 1 || choice > 5) {
-	               PointZoneException e = new PointZoneException(choice);
-	               throw e;
-	            }
+       while (true) {
+          System.out.println("**********************************");
+          System.out.println("\t"+NOWID+"님, 안녕하세요!");
+          System.out.println("\t"+loginInfo.get(INDEX).getPoint()+"POINT 보유중");
+          System.out.println("**********************************");
+          System.out.println();
+          System.out.println("\t1. 가위바위보게임(100POINT)");
+          System.out.println("\t2. 랜덤뽑기(100POINT)");
+          System.out.println("\t3. 출석체크");
+          System.out.println("\t4. 굿즈구매");
+          System.out.println("\t5. 포인트 사용 내역 조회");
+          System.out.println("\t6. 포인트존 나가기");
+          System.out.println();
+           System.out.println("**********************************");
+          try {
+             int choice = Util.sc.nextInt();
+             
+             Util.sc.nextLine();
+             if (choice < 1 || choice > 7) {
+                PointZoneException e = new PointZoneException(choice);
+                throw e;
+             }
 
-	            switch (choice) {
-	            case 1:
-	               pointGame1();
-	               saveInfo();
-	               break;
-	            case 2:
-	               pointGame2();
-	               saveInfo();
-	               break;
-	            case 3:
-	               buyGoods();
-	               saveInfo();
-	               break;
-	            case 4:
-	               pointHistoryInfo(NOWID);
-	               break;
-	            case 5:
-	               return;
-	            }
-	         } catch (InputMismatchException | PointZoneException e) {
-	            System.out.println("올바르지 않은 입력입니다.");
-	            Util.sc.nextLine();
-	            continue;
-	         }
+             switch (choice) {
+             case 1:
+                pointGame1();
+                saveInfo();
+                break;
+             case 2:
+                pointGame2();
+                saveInfo();
+                break;
+             case 3:
+            	 att();
+            	 saveInfo();
+            	 break;
+             case 4:
+                buyGoods();
+                saveInfo();
+                break;
+             case 5:
+                pointHistoryInfo(NOWID);
+                break;
+             case 6:
+                return;
+             }
+          } catch (InputMismatchException | PointZoneException e) {
+             System.out.println("올바르지 않은 입력입니다.");
+             Util.sc.nextLine();
+             continue;
+          }
 
-	      }
+       }
 
-	   }
+    }
 
 	   
 	   
@@ -623,6 +617,58 @@ public class LoginInfoManager implements Menu {
 	   }
 	
 	
-	
+	// 출석체크이벤트 이력
+       void att() throws IOException {
+          // 날짜 받기
+          Date today=new Date();
+          SimpleDateFormat now = new SimpleDateFormat("dd");
+          int day = Integer.parseInt(now.format(today));
+          int sevenDay=500;
+          String cause="7일 출석체크 보상";
+          boolean check=false;
+
+          // 해시셋 생성
+          Set<Integer> set = new HashSet<Integer>();
+
+             while(true) {
+                int choice;
+                System.out.println("***********************************");
+                System.out.println("\n매일매일 CHUL-SEOK 체크 이벤트!");
+                System.out.println("일주일간 매일 출석을 하시면, ");
+                System.out.println("500포인트를 드립니다. ");
+                System.out.println("출석하시려면 번호를 눌러주세요.");
+                System.out.println("1.출석  2.홈으로 돌아가기");
+                System.out.println("\n***********************************");
+                choice=Util.sc.nextInt();
+                
+                // 출첵을 할 때
+                if(choice==1) {
+                   if(set.contains(day)) {  // 출첵을 이미 했는데 또 할 경우 
+                      System.out.println("오늘은 이미 출석하셨어요. 내일을 기다리세요.");
+                      break;
+                   }else{
+                       set.add(day);   // 출첵 정보를 저장
+                      System.out.println("출석 완료!");
+                      break;
+                   }
+                }else if(choice==2) {  // 홈으로 돌아가기 버튼을 누를 경우
+                   System.out.println("홈으로 돌아갑니다.");
+                   return;
+                } 
+             
+                
+                }   // 출첵해서 일주일 보상을 받을 경우 
+                   if(set.size()==3) {
+                        loginInfo.get(INDEX).setPoint(sevenDay);
+                        pointHistory(NOWID, sevenDay, cause);
+                       System.out.println("일주일간 출석해서 500 포인트가 지급됩니다!");
+                      System.out.println(NOWID+"님의 포인트는"+loginInfo.get(INDEX).getPoint()+"입니다.");
+                      System.out.println("홈으로 돌아갑니다.");
+                      set.clear();      // 셋에 저장된 정보 리셋
+                      return;
+                
+                } 
+	   
+       }
 	
 }
