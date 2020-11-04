@@ -695,7 +695,7 @@ public class LoginInfoManager implements Menu {
                       break;
                    }else{
                        set.add(day);   // 출첵 정보를 저장
-                      System.out.println("출석 완료!");
+                      System.out.println("출석 완료!\n");
                       
                       // 출첵해서 일주일 보상을 받을 경우
                       if(set.size()%7==0) {
@@ -703,7 +703,7 @@ public class LoginInfoManager implements Menu {
                           pointHistory(NOWID, sevenDay, cause);
                          System.out.println("일주일간 출석해서 500 포인트가 지급됩니다!");
                         System.out.println(NOWID+"님의 포인트는"+loginInfo.get(INDEX).getPoint()+"입니다.");
-                        System.out.println("홈으로 돌아갑니다.");
+                        System.out.println("홈으로 돌아갑니다.\n");
                         ;      // 셋에 저장된 정보 리셋
                             
                         } 
@@ -714,7 +714,7 @@ public class LoginInfoManager implements Menu {
                       break;
                    }
                 }else if(choice==2) {  // 홈으로 돌아가기 버튼을 누를 경우
-                   System.out.println("홈으로 돌아갑니다.");
+                   System.out.println("홈으로 돌아갑니다.\n");
                    return;
                 } 
              
