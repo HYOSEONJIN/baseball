@@ -97,16 +97,22 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 	}
 
 	// 좌석 예약하기
-	void insertSeat() {
+	boolean insertSeat() {
+		boolean result = false;
+		
 		if (myMoney == 0) {
 			System.out.println("금액 충전이 필요합니다.");
+			
 		} else {
 			// 선택한 야구 날짜
 			choiceDate = choiceDate();
 	
 			// 선택한 좌석번호
 			seatNum = choiceSeat(choiceDate);
+			
+			result = true;
 		}
+		return result;
 	}
 
 	// 결제

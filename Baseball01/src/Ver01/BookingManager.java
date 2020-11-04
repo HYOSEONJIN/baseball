@@ -32,12 +32,17 @@ public class BookingManager extends LoginInfoManager {
 			switch (choice) {
 			// 예약 하기
 			case BOOKINGNOW:
-				reserve.insertSeat();
-				boolean sucess = reserve.paying();
+				boolean sucess;  
+				sucess = reserve.insertSeat();
+				
 
 				// 결제가 제대로 완료된 경우 
 				if(sucess) {
-					reserve.payed();
+					sucess = reserve.paying();
+					
+					if(sucess) {
+						reserve.payed();
+					}
 				} 		
 				break;
 
