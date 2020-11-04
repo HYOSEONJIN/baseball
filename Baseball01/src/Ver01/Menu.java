@@ -31,7 +31,7 @@ public interface Menu {
 	int EXIT2=5;
 	
 	// *****************************
-    // 예약 상세메뉴 (UserManager)
+    // 회원정보 상세메뉴 (UserManager)
     int  SHOWBOOK=1;
     int EVETALL=2;
     int MEMBER=3;

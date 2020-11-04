@@ -1,6 +1,7 @@
 package Ver01;
 
 import java.awt.List;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -42,6 +43,15 @@ public class BookingManager extends LoginInfoManager {
 					
 					if(sucess) {
 						reserve.payed();
+						try {
+							saveInfo();
+						} catch (ClassNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 				} 		
 				break;
