@@ -31,7 +31,7 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 		pSeat = new ArrayList<Seat>();
 
 		// 로그인된 경우에만 로그인 정보 가져오기 
-		if (INDEX > 0) {
+		if (INDEX > -1) {
 			myMoney = loginInfo.get(INDEX).getMyMoney(); // 현재 가진 돈
 			mypoint = loginInfo.get(INDEX).getPoint(); // 포인트
 		} 
@@ -97,13 +97,16 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 	}
 
 	// 좌석 예약하기
-	public static void insertSeat() {
-		// 선택한 야구 날짜
-		choiceDate = choiceDate();
-
-		// 선택한 좌석번호
-		seatNum = choiceSeat(choiceDate);
-
+	void insertSeat() {
+		if (myMoney == 0) {
+			System.out.println("금액 충전이 필요합니다.");
+		} else {
+			// 선택한 야구 날짜
+			choiceDate = choiceDate();
+	
+			// 선택한 좌석번호
+			seatNum = choiceSeat(choiceDate);
+		}
 	}
 
 	// 결제
