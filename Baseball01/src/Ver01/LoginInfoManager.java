@@ -568,7 +568,7 @@ public class LoginInfoManager implements Menu {
 	      if (!pointHistoryFile.exists()) {
 	         System.out.println("포인트 사용 내역이 없습니다.");
 	      } else {
-	         System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
+	         System.out.println("\n〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
 	         System.out.println("포인트 |\t사용내역");
 	         try {
 	            in = new BufferedReader(new FileReader(txt));
@@ -580,9 +580,9 @@ public class LoginInfoManager implements Menu {
 	               }
 	               System.out.println(str);
 	            }
-	            System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
+	            System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
 	            System.out.println("잔여포인트는 " + loginInfo.get(INDEX).getPoint() + " point");
-	            System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓");
+	            System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓\n");
 	         } catch (FileNotFoundException e) {
 	            // TODO Auto-generated catch block
 	            e.printStackTrace();
