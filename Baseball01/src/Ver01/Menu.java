@@ -2,11 +2,11 @@ package Ver01;
 
 public interface Menu {
 
-	int LOGIN=1;
-	int BOOKING=2;
-	int INFO=3;
-	int EVENT=4;
-	int EXIT=5;
+	   int LOGIN=1;
+	   int BOOKING=2;
+	   int EVENT=3;
+	   int INFO=4;
+	   int EXIT=5;
 	
 	// *****************************
 	// 로그인 상세메뉴 (LoginInfoManager)
@@ -20,6 +20,7 @@ public interface Menu {
 	int CANCEL=2;
 	int BOOKINGINFO=3;
 	int RECHARGE=4;
+	int EXIT2=5;
 	
 	// *****************************
     // 예약 상세메뉴 (UserManager)

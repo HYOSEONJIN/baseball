@@ -1,23 +1,30 @@
 package Ver01;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class ReserveSeat extends LoginInfoManager {
+public class ReserveSeat extends LoginInfoManager implements Serializable {
 	static String choiceDate;
 	static int seatNum = 0; // 좌석 번호
 	char grade = ' '; // 좌석 등급
-	int price = 0; // 티켓 가격
+	
 	int myMoney = 0;
 	int mypoint = 0;
 	static int choiceSeatNum = 0;
 
 	// 배열을 이용해서 저장하는 방식을 ArrayList<T> 컬랙션을 이용해서 구현해 보자
-	static List<Seat> pSeat;
-
+	static ArrayList<Seat> pSeat;
+	
 	// 생성자 : 싱글톤 처리 -> 외부에서 인스턴스 생성을 금지
 	ReserveSeat() {
 		// List<PhoneInfor> 초기화
@@ -30,7 +37,7 @@ public class ReserveSeat extends LoginInfoManager {
 		} 
 		
 		// 생성자 호출할때 파일 불러오기
-		// read();
+		load();
 	}
 
 	// 날짜 입력하기
@@ -102,8 +109,8 @@ public class ReserveSeat extends LoginInfoManager {
 	// 결제
 	boolean paying() {
 		boolean result = false;
-		int point = 0;
-
+		int price = 0; // 티켓 가격
+	
 		if (seatNum <= 10) {
 			price = 10000;
 		} else if (seatNum > 10 && seatNum <= 20) {
@@ -115,12 +122,22 @@ public class ReserveSeat extends LoginInfoManager {
 		if (myMoney < price) {
 			System.out.println("금액 충전이 필요합니다.");
 		} else {
+			
+			String cause="결제금액 10% 적립";
+			
 			myMoney -= price;
-			mypoint += price / 10;
+			int point = price/10;
+			mypoint += point;
 			loginInfo.get(INDEX).setMyMoney(myMoney);
 			loginInfo.get(INDEX).setPoint(mypoint);
+			try {
+				pointHistory(NOWID, point , cause);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println(price + "원이 결제 되었습니다.");
-			System.out.println((price / 10) + "가  적립 되었습니다.");
+			System.out.println((point) + "가  적립 되었습니다.");
 			result = true;
 		}
 
@@ -128,27 +145,28 @@ public class ReserveSeat extends LoginInfoManager {
 	}
 
 	// 예약완료
-	public static void payed() {
+	void payed() {
 		pSeat.add(new Seat(NOWID, choiceDate, seatNum));
-		// System.out.println(pSeat.size());
+		// 파일 저장
+		save();
 		System.out.println(NOWID + "님 날짜 : " + choiceDate + ",  좌석번호 : " + seatNum + "번 예매 되셨습니다");
 	}
 
 	// 좌석 취소하기
 	public static void cancelSeat() {
 		// 내 좌석 정보보기
-		mySeatView();
-
-		System.out.println("취소하시는 번호를 입력해주세요.");
-		int index = Util.sc.nextInt();
-
-		if (index < 1) {
-			System.out.println("찾으시는 정보가 존재하지 않습니다.");
-			System.out.println("메뉴로 이동합니다.");
-		} else {
-			// 좌석 취소
-			pSeat.get(index - 1).cancel();
-			System.out.println(NOWID + "님 예약취소가 완료되었습니다.\n");
+		if ( mySeatView()) {
+			System.out.println("취소하시는 번호를 입력해주세요.");
+			int index = Util.sc.nextInt();
+	
+			if (index < 1) {
+				System.out.println("찾으시는 정보가 존재하지 않습니다.");
+				System.out.println("메뉴로 이동합니다.");
+			} else {
+				// 좌석 취소
+				pSeat.get(index - 1).cancel();
+				System.out.println(NOWID + "님 예약취소가 완료되었습니다.\n");
+			}
 		}
 	}
 
@@ -231,20 +249,27 @@ public class ReserveSeat extends LoginInfoManager {
 	}
 
 	// 내 좌석 정보 보기
-	public static void mySeatView() {
-		String result = "예약된 정보가 존재하지 않습니다.";
+	public static boolean mySeatView() {
+		boolean result = false;
+		
+		String msg = "예약된 정보가 존재하지 않습니다.";
 
 		System.out.println("[" + NOWID + "님 예약 정보]");
 		for (int i = 0; i < pSeat.size(); i++) {
 			if (pSeat.get(i).getName().equals(NOWID)) {
-				result = (i + 1) + ". [" + pSeat.get(i).getName() + "]님은 " + pSeat.get(i).getDate() + "일 "
+				result = true;
+				
+				msg = (i + 1) + ". [" + pSeat.get(i).getName() + "]님은 " + pSeat.get(i).getDate() + "일 "
 						+ pSeat.get(i).getGrade() + "등급 " + pSeat.get(i).getSeatNum() + "번째 좌석을 예약하셨습니다.";
 			}
 		}
-		System.out.println(result);
+		System.out.println(msg);
+		
+		return result;
 	}
 
 	void recharge() {
+		
 		System.out.println(" 충전 금액을 입력하세요.");
 		int addMoney = Util.sc.nextInt();
 		myMoney += addMoney;
@@ -252,4 +277,56 @@ public class ReserveSeat extends LoginInfoManager {
 		System.out.println("보유금액: " + myMoney);
 	}
 
+	// List:pBook 에 저장되어있는 인스턴스들을 저장 
+	public void save() {
+		// 파일 중복생성 방지
+		File f = new File("PayInfor.ser");
+		f.delete();
+		
+		if(pSeat.size() == 0) {
+			System.out.println("저장된 데이터가 없어 파일의 저장이 되지 않습니다.");
+			return;
+		}
+		
+		// 인스턴스를 저장할 수 있는 출력 스트림 생성 
+		try {
+			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("PayInfor.ser"));
+
+			// 이렇게 통채로 저장 가능 
+			out.writeObject(pSeat);
+			out.close();
+			System.out.println("저장 되었습니다.(PayInfor.ser)");
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("저장하는 과정에 오류가 발생했습니다.(" + pSeat.size() + ") \n다시 시도해 주세요.");
+		}
+		
+	}
+	
+	// 프로그램으로 파일의 저장 데이터를 로드하는 메서드 생성 
+	void load() {
+		// 파일 존재 여부 확인 : File 클래스 이용 
+//		File file = new File("PayInfor.ser");
+		
+//		if(!file.exists()) {
+//			System.out.println("저장된 파일이 존재하지 않습니다. 파일 저장 후 load 됩니다.");
+//		}
+		
+		// 파일에 있는 데이터를 메모리에 저장 :pBook에 저장
+		// 파일의 데이터를 읽을 수 있는 스트림 생성 
+		try {
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream("PayInfor.ser"));
+			
+			pSeat = (ArrayList<Seat>)in.readObject();  
+			System.out.println("데이터 로드 완료............");
+		} catch (IOException e) {
+			//System.out.println("데이터를 로드하는 과정에 오류가 발생했습니다.");
+			//e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("데이터를 로드하는 과정에 오류가 발생했습니다.");
+			e.printStackTrace();
+		}
+		
+	}
 }
