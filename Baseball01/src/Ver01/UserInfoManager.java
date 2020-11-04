@@ -12,7 +12,9 @@ public class UserInfoManager  extends LoginInfoManager{
    
 
    
-   ReserveSeat re = new ReserveSeat();
+
+	Seat se = new Seat();
+	
 
 
     // 자가정보 조회  
@@ -90,10 +92,7 @@ public class UserInfoManager  extends LoginInfoManager{
    public void displayInfo(){
          // id/pw 출력
 
-         if( loginInfo.size() == 0) {
-            System.out.println("조회 할 정보가 없습니다.");
-            return;
-             }
+
          int index = searchIndex(NOWID);
     
          for(int i = 0; i<loginInfo.size();i++) {
@@ -123,12 +122,7 @@ public class UserInfoManager  extends LoginInfoManager{
    //이벤트내역 조회
    public void showEvent1() {
     
-      // id/pw로 확인
-      if(loginInfo.size() == 0) {
-         System.out.println("유저등록된 유저 정보가 없음.");
-         return;
-      }
-      
+
       System.out.println("이벤트내역 입니다");
       
 
@@ -187,12 +181,7 @@ public class UserInfoManager  extends LoginInfoManager{
    
    public void showAllinfo () {
        
-         // id/pw로 확인
-         if(loginInfo.size() == 0) {
-            System.out.println("유저등록된 유저 정보가 없음.");
-            return;
-         }
-         
+ 
          System.out.println(NOWID+"회원정보내역 입니다");
          
 
@@ -202,8 +191,8 @@ public class UserInfoManager  extends LoginInfoManager{
                  INDEX = i;
 
             System.out.println("아이디:"+ loginInfo.get(i).getId());            
-            System.out.println("좌석정보:"+ loginInfo.get(i).getId());
-            System.out.println("포인트:"+ loginInfo.get(i).getId());
+            System.out.println("좌석정보:"+ se.getSeatNum());
+            System.out.println("포인트:"+ loginInfo.get(i).getPoint());
             System.out.println("현재 충전금액:"+ loginInfo.get(i).getMyMoney());
           
             }
