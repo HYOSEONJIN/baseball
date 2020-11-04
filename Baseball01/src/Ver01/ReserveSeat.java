@@ -6,19 +6,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class ReserveSeat {
+public class ReserveSeat extends LoginInfoManager {
 	static String choiceDate;
 	static int seatNum = 0; // 좌석 번호
 	char grade = ' '; // 좌석 등급
 	int price = 0; // 티켓 가격
-	int myMoney = 0; // 현재 가진 돈
-	int point = 0; // 포인트
-	int getPoint = myMoney / 10;// 충전 포인트
+	int myMoney = loginInfo.get(INDEX).getMyMoney(); // 현재 가진 돈
+	int mypoint = loginInfo.get(INDEX).getPoint(); // 포인트
 	static int choiceSeatNum = 0;
 	int addMoney;
-
-	// static String loginId = LoginInfoManager.NOWID;
-	static String loginId = "이수진";
 
 	// 배열을 이용해서 저장하는 방식을 ArrayList<T> 컬랙션을 이용해서 구현해 보자
 	static List<Seat> pSeat;
@@ -99,8 +95,9 @@ public class ReserveSeat {
 	}
 
 	// 결제
-	boolean paying(int myMoney) {
+	boolean paying() {
 		boolean result = false;
+		int point = 0;
 
 		if (seatNum <= 10) {
 			price = 10000;
@@ -114,9 +111,11 @@ public class ReserveSeat {
 			System.out.println("금액 충전이 필요합니다.");
 		} else {
 			myMoney -= price;
-			point = price / 10;
+			mypoint += price / 10;
+			loginInfo.get(INDEX).setMyMoney(myMoney);
+			loginInfo.get(INDEX).setPoint(mypoint);
 			System.out.println(price + "원이 결제 되었습니다.");
-			System.out.println(point + "가  적립 되었습니다.");
+			System.out.println((price / 10) + "가  적립 되었습니다.");
 			result = true;
 		}
 
@@ -125,9 +124,9 @@ public class ReserveSeat {
 
 	// 예약완료
 	public static void payed() {
-		pSeat.add(new Seat(loginId, choiceDate, seatNum));
+		pSeat.add(new Seat(NOWID, choiceDate, seatNum));
 		// System.out.println(pSeat.size());
-		System.out.println(loginId + "님 날짜 : " + choiceDate + ",  좌석번호 : " + seatNum + "번 예매 되셨습니다");
+		System.out.println(NOWID + "님 날짜 : " + choiceDate + ",  좌석번호 : " + seatNum + "번 예매 되셨습니다");
 	}
 
 	// 좌석 취소하기
@@ -144,7 +143,7 @@ public class ReserveSeat {
 		} else {
 			// 좌석 취소
 			pSeat.get(index - 1).cancel();
-			System.out.println(loginId + "님 예약취소가 완료되었습니다.\n");
+			System.out.println(NOWID + "님 예약취소가 완료되었습니다.\n");
 		}
 	}
 
@@ -230,9 +229,9 @@ public class ReserveSeat {
 	public static void mySeatView() {
 		String result = "예약된 정보가 존재하지 않습니다.";
 
-		System.out.println("[" + loginId + "님 예약 정보]");
+		System.out.println("[" + NOWID + "님 예약 정보]");
 		for (int i = 0; i < pSeat.size(); i++) {
-			if (pSeat.get(i).getName().equals(loginId)) {
+			if (pSeat.get(i).getName().equals(NOWID)) {
 				result = (i + 1) + ". [" + pSeat.get(i).getName() + "]님은 " + pSeat.get(i).getDate() + "일 "
 						+ pSeat.get(i).getGrade() + "등급 " + pSeat.get(i).getSeatNum() + "번째 좌석을 예약하셨습니다.";
 			}
