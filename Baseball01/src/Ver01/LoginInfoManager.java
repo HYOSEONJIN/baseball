@@ -134,18 +134,9 @@ public class LoginInfoManager implements Menu {
 	
 	
 	// 배열에 정보 저장 메서드
-	private void addInfo(LoginInfo info) throws IOException {		
-		loginInfo.add(info);
-		
-		// 외부 파일에 저장 
-		// 파일 중복생성 방지
-		File f = new File("LoginInfo.ser");
-		f.delete();
-		
-	    // 인스턴스 저장을 위한 스트림 생성
-	    ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("LoginInfo.ser"));   
-	    out.writeObject(loginInfo);
-	    out.close();
+	private void addInfo(LoginInfo info) throws IOException, ClassNotFoundException {		
+		loginInfo.add(info);		
+		saveLogInfo();
 	}
 	
 	// 배열의 index 검색 메서드
@@ -162,7 +153,7 @@ public class LoginInfoManager implements Menu {
 
 	// 회원가입 메서드
 	//		ID 입력 받기 -> ID 중복 확인 -> 비밀번호 입력 받기 -> 회원가입 완료
-	public void joinMember() throws IOException{
+	public void joinMember() throws IOException, ClassNotFoundException{
 		System.out.println("회원가입을 시작합니다.");
 		String id = null;
 		String pw = null;
@@ -208,6 +199,18 @@ public class LoginInfoManager implements Menu {
 			
 		}
 	}
+	// 회원정보 외부 저장 메서드
+	void saveLogInfo() throws IOException, ClassNotFoundException{
+		
+		// 파일 중복생성 방지
+		File f = new File("LoginInfo.ser");
+		f.delete();
+		
+	    // 인스턴스 저장을 위한 스트림 생성
+	    ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("LoginInfo.ser"));   
+	    out.writeObject(loginInfo);
+	    out.close();		  
+	}
 	
 		
 	// 외부에 저장된 회원정보 불러오기 메서드
@@ -224,7 +227,7 @@ public class LoginInfoManager implements Menu {
 
 	// 로그인 정보 변경 메서드 
 	//		충전금액/포인트 받아놓기 -> 계정 삭제 -> 새 ID/PW 입력 받기 -> 계정 생성 -> 로그인ID/PW 변경
-	public void changeLoginInfo() throws IOException {
+	public void changeLoginInfo() throws IOException, ClassNotFoundException {
 		
 		// 현재 로그인 계정의 충전금액/포인트 받아놓기
 		int myMoney = loginInfo.get(INDEX).getMyMoney(); 
@@ -286,12 +289,15 @@ public class LoginInfoManager implements Menu {
 	            switch (choice) {
 	            case 1:
 	               pointGame1();
+	               saveLogInfo();
 	               break;
 	            case 2:
 	               pointGame2();
+	               saveLogInfo();
 	               break;
 	            case 3:
 	               buyGoods();
+	               saveLogInfo();
 	               break;
 	            case 4:
 	               pointHistoryInfo(NOWID);
