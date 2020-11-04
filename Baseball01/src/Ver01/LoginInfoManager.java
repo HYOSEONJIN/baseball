@@ -361,10 +361,13 @@ public class LoginInfoManager implements Menu {
 	      }
 
 	      while (true) {
-	         System.out.println("**가위바위보 GAME**");
-	         // 한번 참여시 100포인트 차감, 승리시 300포인트 돌려주고 비기면 50, 지면 0포인트 돌려줌
-	         System.out.println("1.가위 2.바위 3.보     ** 취소 : 0 **");
-
+		         // 한번 참여시 100포인트 차감, 승리시 300포인트 돌려주고 비기면 50, 지면 0포인트 돌려줌
+	    	 System.out.println("〓〓〓〓〓〓〓가위 바위 보 G A M E〓〓〓〓〓〓〓");
+	    	 System.out.println("      win : +100p | draw : +50p");
+	         System.out.println("      1 : 가위 | 2 :바위 | 3 : 보 ");
+	         System.out.println("      0 : 취소");
+	         System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓\n");
+	         	         
 	         try {
 	            int rsp = Util.sc.nextInt();
 
@@ -374,7 +377,7 @@ public class LoginInfoManager implements Menu {
 	            }
 
 	            if (rsp == 0) {
-	               System.out.println("게임을 종료합니다");
+	               System.out.println("게임을 종료합니다\n");
 	               return;
 	            }
 	            loginInfo.get(INDEX).setPoint(buyGame);
@@ -395,6 +398,7 @@ public class LoginInfoManager implements Menu {
 	                  loginInfo.get(INDEX).setPoint(win);
 	                  pointHistory(NOWID, win, cause);
 	               }
+	               System.out.println();
 	               break;
 	            case 2:
 	               if (rsp == 1) {
@@ -408,6 +412,7 @@ public class LoginInfoManager implements Menu {
 	               } else if (rsp == 3) {
 	                  System.out.println("패배했습니다 ToT");
 	               }
+	               System.out.println();
 	               break;
 	            case 3:
 	               if (rsp == 1) {
@@ -420,6 +425,7 @@ public class LoginInfoManager implements Menu {
 	                  System.out.println("비겼습니다");
 	                  loginInfo.get(INDEX).setPoint(draw);
 	                  pointHistory(NOWID, draw, cause);
+	                  System.out.println();
 	               }
 	               break;
 	            }
@@ -431,6 +437,7 @@ public class LoginInfoManager implements Menu {
 	            continue;
 	         } catch (PointZoneException e) {
 	            System.out.println("0-3 사이의 숫자만 입력하세요");
+	            System.out.println();
 	            continue;
 	         }
 	      }
@@ -456,8 +463,11 @@ public class LoginInfoManager implements Menu {
 	      }
 	      
 	      while(true) {
-	      System.out.println("뽑기 GAME~~! 당첨확률은 25%입니다 :)");
-	      System.out.println("1-100까지 원하는 숫자를 입력하세요!\n** 취소 : 0 **");
+	    System.out.println("〓〓〓〓〓〓〓〓〓R A N D O M〓〓〓〓〓〓〓〓〓");
+	      System.out.println("\t\t당첨확률 25%");
+	      System.out.println("   1-100까지 원하는 숫자를 입력하세요!");
+	      System.out.println("    취소 : 0 **");
+	      System.out.println("〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓\n");
 	      
 	      try {
 	         
@@ -470,6 +480,7 @@ public class LoginInfoManager implements Menu {
 
 	      if (gameNumber == 0) {
 	         System.out.println("게임을 취소합니다");
+	         System.out.println();
 	         return;
 	      } else {
 
@@ -479,18 +490,20 @@ public class LoginInfoManager implements Menu {
 	               System.out.println("당첨입니다 :) 500POINT가 지급됩니다");
 	               loginInfo.get(INDEX).setPoint(win);
 	               pointHistory(NOWID, win, cause);
+	               System.out.println();
 	               break;
 	            } else {
 	               loginInfo.get(INDEX).setPoint(buyGame);
 	               pointHistory(NOWID, buyGame, game);
 	               System.out.println("꽝입니다 ToT");
+	               System.out.println();
 	               break;
 
 	            }
 	         }
 	      }catch (InputMismatchException e) {
 	            System.out.println("올바르지 않은 입력입니다.");
-	            Util.sc.nextLine();
+	        	            Util.sc.nextLine();
 	            continue;
 	      }catch (PointZoneException e) {
 	            System.out.println("0-100 사이의 숫자만 입력하세요");
@@ -499,6 +512,7 @@ public class LoginInfoManager implements Menu {
 	      }
 	      }
 	   
+
 
 	   // 게임2 메서드 당첨 랜덤
 
