@@ -267,7 +267,7 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 			if (pSeat.get(i).getName().equals(NOWID)) {
 				result = true;
 				System.out.println("[" + NOWID + "님 예약 정보]");
-				msg = (i + 1) + ". [" + pSeat.get(i).getName() + "]님은 " + pSeat.get(i).getDate() + "일 "
+				msg = "예매번호"+(i + 1)+"번," + ". [" + pSeat.get(i).getName() + "]님은 " + pSeat.get(i).getDate() + "일 "
 						+ pSeat.get(i).getGrade() + "등급 " + pSeat.get(i).getSeatNum() + "번째 좌석을 예약하셨습니다.";
 			}
 		}
