@@ -32,7 +32,7 @@ public class LoginInfoManager implements Menu {
 	static ArrayList<LoginInfo> loginInfo = new ArrayList<LoginInfo>();	 
 	
 	// 로그인 메뉴 메서드
-	public void loginMenu() throws IOException, ClassNotFoundException { 
+	public void loginZone() throws IOException, ClassNotFoundException { 
 		
 		while(true) {
 	         System.out.println("************ L O G I N ************");
@@ -62,7 +62,7 @@ public class LoginInfoManager implements Menu {
 	         
 	         switch(select) {
 	         	case LOG : 
-	         		callLogInfo();	// 파일에서 로그인정보 불러오기
+	         		callInfo();	// 파일에서 로그인정보 불러오기
 	         		login();
 	         		return;
 	         	case JOIN :
@@ -143,12 +143,12 @@ public class LoginInfoManager implements Menu {
 	// 배열에 정보 저장 메서드
 	private void addInfo(LoginInfo info) throws IOException, ClassNotFoundException {		
 		loginInfo.add(info);		
-		saveLogInfo();
+		saveInfo();
 	}
 
 	
 	// 회원정보 외부 저장 메서드
-	void saveLogInfo() throws IOException, ClassNotFoundException{
+	public void saveInfo() throws IOException, ClassNotFoundException{
 		
 		// 파일 중복생성 방지
 		File f = new File("LoginInfo.ser");
@@ -162,7 +162,7 @@ public class LoginInfoManager implements Menu {
 	
 		
 	// 외부에 저장된 회원정보 불러오기 메서드
-	void callLogInfo() {
+	public void callInfo() {
 		// 인스턴스 복원을 위한 스트림 생성
 	    ObjectInputStream in;
 		try {
@@ -304,15 +304,15 @@ public class LoginInfoManager implements Menu {
 	            switch (choice) {
 	            case 1:
 	               pointGame1();
-	               saveLogInfo();
+	               saveInfo();
 	               break;
 	            case 2:
 	               pointGame2();
-	               saveLogInfo();
+	               saveInfo();
 	               break;
 	            case 3:
 	               buyGoods();
-	               saveLogInfo();
+	               saveInfo();
 	               break;
 	            case 4:
 	               pointHistoryInfo(NOWID);
