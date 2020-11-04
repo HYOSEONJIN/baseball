@@ -351,8 +351,8 @@ public class LoginInfoManager implements Menu {
 	      int win = +300;
 	      int draw = 50;
 
-	      String cause = "숫자게임 포인트 지급";
-	      String game = "숫자 게임 참여";
+	      String cause = "가위바위보 포인트 지급";
+	      String game = "가위바위보 참여";
 
 	      if (loginInfo.get(INDEX).getPoint() < 100) {
 	         System.out.println("게임에 참여할 포인트가 모자라요 ToT");
