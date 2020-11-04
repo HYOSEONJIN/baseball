@@ -135,7 +135,7 @@ public class LoginInfoManager implements Menu {
 	
 	
 	// 배열에 정보 저장 메서드
-	private void addInfo(LoginInfo info) throws IOException, ClassNotFoundException {		
+	public void addInfo(LoginInfo info) throws IOException, ClassNotFoundException {		
 		loginInfo.add(info);		
 		saveInfo();
 	}
@@ -245,6 +245,12 @@ public class LoginInfoManager implements Menu {
 		System.out.println("비밀번호 : ");
 		String changedPw = Util.sc.nextLine().trim();	
 		addInfo(new LoginInfo(changedId, changedPw, myMoney, point));
+		
+	    // 새로운 포인트 내역 저장 메서드
+		String txt=NOWID.concat("point.txt");
+		String newtxt=changedId.concat("point.txt");      
+		File file = new File(txt);
+		file.renameTo(new File(newtxt));
 				
 		// 상수화한 NOWID, NOWPW 변경
 		NOWID = changedId;
