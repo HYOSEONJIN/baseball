@@ -153,7 +153,7 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 	}
 
 	// 좌석 취소하기
-	public static void cancelSeat() {
+	void cancelSeat() {
 		int myMoney = loginInfo.get(INDEX).getMyMoney();
 		int myPoint = loginInfo.get(INDEX).getPoint();
 				
@@ -187,6 +187,9 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 					
 					// 좌석 취소
 					pSeat.get(index - 1).cancel();
+					
+					// 파일 저장
+					save();
 					
 					System.out.println(NOWID + "님 예약취소가 완료되었습니다.\n");
 				}
@@ -297,7 +300,7 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 		return result;
 	}
 
-	void recharge() throws ClassNotFoundException, IOException {
+	void recharge() {
 		int myMoney = loginInfo.get(INDEX).getMyMoney();
 		
 		System.out.println(" 충전 금액을 입력하세요.");
@@ -305,7 +308,8 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 		myMoney += addMoney;
 		loginInfo.get(INDEX).setMyMoney(myMoney);
 		System.out.println("보유금액: " + myMoney);
-	    saveInfo();      // 충전금액 저장 : 혜인
+
+		save();
 	}
 
 	// List:pBook 에 저장되어있는 인스턴스들을 저장 
@@ -328,9 +332,9 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 			out.close();
 			
 			// 회원 정보 재저장 
-			//LoginInfoManager.saveInfo();
-			
-		} catch (IOException e) {
+			saveInfo();
+			 			
+		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 			System.out.println("저장하는 과정에 오류가 발생했습니다.(" + pSeat.size() + ") \n다시 시도해 주세요.");
 		}
