@@ -57,7 +57,7 @@ public class Seat implements Serializable {
 	
 	// 해당 좌석 예약 취소 
 	public void cancel() {
-		index = 0;
+		index = -1;
 		date = "";
 		grade = ' ';
 		seatNum = 0;
