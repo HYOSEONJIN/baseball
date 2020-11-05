@@ -9,25 +9,26 @@ import java.io.Serializable;
 
 // 야구장 좌석 
 public class Seat implements Serializable {
-	private String name;  // 예약한 사람 이름
+	private int index;  // 예약한 사람 인덱스
 	private String date;  // 날짜
 	private char grade;   // 등급 (A, B, C) 
 	private int seatNum;  // 좌석번호 
 
 	// 생성자
-	public Seat(String name, String date, int seatNum) {
-		this.name = name;
+	public Seat(int index, String name, String date, int seatNum) {
+		this.index = index;
 		this.date = date;
 		this.grade = getGrade(seatNum);
 		this.seatNum = seatNum;
 	}
 	
 	public Seat() {
+		index = -1;
 	}
 	
 	// getter 
-	public String getName() {
-		return name;
+	public int getIndex() {
+		return index;
 	}	
 	
 	public String getDate() {
@@ -48,7 +49,7 @@ public class Seat implements Serializable {
 		boolean result = false;
 
 		// 해당 좌석에 아무도 예약 안한 경우 
-		if(name.equals("")) {
+		if(index < 0) {
 			result = true;
 		}
 		return result;
@@ -56,7 +57,7 @@ public class Seat implements Serializable {
 	
 	// 해당 좌석 예약 취소 
 	public void cancel() {
-		name = "";
+		index = 0;
 		date = "";
 		grade = ' ';
 		seatNum = 0;
