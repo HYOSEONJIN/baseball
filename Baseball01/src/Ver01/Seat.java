@@ -22,11 +22,8 @@ public class Seat implements Serializable {
 		this.seatNum = seatNum;
 	}
 	
-	
 	public Seat() {
-	
 	}
-	
 	
 	// getter 
 	public String getName() {
