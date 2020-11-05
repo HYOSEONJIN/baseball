@@ -262,20 +262,6 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 		}
 		return indexNum;
 	}
-	
-	// 일자별 내가 예매한 좌석 인덱스 조회
-	// 해당 indxe의 참조변수로 정보 출력
-	public static int searchIndex(int index, String date, int seatNum) {
-		int indexNum = -1; // 정보가 없을때
-
-		for (int i = 0; i < pSeat.size(); i++) {
-			if (pSeat.get(i).getIndex() == index && pSeat.get(i).getDate().equals(date)
-					&& pSeat.get(i).getSeatNum() == seatNum) {
-				indexNum = i;
-			}
-		}
-		return indexNum;
-	}
 
 	// 내 좌석 정보 보기
 	public static boolean mySeatView() {
