@@ -320,10 +320,10 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 		File f = new File("PayInfor.ser");
 		f.delete();
 		
-		if(pSeat.size() == 0) {
-			System.out.println("저장된 데이터가 없어 파일의 저장이 되지 않습니다.");
-			return;
-		}
+//		if(pSeat.size() == 0) {
+//			System.out.println("저장된 데이터가 없어 파일의 저장이 되지 않습니다.");
+//			return;
+//		}
 		
 		// 인스턴스를 저장할 수 있는 출력 스트림 생성 
 		try {
