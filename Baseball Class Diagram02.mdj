@@ -572,7 +572,7 @@
 											"top": 766,
 											"width": 107.30078125,
 											"height": 13,
-											"text": "-name: String",
+											"text": "-index: int",
 											"horizontalAlignment": 0
 										},
 										{
@@ -6123,9 +6123,9 @@
 							"_parent": {
 								"$ref": "AAAAAAF1h+AgHxMfJyQ="
 							},
-							"name": "name",
+							"name": "index",
 							"visibility": "private",
-							"type": "String"
+							"type": "int"
 						},
 						{
 							"_type": "UMLAttribute",
