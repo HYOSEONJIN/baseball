@@ -71,6 +71,7 @@ public class LoginInfoManager implements Menu {
 	         		login();
 	         		return;
 	         	case JOIN :
+	         		callInfo();
 	         		joinMember();
 					return;
 	         	case HOME : 
@@ -206,9 +207,17 @@ public class LoginInfoManager implements Menu {
 			
 			int index = searchIndex(id);
 			if(searchIndex(id)>=0) {
-				System.out.print("중복되는 아이디가 존재합니다. 다른 아이디를 입력해주세요.\n");
+				System.out.print("중복되는 아이디가 존재합니다. 다른 아이디를 입력해주세요.\n"); 
 				continue;
-			} else {
+				/*   
+				*******************************************************************************************
+				오류 : 테스트마다 적용될 때도 있고 적용 안될때도 있음.. HashSet으로 정보 저장하는 방식을 변경하는 것 고려해보기.
+				>> 로그인메뉴에 joinMember() 앞에 callInfo()추가했고 여러번 테스트했을 때 중복 방지되었음.
+				       근데 정보를 안불러와서 안된거면 왜 없을때 정상적으로 돌아간 경우도 있었는지 이해가 안감.
+				*******************************************************************************************
+				*/	
+				
+			}
 				System.out.print(" P  W : ");
 				// 비밀번호 공백 입력 시 예외처리
 				try{
@@ -225,7 +234,7 @@ public class LoginInfoManager implements Menu {
 					System.out.println("____________________________");
 					System.out.println("비밀번호를 잘못 입력하셨습니다. 다시 입력해주세요.\n");
 				}
-			}	
+				
 			
 		}
 	}
@@ -233,7 +242,7 @@ public class LoginInfoManager implements Menu {
 	
 	
 	// 로그인 정보 변경 메서드 
-	//		충전금액/포인트 받아놓기 -> 새 ID/PW 입력 받기 -> 새 계정 생성 -> 이전 계정 삭제 -> 로그인 ID,PW,INDEX 변경
+	//		충전금액/포인트 받아놓기-> 이전 계정 삭제 -> 새 ID/PW 입력 받기 -> 새 계정 생성 -> 상수 변수(NOWID,PW,INDEX) 변경
 	public void changeLoginInfo() throws IOException, ClassNotFoundException {
 		
 		// 현재 로그인 계정의 충전금액/포인트 받아놓기
@@ -249,8 +258,7 @@ public class LoginInfoManager implements Menu {
 		String newId = Util.sc.nextLine().trim();	
 		System.out.print(" P  W : ");
 		String newPw = Util.sc.nextLine().trim();	
-		 System.out.println("\n 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓"); 
-
+		System.out.println("\n 〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓〓"); 
 		addInfo(new LoginInfo(newId, newPw, myMoney, point));
 		
         // 새로운 포인트 내역 저장 메서드      
