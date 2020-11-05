@@ -153,12 +153,13 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 	}
 
 	// 좌석 취소하기
-	void cancelSeat() {
+	void cancelSeat() throws IOException {
 		int myMoney = loginInfo.get(INDEX).getMyMoney();
 		int myPoint = loginInfo.get(INDEX).getPoint();
 				
 		// 내 좌석 정보보기
 		if ( mySeatView()) {
+			String cause="결제 취소 포인트 반환";
 			System.out.println("취소하시는 번호를 입력해주세요.");
 			int index = Util.sc.nextInt();
 	
@@ -183,7 +184,8 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 					System.out.println(NOWID + "님 포인트를 이미 쓰셨네요. 예약취소가 불가능 합니다.\n");
 				} else {
 					loginInfo.get(INDEX).setMyMoney(myMoney + price);
-					loginInfo.get(INDEX).setPoint(point);		
+					loginInfo.get(INDEX).setPoint(point);
+					pointHistory(NOWID, point, cause);
 					
 					// 좌석 취소
 					pSeat.get(index - 1).cancel();
