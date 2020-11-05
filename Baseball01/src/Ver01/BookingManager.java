@@ -37,11 +37,11 @@ public class BookingManager extends LoginInfoManager {
 				boolean sucess;  
 				sucess = reserve.insertSeat();
 				
-
-				// 결제가 제대로 완료된 경우 
+				// 좌석 예약이 제대로 완료된 경우 
 				if(sucess) {
 					sucess = reserve.paying();
 					
+					// 결제가 제대로 완료된 경우 
 					if(sucess) {
 						reserve.payed();
 						

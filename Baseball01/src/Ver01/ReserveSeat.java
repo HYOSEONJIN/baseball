@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+// 야구장 예매 및 결제 매니저
 public class ReserveSeat extends LoginInfoManager implements Serializable {
 	static String choiceDate;
 	static int seatNum = 0; // 좌석 번호
@@ -146,7 +147,7 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 
 	// 예약완료
 	void payed() {
-		pSeat.add(new Seat(NOWID, choiceDate, seatNum));
+		pSeat.add(new Seat(INDEX, NOWID, choiceDate, seatNum));
 		// 파일 저장
 		save();
 		System.out.println(NOWID + "님 날짜 : " + choiceDate + ",  좌석번호 : " + seatNum + "번 예매 되셨습니다");
@@ -249,33 +250,31 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 		System.out.println();
 	}
 
-	// 정보 검색 1
+	// 일자별 좌석 인덱스 조회
 	// 해당 indxe의 참조변수로 정보 출력
-	// 배열의 index 를 찾는 메서드
-	public static int searchIndex(String name, String date, int seatNum) {
-		int index = -1; // 정보가 없을때
-
-		for (int i = 0; i < pSeat.size(); i++) {
-			if (pSeat.get(i).getName().equals(name) && pSeat.get(i).getDate().equals(date)
-					&& pSeat.get(i).getSeatNum() == seatNum) {
-				index = i;
-			}
-		}
-		return index;
-	}
-
-	// 정보 검색 2
-	// 해당 indxe의 참조변수로 정보 출력
-	// 배열의 index 를 찾는 메서드
 	public static int searchIndex(String date, int seatNum) {
-		int index = -1; // 정보가 없을때
+		int indexNum = -1; // 정보가 없을때
 
 		for (int i = 0; i < pSeat.size(); i++) {
 			if (pSeat.get(i).getDate().equals(date) && pSeat.get(i).getSeatNum() == seatNum) {
-				index = i;
+				indexNum = i;
 			}
 		}
-		return index;
+		return indexNum;
+	}
+	
+	// 일자별 내가 예매한 좌석 인덱스 조회
+	// 해당 indxe의 참조변수로 정보 출력
+	public static int searchIndex(int index, String date, int seatNum) {
+		int indexNum = -1; // 정보가 없을때
+
+		for (int i = 0; i < pSeat.size(); i++) {
+			if (pSeat.get(i).getIndex() == index && pSeat.get(i).getDate().equals(date)
+					&& pSeat.get(i).getSeatNum() == seatNum) {
+				indexNum = i;
+			}
+		}
+		return indexNum;
 	}
 
 	// 내 좌석 정보 보기
@@ -284,9 +283,9 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 		String msg = "";
 		
 		for (int i = 0; i < pSeat.size(); i++) {
-			if (pSeat.get(i).getName().equals(NOWID)) {
+			if (pSeat.get(i).getIndex() == INDEX) {
 				result = true;
-				msg += "\n예매번호"+(i + 1)+"번" + ". [" + pSeat.get(i).getName() + "]님은\n" + pSeat.get(i).getDate() + "일,"
+				msg += "\n예매번호"+(i + 1)+"번" + ". [" + NOWID + "]님은\n" + pSeat.get(i).getDate() + "일,"
 						+ "\n"+pSeat.get(i).getGrade() + "등급 " + pSeat.get(i).getSeatNum() + "번째 좌석을 예약하셨습니다.\n";
 				
 			}
@@ -319,12 +318,7 @@ public class ReserveSeat extends LoginInfoManager implements Serializable {
 		// 파일 중복생성 방지
 		File f = new File("PayInfor.ser");
 		f.delete();
-		
-//		if(pSeat.size() == 0) {
-//			System.out.println("저장된 데이터가 없어 파일의 저장이 되지 않습니다.");
-//			return;
-//		}
-		
+
 		// 인스턴스를 저장할 수 있는 출력 스트림 생성 
 		try {
 			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("PayInfor.ser"));
