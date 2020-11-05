@@ -9,10 +9,10 @@ import java.io.Serializable;
 
 // 야구장 좌석 
 public class Seat implements Serializable {
-	private int index;  // 예약한 사람 인덱스
-	private String date;  // 날짜
-	private char grade;   // 등급 (A, B, C) 
-	private int seatNum;  // 좌석번호 
+	private int index;  	// 예약한 사람 인덱스
+	private String date;  	// 날짜
+	private char grade;   	// 등급 (A, B, C) 
+	private int seatNum;  	// 좌석번호 
 
 	// 생성자
 	public Seat(int index, String name, String date, int seatNum) {
